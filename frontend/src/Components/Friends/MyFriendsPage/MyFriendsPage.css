@@ -1,0 +1,81 @@
+.myPage_profile-container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 50px;
+    max-width: 880px;
+  }
+  .myPage_inf-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .myPage_inf {
+    color: #08341F;
+    cursor: pointer;
+  }
+  
+  .myPage_inf:hover {
+    color: aqua;
+  }
+  
+  .myPage_img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .myPage_img {
+      width: 200px;
+      height: 200px;;
+    }
+  }
+  
+  @media screen and (max-width: 450px) {
+    .myPage_img {
+      width: 150px;
+      height: 150px;
+    }
+  }  
+  
+  @media screen and (max-width: 350px) {
+    .myPage_img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  
+  /*new part*/
+  
+  .myFriendsPage__inf-upcoming-events {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 50px;
+    max-width: 880px;
+    border-radius: 10px;;
+    background-color: rgb(6, 104, 71, 0.9);
+    border: 1px solid rgb(6, 104, 71, 0.8);
+  }
+  
+  .myFriendsPage__inf-upcoming-events-info {
+    color: #fff;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  .myFriendsPage__inf-upcoming-events-info:hover {
+    opacity: 0.8;
+  }
+
+  .myFriendsPage__inf-upcoming-events-date {
+    color: #fff;
+
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+  
+  

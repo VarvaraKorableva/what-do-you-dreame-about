@@ -1,0 +1,30 @@
+.friendsDreamsSlider__container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    width: 500px;
+    border: 1px solid #fff;
+    border-radius: 2%;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .friendsDreamsSlider__container {
+      width: 400px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .friendsDreamsSlider__container {
+      width: 300px;
+    }
+}
+
+.friendsDreamsSlider__text {
+    color: #fff;
+    margin: 10px;
+
+}
+
