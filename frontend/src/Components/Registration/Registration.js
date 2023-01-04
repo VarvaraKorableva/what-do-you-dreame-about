@@ -52,7 +52,7 @@ const [values, setValues] = React.useState({});
           <span className='register__inputmistake'>
           </span>
 
-          <label className='register__inputname'>Пароль<span className='register__inputname-span'>*</span>
+          <label className='register__inputname'>Password<span className='register__inputname-span'>*</span>
             <input className='register__input'
               name="password"
               type="password"
@@ -65,17 +65,6 @@ const [values, setValues] = React.useState({});
           <span className='register__inputmistake'>
           </span>
 
-          <label className='register__inputname'>Avatar
-            <input className='register__input'
-              name="avatar"
-              type="url"
-              autoComplete="on"
-              defaultValue=""
-              onChange={handleChange}
-            />
-            </label>
-            <span className='register__inputmistake'>
-            </span>
       </fieldset>
         <button
           type="submit"

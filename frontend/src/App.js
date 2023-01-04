@@ -1,6 +1,7 @@
 //import logo from './logo.svg'
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import {CurrentUserContext} from './contexts/CurrentUserContext'
 import './App.css'
 import * as Api from './Api/Api'
 import MyPage from './Components/MyPage/MyPage'
@@ -17,9 +18,11 @@ import ChangeMyProfile from './Components/ChangeMyProfile/ChangeMyProfile'
 
 function App() {
 
-  const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
+  const [isInfoTooltip, setIsInfoTooltip] = React.useState(false)
+  const [isLoggin, setIsLoggin] = React.useState(false)
+  const [currentUser, setCurrentUser] = React.useState({})
+  const navigate = useNavigate()
 
-  //register = password, email, name
   function handleRegSubmit(login){
     Api.register({
       password:login.password,
@@ -29,14 +32,67 @@ function App() {
     .then(() => {
       //setNoMistake(true)
       setIsInfoTooltip(true)
+      setIsLoggin(true)
     }) 
-  /*  .then((res) => {
-      history.push('/signin');
-    })*/
     .catch((err) => {
       console.log(err)
     })
   }
+
+  function handleLoginSubmit(password, email){
+    Api.authorize(password, email)
+      .then ((res) => {
+        const token = res.token;
+        Api.getContent(token)
+          .then(() => {
+            alert(res)
+            //setCurrentUser(res.user)
+            navigate('/my-page')
+            setIsLoggin(true)
+          })
+      .catch((err) => {
+        //setIsInfoTooltip(true)
+        //setNoMistake(false)
+        console.log(err)
+      })
+      })
+  }
+
+  function signOut(){
+    setIsLoggin(false)
+    //setUserEmail("")
+    navigate('/sign-in');
+  }  
+/*
+  function handleLoginSubmit(userData){
+    Api.authorize({
+      password:userData.password,
+      email:userData.email,
+    })
+    .then ((res) => {
+      
+      navigate('/my-page')
+      
+      setLoggedIn(true)
+      setLogError(false)
+    })
+    .catch((err) => {
+      console.log(err)
+      setLoggedIn(false)
+      setLogError(true)
+      if (err.status === 401 || 404 ) {
+        setErrorMessage('Вы ввели неправильный логин или пароль.')
+        setTimeout(function(){
+          setErrorMessage('');
+        }, 5000)
+      } else {
+        setErrorMessage('На сервере произошла ошибка.')
+        setTimeout(function(){
+          setErrorChangeProfileMessage('');
+        }, 5000)
+        }
+    })
+  }  */
   
 /*
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -67,12 +123,15 @@ function App() {
 
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
-      <Header/>
+      <Header
+        isLoggin={isLoggin}
+        signOut={signOut}/>
       <Routes>
 
         <Route
-        exact path="/sign-up"
+        path="/sign-up"
         element={
         <Registration
         onRegister={handleRegSubmit}
@@ -81,14 +140,16 @@ function App() {
         </Route>
 
         <Route
-        exact path="/sign-in"
+        path="/sign-in"
         element={
-        <Login/>
+        <Login
+          onSubmit={handleLoginSubmit}
+        />
         }>
         </Route>
 
         <Route
-        path="/my-page"
+        exact path="/my-page"
         element={
         <MyPage/>
         }>
@@ -101,33 +162,34 @@ function App() {
         }>
         </Route> 
 
+        <Route 
+        path='/my-friend-page/:userId' 
+        element={<MyFriendsPage/>
+        }>
+        </Route>
+
         <Route
-        exact path="/my-friends-full-dreams"
+        path="/my-friends-full-dreams"
         element={
         <FriendsDreamsSlider/>
         }>
         </Route>
 
         <Route
-        exact path="/friends-searching"
+        path="/friends-searching"
         element={
         <FriendsSearching/>
         }>
         </Route>
 
         <Route
-        exact path="/change-my-profile"
+        path="/change-my-profile"
         element={
         <ChangeMyProfile/>
         }>
         </Route>
 
-        <Route
-        exact path="*"
-        element={
-        <NotFoundPage />
-        }>
-        </Route>
+
     
       </Routes>
 
@@ -137,7 +199,15 @@ function App() {
 
     <Footer/>
     </div>
+    </CurrentUserContext.Provider>  
   );
 }
 
 export default App;
+/*
+        <Route
+        path="*"
+        element={
+        <NotFoundPage />
+        }>
+        </Route>*/

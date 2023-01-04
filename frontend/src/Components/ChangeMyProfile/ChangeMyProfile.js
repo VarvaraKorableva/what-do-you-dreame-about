@@ -91,7 +91,7 @@ const [values, setValues] = React.useState({});
             <span className='change-information__inputmistake'>
             </span>
 
-          <label className='change-information__inputname'>Пароль<span className='change-information__inputname-span'>*</span>
+          <label className='change-information__inputname'>Password<span className='change-information__inputname-span'>*</span>
             <input className='change-information__input'
               name="password"
               type="password"

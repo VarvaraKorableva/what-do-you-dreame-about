@@ -74,11 +74,25 @@ app.all('*', () => {
   throw new NotFoundError('Страница не найдена');
 });
 
+
+mongoose.set("strictQuery", true);
+/*
 mongoose.connect('mongodb://localhost:27017/dreamsAbout', 
 { 
   useNewUrlParser: true, 
   family: 4 
-});
+});*/
+mongoose 
+ .connect('mongodb://localhost:27017/dreamsAbout', {
+        useNewUrlParser: true,
+        family: 4
+  })   
+ .then(() => console.log("Database connected!"))
+ .catch(err => console.log(err));
+/*
+mongoose.connect(process.env.MONGO_URL, () => {
+  console.log("Connected to MongoDB");
+});*/
 
 app.use(errorLogger);
 app.use(errors());

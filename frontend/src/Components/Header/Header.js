@@ -3,11 +3,11 @@ import './Header.css'
 import { Link, useLocation } from 'react-router-dom'
 //import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
-function Header() {
+function Header({isLoggin, signOut}) {
 
 const location = useLocation();
 
-const isLoggin = false
+//const isLoggin = false
 
 return (
   <div className='header_container'>
@@ -15,7 +15,7 @@ return (
 
       {isLoggin && location.pathname === '/my-page'?
         <div className='header_wrapper'>
-          <p className='header_login-link'>LogOut</p>
+          <button className='header_login-link' onClick={signOut}>LogOut</button>
         </div>
       :  
       isLoggin && location.pathname === '/my-friend-page'?

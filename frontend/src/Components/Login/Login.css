@@ -86,9 +86,9 @@
     color: black;
     width: 100%;
     height: 46px;
-    background-color: #f9f9f9;
-    border: none;
-    border-radius: 8%;
+    background-color: rgb(6, 104, 71, 0.9);
+    border: 1px solid rgb(6, 104, 71, 0.8);
+    border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 0px;
     cursor: pointer;
@@ -96,7 +96,6 @@
 
    .login__input:hover {
     border: 1px solid #F9F9F9;
-    border-radius: 2px;
   }
 
    .login__input::placeholder {
@@ -109,7 +108,7 @@
      height: 46px;
      background-color: #f9f9f9;
      border: none;
-     border-radius: 8%;
+     border-radius: 10px;
      margin-bottom: 20px;
      padding-left: 15px;
    }
@@ -194,7 +193,7 @@
   height: 45px;
   border: none;
   margin-top: 69px;
-  border-radius: 3%;
+  border-radius: 10px;
   padding: 0;
   font-weight: 400;
   font-size: 14px;

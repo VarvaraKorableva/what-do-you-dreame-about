@@ -3,13 +3,25 @@ import './Login.css'
 
 import { Link } from 'react-router-dom'
 
-function Login() {
+function Login({ onSubmit }) {
 
 const isValid = true
 
+const [values, setValues] = React.useState({});
+
+function handleChange(e) {
+  const { value, name } = e.target;
+  setValues({ ...values, [name]: value });
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  onSubmit( values.password, values.email );
+}
+
   return (
     <section className='login'>
-      <form className='login__form'>
+      <form className='login__form' onSubmit={handleSubmit}>
         <Link className='login__logolink' to="/">
         <p className='login__logo'></p>
         </Link>
@@ -19,20 +31,23 @@ const isValid = true
             <input className='login__input'
                  pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
                  type="email"
+                 name="email"
                  autoComplete="on"
                  defaultValue=""
+                 onChange={handleChange}
             />
           </label>
           <span className='login__inputmistake'>
           </span>
 
-          <label className='login__inputname'>Пароль
+          <label className='login__inputname'>Password
             <input className='login__input'
                  maxLength="8"
                  name="password"
                  type="password"
                  autoComplete="on"
                  defaultValue=""
+                 onChange={handleChange}
             />
           </label>
           <span className='login__inputmistake'>

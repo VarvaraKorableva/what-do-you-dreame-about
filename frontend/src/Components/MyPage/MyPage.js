@@ -3,13 +3,16 @@ import './MyPage.css'
 import DreamsField from '../DreamsField/DreamsField'
 import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
+import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 //import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
 function MyPage() {
 
-const avatar = {
+/*const avatar = {
   "avatar":"https://media.istockphoto.com/id/613654620/photo/fashionable-big-red-handbag-on-the-arm-of-the-girl.jpg?b=1&s=170667a&w=0&k=20&c=DCLVnlYnAFIJW0vH1YmzvfhaJQKkbKz0D_ZiXdgyRXc="
-}
+}*/
+const currentUser = React.useContext(CurrentUserContext)
+const imgname = "avatar"
 
 return (
   <div>
@@ -19,7 +22,7 @@ return (
         <p className='myPage_inf'>Varvara Korableva</p>
         <p className='myPage_inf'>4.12.1990</p>
       </div>  
-      <img className='myPage_img' src={avatar.avatar}></img>
+      <img className='myPage_img' src={currentUser.avatar} alt={imgname}></img>
     </div>  
 
     <div className='myPage_manage-container'>
