@@ -1,0 +1,184 @@
+.myPage_profile-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 50px;
+  max-width: 880px;
+}
+.myPage_inf-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.myPage_inf {
+  color: #08341F;
+  cursor: pointer;
+  margin-top: 0;
+}
+
+.myPage_inf:hover {
+  color: aqua;
+}
+
+.myPage_img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .myPage_img {
+    width: 200px;
+    height: 200px;;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .myPage_img {
+    width: 150px;
+    height: 150px;
+  }
+}  
+
+@media screen and (max-width: 350px) {
+  .myPage_img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/*new part*/
+
+.myPage_manage-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 50px;
+  max-width: 880px;
+}
+
+.myPage_addBTN-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+}
+
+@media screen and (max-width: 800px) {
+  .myPage_addBTN-container {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .myPage_addBTN-container {
+    width: 130px;
+  }
+}
+
+.myPage__subtitle {
+  color: #fff;
+}
+
+.myPage__title {
+    color: #fff;
+    max-width: 880px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.myPage_addBTN {
+  /*width: 130px;
+  background-color: transparent;*/
+  width: 100%;
+  height: 95px;
+  background-color: rgb(6, 104, 71, 0.7);
+  border: 1px solid #fff;
+  border-radius: 5%;
+  cursor: pointer;
+  color: #fff;
+}
+
+.myPage_addBTN:hover {
+  opacity: 0.5;
+}
+
+.myPage_viewBTN-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+}
+
+@media screen and (max-width: 800px) {
+  .myPage_viewBTN-container {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .myPage_viewBTN-container {
+    width: 130px;
+  }
+}
+
+.myPage_view-link-container {
+  width: 100%;
+  height: 95px;
+  background-color: rgb(6, 104, 71, 0.7);
+  border: 1px solid #fff;
+  border-radius: 5%;
+  cursor: pointer;
+}
+
+.myPage_view-link-container:hover {
+  opacity: 0.5;
+}
+
+.myPage_view-link {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
+.myPage_view-link-text {
+  text-align: center;
+ 
+}
+
+/*add btn*/
+.myPage__addBTN {
+  width: 400px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  background-color: rgb(6, 104, 71, 0.7);
+  padding-top: 15px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 800px) {
+  .myPage__addBTN {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+    .myPage__addBTN {
+      width: 200px;
+    }
+}
+
+.myPage__addBTN:hover{
+    opacity: 0.5;
+}

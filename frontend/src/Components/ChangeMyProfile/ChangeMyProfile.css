@@ -1,0 +1,232 @@
+.change-information{
+    display: flex;
+    flex-direction: column;
+   }
+   
+   .change-information__form {
+     width: 396px;
+     margin: auto;
+     /*margin-top: 70px;*/
+     margin-bottom: 70px;
+     display: flex;
+     flex-direction: column;
+   }
+   
+   @media screen and (max-width: 500px) {
+     .change-information__form  {
+       width: 300px;
+     }
+   }
+   
+   @media screen and (max-width: 450px) {
+     .change-information__form  {
+       width: 260px;
+     }
+   }
+   
+   .change-information__logo {
+      color: #fff;
+      font-size: 1rem;
+      text-decoration: none;
+   }
+   
+   .change-information__logo:hover {
+      opacity: 0.8;
+   }
+
+   .change-information__logolink {
+      text-decoration: none;
+   }
+
+   
+   .change-information__title {
+     font-size: 24px;
+     font-weight: 500;
+    /* margin-top: 40px;*/
+     margin-bottom: 40px;
+   }
+   
+   @media screen and (max-width: 450px) {
+     .change-information__title  {
+       margin: auto;
+      /* margin-top: 50px;
+       margin-bottom: 40px;*/
+     }
+   }
+   
+   .change-information__fieldset {
+     display: flex;
+     flex-direction: column;
+     padding: 0;
+     border: none;
+     width: 100%;
+   }
+   
+   .change-information__inputname {
+     color: #A0A0A0;
+     font-weight: 400;
+     font-size: 10px;
+     margin-bottom: 10px;
+     margin-top: 0;
+   }
+   
+   .change-information__inputmistake {
+     color: #EE3465;
+     font-weight: 400;
+     font-size: 10px;
+     margin: 0;
+     margin-bottom: 10px;
+   }
+   
+   .change-information__input {
+     color: black;
+     width: 100%;
+     height: 46px;
+     /*background-color: #f9f9f9;
+     border: none;
+     border-radius: 2px;*/
+     background-color: rgb(6, 104, 71, 0.9);
+     border: 1px solid rgb(6, 104, 71, 0.8);
+     border-radius: 10px;
+     margin-top: 10px;
+     margin-bottom: 0px;
+     cursor: pointer;
+   }
+   
+   .change-information__input:hover {
+     border: 1px solid #F9F9F9;
+   }
+   
+   .change-information__input::placeholder {
+     color: black;
+     padding-left: 15px;
+   }
+   
+   .change-information__inputwrong {
+     width: 100%;
+     height: 46px;
+     background-color: #f9f9f9;
+     border: none;
+     border-radius: 8%;
+     margin-top: 10px;
+     margin-bottom: 0;
+     cursor: pointer;
+   }
+   
+   .change-information__inputwrong:hover {
+     border: 1px solid #F9F9F9;
+     border-radius: 2px;
+   }
+   
+   .change-information__inputwrong::placeholder {
+     color: #EE3465;
+     padding-left: 15px;
+   }
+   
+   .change-information__input:last-of-type {
+     margin-bottom: 0px;
+   }
+   
+   @media screen and (max-width: 450px) {
+     .change-information__input {
+       width: 100%;
+       height: 46px;
+     }
+   }
+   
+   .change-information__btn_active {
+     background-color: #ff6838;
+     color: #ffffff;
+     width: 100%;
+     height: 45px;
+     border: none;
+     margin-top: 70px;
+     border-radius: 3%;
+     padding: 0;
+     font-weight: 400;
+     font-size: 14px;
+     cursor: pointer;
+     transition: 1s ease;
+     opacity: 1;
+   }
+   
+   @media screen and (max-width: 450px) {
+     .change-information__btn_active {
+       width: 100%;
+       font-size: 12px;
+     }
+   }
+   
+   .change-information__btn_active:hover {
+     transition: 1s ease;
+     opacity: 0.5;
+   }
+   
+   .change-information__btn {
+       color: #ffffff;
+       width: 100%;
+       height: 45px;
+       background-color: #ebb2a0;
+       border: none;
+       margin-top: 70px;
+       border-radius: 3%;
+       padding: 0;
+       font-weight: 400;
+       font-size: 14px;
+       cursor: pointer;
+       transition: 1s ease;
+   
+   }
+   
+   @media screen and (max-width: 450px) {
+     .change-information__btn {
+       width: 100%;
+       font-size: 12px;
+     }
+   }
+   
+   .change-information__entrylink {
+     cursor: pointer;
+     color: #ff6838;
+     font-weight: 400;
+     font-size: 14px;
+     text-decoration: none;
+     margin-left: 3px;
+     transition: 1s ease;
+   }
+   
+   .change-information__entrylink:hover {
+     transition: 1s ease;
+     opacity: 0.5;;
+   }
+   
+   .change-information__inputmistake {
+     color: #EE3465;
+     font-weight: 400;
+     font-size: 10px;
+   }
+   
+   .change-information__wrapper {
+     display: flex;
+     justify-content: center;
+   }
+   
+   .change-information__subtitle {
+     color: #A0A0A0;
+     font-weight: 400;
+     font-size: 14px;
+     margin-top: 16px;
+     margin-bottom: 70px;
+   }
+   
+   .error-message {
+     color: #EE3465;
+     font-weight: 400;
+     font-size: 10px;
+     margin: auto;
+     padding: 5px;
+   }
+
+.change-information__inputname-span {
+  color: #ff6838;
+}   
