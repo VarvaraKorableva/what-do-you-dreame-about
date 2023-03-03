@@ -1,0 +1,109 @@
+.friendCard__img-container {
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  align-self: center;
+  border-radius: 50px;
+}
+
+.friendCard__img {
+    object-fit: cover;
+    cursor: pointer; 
+    width: 80px;
+    height: 80px;
+    border-radius: 50px; 
+  }
+
+  @media screen and (max-width: 800px) {
+    .friendCard__img {
+      width: 70px;
+      height: 70px;
+    }
+  }  
+
+  @media screen and (max-width: 450px) {
+    .friendCard__img {
+      width: 60px;
+      height: 60px;
+    }
+  } 
+
+  @media screen and (max-width: 800px) {
+    .friendCard__img-container {
+      width: 70px;
+      height: 70px;
+    }
+  }  
+
+  @media screen and (max-width: 450px) {
+    .friendCard__img-container {
+      width: 60px;
+      height: 60px;
+    }
+  }   
+  
+  .friendCard__container {
+    /*min-width: 282px;*/
+    width: 100%;
+    height: 100px;
+    list-style-type: none;
+    /*background-color: #fff;*/
+    background-color: rgb(6, 104, 71, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .friendCard__container:hover {
+    border: 1px solid #fff;
+  }
+
+  @media screen and (max-width: 800px) {
+    .friendCard__container {
+      height: 80px;
+    }
+  }  
+
+  @media screen and (max-width: 450px) {
+    .friendCard__container {
+      height: 70px;
+    }
+  }    
+
+.friendCard__friends-info-container {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+  margin-left: 10px;
+  align-self: center;
+  width: 100%;
+}  
+
+.friendCard__friends-name {
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.friendCard__friends-btn {
+  border: none;
+  height: 20px;
+  width: 60px;
+  color: black;
+  margin-left: 10px;
+  font-size: 300;
+  color: rgb(131, 126, 126);
+  opacity: 0.8;
+  cursor: pointer;
+  text-align: right;
+} 
+
+.friendCard__friends-btn:hover {
+  color:black;
+}

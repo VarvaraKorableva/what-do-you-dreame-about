@@ -1,0 +1,13 @@
+.NotFoundPage__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.NotFoundPage__title {
+    margin: auto;
+    text-align: center;
+    font-size: 500;
+    color: rgb(173, 144, 200);
+    margin-top: 246px;
+}
