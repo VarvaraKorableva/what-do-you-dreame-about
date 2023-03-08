@@ -37,9 +37,32 @@ export const authorize = ( password, email ) => {
       body: JSON.stringify({ password, email })
   })
       .then(checkResponse)
-      
 };
 
+export const signOut = () => {
+  return fetch(`${BASE_URL}/signout`, {
+      credentials: 'include',
+      method: "POST",
+      headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+      },
+  })
+      .then(checkResponse)
+};
+
+export const getContent = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+      credentials: 'include',
+      method: "GET",
+      headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+      },
+  })
+      .then(checkResponse)
+};
+/*
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
       credentials: 'include',
@@ -51,21 +74,98 @@ export const getContent = (token) => {
       },
   })
       .then(checkResponse)
+};*/
+
+export const addMyDream = (data) => {
+  return fetch(`${BASE_URL}/dreams`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: data.name,
+      imgLink: data.imgLink,
+      price: data.price,
+      dreamLink: data.dreamLink,
+    })
+  })
+    .then(checkResponse);
+}
+
+export const getInitialMyDreams = () => {
+  return fetch(`${BASE_URL}/dreams/mydreams`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+  })
+  .then(checkResponse);
+}
+/*{id}
+body: JSON.stringify({
+  _id: id
+})*/
+export const getOneFriendDreams = (id) => {
+  return fetch(`${BASE_URL}/dreams/${id}`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+
+  })
+  .then(checkResponse);
+}
+
+export const getUsers = () => {
+  return fetch(`${BASE_URL}/users`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(checkResponse);
+}
+
+export const deleteDream = (id) => {
+  return fetch (`${BASE_URL}/dreams/${id}`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(checkResponse);
+}
+
+export const changeUserInfo = ( userData ) => {
+  return fetch(`${BASE_URL}/users/me`, {
+      credentials: 'include',
+      method: 'PATCH',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: userData.name,
+        about: userData.about,
+        birthday: userData.birthday,
+        avatar: userData.avatar,
+      })
+  })
+      .then(checkResponse)
 };
+//name, about, birthday, avatar
 
 /*
-export default class Api {
-    constructor({url, headers}) {
-        this._url = url;
-        this._headers = headers;
-    }
-
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
@@ -98,18 +198,7 @@ export default class Api {
     .then(this._checkResponse);
   }
 
-  addUserCard(data) {
-    return fetch(`${this._url}/cards`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link
-      })
-    })
-      .then(this._checkResponse);
-  }
+
 
   deleteCard(id) {
     return fetch (`${this._url}/cards/${id}`, {

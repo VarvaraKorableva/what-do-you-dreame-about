@@ -6,23 +6,26 @@
   margin-bottom: 50px;
   margin-top: 10px;
   width: 100%;
+  /*border-bottom: 0.5px solid #fff;
+  padding-bottom: 5px;*/
 }
 
 .header_logo {
   color: #fff;
   font-size: 1rem;
   margin: 0;
+  text-decoration: none;
 }
 .header_wrapper {
   display: flex;
   justify-content: space-between;
 }
 .header_login-link {
-  margin-right: 10px;
-  color: #fff;
+  /*color: #fff;*/
+  color: #08341F;
   cursor: pointer;
   margin: 0;
-  margin-right: 10px;
+  margin-left: 5px;
   text-decoration: none;
 }
 .header_login-link:hover{
@@ -30,11 +33,22 @@
 }
 
 .header_registraion-link {
-  color: #fff;
+  color: #08341F;
   cursor: pointer;
   margin: 0;
   text-decoration: none;
+  margin-left: 5px;
 }
 .header_registraion-link:hover{
   opacity: 0.5;
+}
+
+.header_LogOut-btn {
+  /*color: #fff;*/
+  color: #08341F;
+  cursor: pointer;
+  margin: 0;
+  margin-right: 10px;
+  border: none;
+  background-color: transparent;
 }

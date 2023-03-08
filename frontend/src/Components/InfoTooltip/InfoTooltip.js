@@ -25,7 +25,7 @@ function InfoTooltip({onClose, isOpen}) {
           <Link to="/change-my-profile" className='infoTooltip__link'>
             <button className='infoTooltip__btn' onClick={onClose}>Yes</button>
           </Link>
-          <Link to="/page" className='infoTooltip__link'>
+          <Link to="/my-page" className='infoTooltip__link'>
             <button className='infoTooltip__btn' onClick={onClose}>No</button>
           </Link>
           </div>

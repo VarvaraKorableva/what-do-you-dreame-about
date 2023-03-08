@@ -1,17 +1,29 @@
-import './FriendCard.css';
+import './FriendCard.css'
+import { Link } from 'react-router-dom';
 
-function FriendCard({friend}) {
+function FriendCard({friend, handleGetOneUserDreamsSubmit}) {
   //Delete to friend? button
   //info about futures dates
-  
+
+
+  function handleClick(e) {
+    //e.preventDefault();
+    //handleFriendsSearchSubmit()
+    handleGetOneUserDreamsSubmit(friend._id);
+  }
+
   return ( 
     <div className="friendCard__container">
 
-      <div className="friendCard__img-container">
-        <img className="friendCard__img" 
-          alt = {friend.name} 
-          src = {friend.link}
-        />
+      <div className="friendCard__img-container"
+        onClick={handleClick}>
+          
+      <Link to={`${friend._id}`}>
+      <img className="friendCard__img" 
+          alt = {`${friend.name} avatar`} 
+          src = {friend.avatar}/>
+      </Link>
+
       </div>
 
       <div className="friendCard__friends-info-container">
@@ -24,3 +36,21 @@ function FriendCard({friend}) {
 }
     
 export default FriendCard;
+
+/*<div className="friendCard__container">
+
+      <div className="friendCard__img-container">
+        <img className="friendCard__img" 
+          alt = {friend.name
+          } 
+          src = {friend.avatar
+          }
+        />
+      </div>
+
+      <div className="friendCard__friends-info-container">
+        <p className="friendCard__friends-name">{friend.name}</p>
+        <p className="friendCard__friends-btn">Delete</p>
+      </div>
+
+    </div>*/

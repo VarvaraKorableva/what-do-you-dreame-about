@@ -12,6 +12,21 @@ const userSchema = new mongoose.Schema({
     required: true,
     //default: 'Жак-Ив Кусто',
   },
+
+  birthday: {
+    type: Date,
+    default: "",
+  },
+/*
+  presentDates [{
+    type: Date,
+    
+  }],
+/*
+  dreams: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'dream'
+  }],*/
   /*
   gender: {
     type: String, // гендер — это строка
@@ -20,7 +35,7 @@ const userSchema = new mongoose.Schema({
   about: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 150,
     //default: 'Исследователь',
   },
   avatar: {
@@ -42,12 +57,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
+  friends: [],
   /*
   hobbies: [{ //оно должно содержать массив строк. Каждая — длиной от 2 до 30 символов
     type: String,
     minlength: 2,
     maxlength: 30,
   }]
+
   */
 });
 

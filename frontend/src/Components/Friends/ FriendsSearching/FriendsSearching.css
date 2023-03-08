@@ -6,6 +6,7 @@
 .friendsSearching__form {
     position: relative;
     max-width: 100%;
+    
     margin-right: 200px;
     margin-left: 200px;
 }
@@ -56,10 +57,11 @@
 .friendsSearching__input:hover {
     opacity: 0.5;
     background-color: rgb(6, 104, 71);
-    border: 1px solid #fff;
+    border: 1px solid  rgb(6, 104, 71, 0.8);
+    
 }
 
-.friendsSearching__input-loop {
+.friendsSearching__input-loop-btn {
     background-image: url(../../../images/loop.svg);
     background-position: center;
     width: 23px;
@@ -71,6 +73,13 @@
     background-color: transparent;
     cursor: pointer;
     z-index: 10;
+    border: none;
+}
+
+.friendsSearching__input-loop-btn:hover {
+  background-color: #fff;
+  opacity: 0.6;
+  border-radius: 50%;
 }
 
 .friendsSearching__title {

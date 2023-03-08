@@ -58,7 +58,7 @@ function handleSubmit(e) {
         <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>Войти</button>
           <div className='login__wrapper'>
             <p className='login__subtitle'>Еще не зарегистрированы?
-            <Link className='login__entrylink' to="/sign-up">Зарегистрироваться</Link>
+            <Link className='login__entrylink' to="/signup">Зарегистрироваться</Link>
             </p>
           </div>
       </form>

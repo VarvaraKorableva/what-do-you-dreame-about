@@ -3,16 +3,15 @@
     flex-direction: column;
    }
    
-   .change-information__form {
-     width: 396px;
-     margin: auto;
-     /*margin-top: 70px;*/
-     margin-bottom: 70px;
-     display: flex;
-     flex-direction: column;
-   }
+.change-information__form {
+  width: 396px;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
    
-   @media screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
      .change-information__form  {
        width: 300px;
      }
@@ -42,15 +41,12 @@
    .change-information__title {
      font-size: 24px;
      font-weight: 500;
-    /* margin-top: 40px;*/
      margin-bottom: 40px;
    }
    
    @media screen and (max-width: 450px) {
      .change-information__title  {
        margin: auto;
-      /* margin-top: 50px;
-       margin-bottom: 40px;*/
      }
    }
    
@@ -63,20 +59,13 @@
    }
    
    .change-information__inputname {
-     color: #A0A0A0;
+     color: #fff;
      font-weight: 400;
      font-size: 10px;
      margin-bottom: 10px;
      margin-top: 0;
    }
    
-   .change-information__inputmistake {
-     color: #EE3465;
-     font-weight: 400;
-     font-size: 10px;
-     margin: 0;
-     margin-bottom: 10px;
-   }
    
    .change-information__input {
      color: black;
@@ -85,12 +74,12 @@
      /*background-color: #f9f9f9;
      border: none;
      border-radius: 2px;*/
-     background-color: rgb(6, 104, 71, 0.9);
-     border: 1px solid rgb(6, 104, 71, 0.8);
+     background-color: rgb(6, 104, 71, 0.4);
      border-radius: 10px;
      margin-top: 10px;
      margin-bottom: 0px;
      cursor: pointer;
+     border: none;
    }
    
    .change-information__input:hover {
@@ -118,11 +107,6 @@
      border-radius: 2px;
    }
    
-   .change-information__inputwrong::placeholder {
-     color: #EE3465;
-     padding-left: 15px;
-   }
-   
    .change-information__input:last-of-type {
      margin-bottom: 0px;
    }
@@ -141,7 +125,7 @@
      height: 45px;
      border: none;
      margin-top: 70px;
-     border-radius: 3%;
+     border-radius: 10px;
      padding: 0;
      font-weight: 400;
      font-size: 14px;
@@ -200,33 +184,29 @@
      opacity: 0.5;;
    }
    
-   .change-information__inputmistake {
-     color: #EE3465;
-     font-weight: 400;
-     font-size: 10px;
-   }
-   
    .change-information__wrapper {
      display: flex;
      justify-content: center;
    }
    
    .change-information__subtitle {
-     color: #A0A0A0;
+     color: #fff;
      font-weight: 400;
      font-size: 14px;
      margin-top: 16px;
      margin-bottom: 70px;
    }
    
-   .error-message {
-     color: #EE3465;
-     font-weight: 400;
-     font-size: 10px;
-     margin: auto;
-     padding: 5px;
-   }
 
 .change-information__inputname-span {
   color: #ff6838;
 }   
+
+.change-information__greetings {
+  color: #08341F;
+  justify-content: center;
+  align-self: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+ 

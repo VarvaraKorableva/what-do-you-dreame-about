@@ -40,7 +40,7 @@ module.exports.createUser = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'SECRET_KEY', { expiresIn: '7d' });
       return res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
-        .send({ token });
+        .send({  });//token
     })
     // eslint-disable-next-line consistent-return
     .catch((err) => {
@@ -60,7 +60,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'SECRET_KEY', { expiresIn: '7d' });
       return res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
-        .send({ token });
+        .send({  });//token
     })
     .catch(() => {
       next(new AuthError('Ошибка доступа'));
@@ -117,7 +117,28 @@ module.exports.updateAvatar = (req, res, next) => {
       } else { next(err); }
     });
 };
+//presentDates,
 
+module.exports.updateUser = (req, res, next) => {
+  const { name, about, birthday, avatar } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, about, birthday, avatar }, { new: true, runValidators: true })
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Ошибка, пользователь не найден');
+      }
+      return res.send(user);
+    }).catch((err) => {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
+        next(new CastError('Введены некорректные данные'));
+      } else { next(err); }
+    });
+};
+
+module.exports.logout = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Выход' });
+};
+
+/*
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
@@ -132,3 +153,5 @@ module.exports.updateUser = (req, res, next) => {
       } else { next(err); }
     });
 };
+
+*/
