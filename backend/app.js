@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./Errors/NotFoundError');
 const handleErrors = require('./middlewares/errors');
@@ -66,7 +66,11 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
+app.post('/signout', logout);
+
 app.use(auth);
+
+//app.use(require('./routes/subscription'));
 app.use(require('./routes/users'));
 app.use(require('./routes/dreams'));
 

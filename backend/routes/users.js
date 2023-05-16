@@ -24,13 +24,16 @@ router.patch('/users/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
+    birthday: Joi.date(),
+    avatar: Joi.string().required().pattern(Reg),
   }),
 }), updateUser);
 
 router.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(Reg),
+    avatar: Joi.string().required(),
   }),
 }), updateAvatar);
 
 module.exports = router;
+//.pattern(Reg)

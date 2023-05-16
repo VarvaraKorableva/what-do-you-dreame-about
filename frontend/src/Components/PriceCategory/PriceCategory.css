@@ -1,5 +1,5 @@
 
-  .myDream__container {
+  .price-category__container {
     min-width: 282px;
     height: 362px;
     list-style-type: none;
@@ -12,36 +12,44 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: rgb(6, 104, 71, 0.4);
-    cursor: pointer;
-  }
 
-  .myDream__container:hover {
+    cursor: pointer;
+    /*background-color: rgb(6, 104, 71, 0.4);*/
+    box-shadow: 10px 5px 5px rgba(35, 112, 226, 0.7);
+  }
+  
+  .price-category__container:hover {
     background-color: rgb(6, 104, 71, 0.8);
   }
   
   @media screen and (max-width: 600px) {
-      .myDream__container {
+      .price-category__container {
         min-width: 150px;
         height: 150px;
       }
   }
   
   @media screen and (max-width: 400px) {
-      .myDream__container {
+      .price-category__container {
         min-width: 120px;
         height: 120px;
       }
   }
 
-.myDream__price-title {
+.price-category__price-title {
     text-align: center;
     margin: 0;
     color: #fff;
 }  
 
-.myDream__amount {
+.price-category__amount {
     text-align: center;
     margin: 0;
     color: #fff;
+}
+
+.price-category__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

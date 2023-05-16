@@ -1,8 +1,12 @@
 import React from 'react'
 import './ChangeMyProfile.css'
 //import { Link } from 'react-router-dom';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext'
+//onChangeInf, 
+function ChangeMyProfile({onChangeSubmit}){
 
-function ChangeMyProfile({onChangeInf}){
+const currentUser = React.useContext(CurrentUserContext)
+
 const isValid = true
 
 const [values, setValues] = React.useState({});
@@ -14,24 +18,25 @@ const [values, setValues] = React.useState({});
 
   function handleSubmit(e) {
     e.preventDefault();
-     onChangeInf({
+    onChangeSubmit({
       birthday: values.birthday,
       about: values.about,
-      presentDates: values.presentDates,
+      //presentDates: values.presentDates,
       avatar: values.avatar,
-      password: values.password,
+      //password: values.password,
       name: values.name,
     });
   }
 
   return (
     <section className='change-information'>
+      <h3 className='change-information__greetings'>Привет, {currentUser.name}!</h3>
       <form 
         className='change-information__form'
         onSubmit={handleSubmit}>
         <fieldset className='change-information__fieldset'>
 
-          <label className='change-information__inputname'>Birthday<span className='change-information__inputname-span'>*</span>
+          <label className='change-information__inputname'>Birthday
             <input className='change-information__input'
               name="birthday"
               type="text"
@@ -61,7 +66,7 @@ const [values, setValues] = React.useState({});
               type="text"
               autoComplete="on"
               defaultValue=""
-              onChange={handleChange}
+              //onChange={handleChange}
             />
           </label>
           <span className='change-information__inputmistake'>
@@ -79,7 +84,7 @@ const [values, setValues] = React.useState({});
           <span className='change-information__inputmistake'>
           </span>
 
-          <label className='change-information__inputname'>Name<span className='change-information__inputname-span'>*</span>
+          <label className='change-information__inputname'>Name
             <input className='change-information__input'
               name="name"
               type="text"
@@ -91,14 +96,15 @@ const [values, setValues] = React.useState({});
             <span className='change-information__inputmistake'>
             </span>
 
-          <label className='change-information__inputname'>Password<span className='change-information__inputname-span'>*</span>
+          <label className='change-information__inputname'>Password
             <input className='change-information__input'
               name="password"
               type="password"
               maxLength="8"
               autoComplete="on"
               defaultValue=""
-              onChange={handleChange}
+              
+              //onChange={handleChange}
             />
           </label>
           <span className='change-information__inputmistake'>

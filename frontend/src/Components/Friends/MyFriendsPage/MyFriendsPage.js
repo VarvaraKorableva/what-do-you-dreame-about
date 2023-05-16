@@ -1,36 +1,45 @@
 import React from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
 import './MyFriendsPage.css'
 import DreamsField from '../../DreamsField/DreamsField'
+import * as Api from '../../../Api/Api'
 
-function MyFriendsPage() {
+function MyFriendsPage({friends, motanots, handleMotanClick}) {
 
-const user = {
-  "avatar":"https://images.pexels.com/photos/14491698/pexels-photo-14491698.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load",
-  "date":"18/01/1984",
+const navigate = useNavigate()
+  
+let { id } = useParams();
+const friend = friends.find(f => f._id === id);
+
+const isFriend = false
+
+function goBack() {
+  navigate(-1);
 }
 
 return (
   <div>
-    <div className='myPage_profile-container'>
-      <div className='myPage_inf-container'>
-        <p className='myPage_inf'>Ilia Snezhko</p>
-        <p className='myPage_inf'>18.01.1984</p>
+    <button className='my-friends-page__back-btn' onClick={goBack}>⟵ Назад</button>
+    <div className='my-friends-page__profile-container'>
+      <div className='my-friends-page__inf-container'>
+        <p className='my-friends-page__inf'>{friend.name}</p>
+        <p className='my-friends-page__inf'>{friend.birthday}</p>
+        <p className='my-friends-page__inf'>{friend.about}</p>
       </div>  
-      <img className='myPage_img' src={user.avatar}></img>
+      <div className='my-friends-page__img-container'>
+        <img className='my-friends-page__img' src={friend.avatar}></img>
+      </div>
+
     </div>  
 
-    <div className='myFriendsPage__inf-upcoming-events'>
-      
-        <p className='myFriendsPage__inf-upcoming-events-info'>Next date for congratulations</p>
-        <p className='myFriendsPage__inf-upcoming-events-date'>{user.date}</p>
-    
-    </div>
-      
-    <h3 className='myPage__title'>Сhoose price category:</h3>
+    <h3 className='my-friends-page__title'>О чем мечтает {friend.name}</h3>
 
-    <DreamsField/>
+    <DreamsField
+      matanots={motanots}
+      handleMotanClick={handleMotanClick}
+    />
 
-  </div>  
+  </div>
 )
 }
 

@@ -2,6 +2,7 @@
 import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {CurrentUserContext} from './contexts/CurrentUserContext'
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import './App.css'
 import * as Api from './Api/Api'
 import MyPage from './Components/MyPage/MyPage'
@@ -15,12 +16,24 @@ import Login from './Components/Login/Login'
 import FriendsSearching from './Components/Friends/ FriendsSearching/FriendsSearching'
 import InfoTooltip from './Components/InfoTooltip/InfoTooltip'
 import ChangeMyProfile from './Components/ChangeMyProfile/ChangeMyProfile'
+import AddDreamPopup from './Components/Popups/AddDreamPopup/AddDreamPopup'
+import ImagePopup from './Components/Popups/ImagePopup/ImagePopup'
+import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
+import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
 
 function App() {
 
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false)
+  const [isAddDreamPopup, setIsAddDreamPopup] = React.useState(false)
+  const [isChangeAvatarPopup, setIsChangeAvatarPopup] = React.useState(false)
   const [isLoggin, setIsLoggin] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
+  const [dreams, setDreams] = React.useState([])
+  const [friends, setFriends] = React.useState([])
+  const [motanots, setMotanots] = React.useState([]) 
+  const [selectedDream, setSelectedDream] = React.useState({});
+  const [selectedMotan, setSelectedMotan] = React.useState({});
+  //const [user, setUser] = React.useState({})
   const navigate = useNavigate()
 
   function handleRegSubmit(login){
@@ -29,6 +42,12 @@ function App() {
       email:login.email,
       name:login.name,
   })
+    .then(() => {
+      Api.getContent()
+      .then((data) => {
+        setCurrentUser(data.user)
+      })  
+    })
     .then(() => {
       //setNoMistake(true)
       setIsInfoTooltip(true)
@@ -42,14 +61,28 @@ function App() {
   function handleLoginSubmit(password, email){
     Api.authorize(password, email)
       .then ((res) => {
-        const token = res.token;
+        /*const token = res.token;
         Api.getContent(token)
-          .then(() => {
-            alert(res)
-            //setCurrentUser(res.user)
+          .then((data) => {
+            setCurrentUser(data.user)
+            //setUser(res.user)
+            //navigate('/user/:_id')
             navigate('/my-page')
             setIsLoggin(true)
-          })
+        })*/
+        Api.getContent()
+          .then((data) => {
+            setCurrentUser(data.user)
+            //setUser(res.user)
+            //navigate('/user/:_id')
+            setIsInfoTooltip(true)
+            navigate('/my-page')
+            setIsLoggin(true)
+        })
+        Api.getInitialMyDreams()
+          .then((dreams) => {
+            setDreams(dreams.data);
+        })  
       .catch((err) => {
         //setIsInfoTooltip(true)
         //setNoMistake(false)
@@ -58,80 +91,213 @@ function App() {
       })
   }
 
-  function signOut(){
-    setIsLoggin(false)
-    //setUserEmail("")
-    navigate('/sign-in');
-  }  
+  function handleUpdateAvatar(data) {
+    //setShowLoading(true);
+    Api.updateUserAvatar(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      /*.finally(() => {
+        setShowLoading(false);
+    })*/
+  }
 /*
-  function handleLoginSubmit(userData){
-    Api.authorize({
-      password:userData.password,
-      email:userData.email,
-    })
-    .then ((res) => {
-      
-      navigate('/my-page')
-      
-      setLoggedIn(true)
-      setLogError(false)
+  React.useEffect(() => {
+    Api.getUserInfo()
+    .then((data) => {
+      setCurrentUser(data.user);
     })
     .catch((err) => {
-      console.log(err)
-      setLoggedIn(false)
-      setLogError(true)
-      if (err.status === 401 || 404 ) {
-        setErrorMessage('Вы ввели неправильный логин или пароль.')
-        setTimeout(function(){
-          setErrorMessage('');
-        }, 5000)
-      } else {
-        setErrorMessage('На сервере произошла ошибка.')
-        setTimeout(function(){
-          setErrorChangeProfileMessage('');
-        }, 5000)
-        }
-    })
-  }  */
+      console.log(err);
+    });
+  },[isLoggin]);*/
+
+  function signOut(){
+    Api.signOut() 
+      .then((res) => {
+        setIsLoggin(false)
+        setCurrentUser({});
+        console.log(currentUser)
+        navigate('/signin')
+        //тут должен быть не редирект а изменение статуса на не юзера, должен измениться вид
+        //типо просматриваешь без регистрации?
+      })
+      .catch((err) => {
+        console.log(err)
+        setIsLoggin(false)
+      })
+  } 
+
+  function handleAddDreamClick(){
+    setIsAddDreamPopup(true)
+  } 
+
+  function handleChangeAvatarClick(){
+    setIsChangeAvatarPopup(true)
+  }
   
-/*
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
-  
-  const [isAddDreamPopupOpen, setIsAddDreamPopupOpen] = React.useState(false);
-
-  function handleAddDreamClick() {
-    setIsAddDreamPopupOpen(true);
-  }
-
-  function handleDeleteDreamClick() {
-    setIsDeletePopupOpen(true);
-  }
-
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-*/
   function closeAllPopups() {
     /*setIsEditAvatarPopupOpen(false)
     setIsAddDreamPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsDeletePopupOpen(false)*/
     setIsInfoTooltip(false)
+    setIsAddDreamPopup(false)
+    setIsChangeAvatarPopup(false)
+    console.log('button close')
+    setSelectedDream({})
+    setSelectedMotan({})
+  }
+  
+  function handleAddDreamSubmit(data) {
+    //setShowLoading(true);
+    Api.addMyDream(data)
+      .then((res) => {
+        setDreams([res, ...dreams]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //setShowLoading(false);
+      })
   }
 
+  const handleDeleteDream = (dream) => {
+    Api.deleteDream(dream._id)
+      .then(() => {
+        Api.getInitialMyDreams()
+          .then((dreams) => {
+            setDreams(dreams.data);
+        })  
+/*        setSavedMovies((movies) =>
+          movies.filter((m) => m._id !== movie._id)
+        )*/
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  //перенесла ее в соответствующий компонент-френдс серчинг
+/*
+  function handleGetUsersSubmit() {
+    Api.getUsers()
+      .then((res) => {
+        const users = res.data
+        //localStorage.setItem('users', users)
+        console.log(users)
+        //localStorage.setItem('users', JSON.stringify(users))
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //setShowLoading(false);
+      })
+  }  */
+/*
+  React.useEffect(() => {
+    Api.getInitialMyDreams()
+    .then((dreams) => {
+      setDreams(dreams.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[isLoggin]);*/
 
+
+  function handleGetUsersSubmit() {
+    Api.getUsers()
+      .then((res) => {
+        //const data = res.data
+        //console.log(res.data)
+        setFriends(res.data)
+        //localStorage.setItem('users', users)
+       
+        //localStorage.setItem('users', JSON.stringify(users))
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //setShowLoading(false);
+      })
+  }
+
+  ///переписать не на текущего юзера, а на юзера с айди
+  function handleGetOneUserDreamsSubmit(_id) {
+  Api.getOneFriendDreams(_id) 
+  .then((res) => {
+    console.log(res.data)
+    setMotanots(res.data)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+function handleDreamClick(dream) {
+  setSelectedDream(dream);
+}
+
+function handleMotanClick(motan) {
+  setSelectedMotan(motan);
+}
+
+
+function changeUserInfoSubmit(userData) {
+  Api.changeUserInfo(userData)
+    .then((data) => {
+      setCurrentUser({
+        ...currentUser,
+        name: userData.name,
+        about: userData.about,
+        birthday: userData.birthday,
+        avatar: userData.avatar,
+      });
+      /*setProfileError(false)
+      setChangeProfileMessage('Изменения внесены')
+      setTimeout(function(){
+        setChangeProfileMessage('');
+      }, 5000)*/
+    })
+    .catch((err) => {
+      console.log(err)
+      /*setProfileError(true)
+      if (err.status === 409 || 11000) {
+        setErrorChangeProfileMessage('Ошибка, такой Email уже существует.')
+        setTimeout(function(){
+          setErrorChangeProfileMessage('');
+      }, 2000)
+      } else {
+        setErrorChangeProfileMessage('На сервере произошла ошибка.')
+        setTimeout(function(){
+          setErrorChangeProfileMessage('');
+        }, 5000)
+      }*/
+    })
+}
+//updateUserAvatar
   return (
+    
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
+
       <Header
         isLoggin={isLoggin}
-        signOut={signOut}/>
+        signOut={signOut}
+      />
+
       <Routes>
 
         <Route
-        path="/sign-up"
+        path="/signup"
         element={
         <Registration
         onRegister={handleRegSubmit}
@@ -140,7 +306,7 @@ function App() {
         </Route>
 
         <Route
-        path="/sign-in"
+        path="/signin"
         element={
         <Login
           onSubmit={handleLoginSubmit}
@@ -151,20 +317,27 @@ function App() {
         <Route
         exact path="/my-page"
         element={
-        <MyPage/>
-        }>
-        </Route> 
+          <ProtectedRoute isLoggin={isLoggin}>
+            <MyPage
+              addPopupOpen={handleAddDreamClick}
+              OnDeleteMyDream={handleDeleteDream}
+              dreams={dreams}
+              onCardClick={handleDreamClick}
+              onImgToChangeAvatar={handleChangeAvatarClick}
+            />
+          </ProtectedRoute>
 
-        <Route
-        exact path="/my-friend-page"
-        element={
-        <MyFriendsPage/>
         }>
-        </Route> 
-
+        </Route>  
+        
         <Route 
-        path='/my-friend-page/:userId' 
-        element={<MyFriendsPage/>
+        path='/friends/:id' 
+        element={
+          <MyFriendsPage
+            friends={friends}
+            motanots={motanots}
+            handleMotanClick={handleMotanClick}
+          />
         }>
         </Route>
 
@@ -176,19 +349,30 @@ function App() {
         </Route>
 
         <Route
-        path="/friends-searching"
+        path="/friends"  ///Searching
         element={
-        <FriendsSearching/>
+        <FriendsSearching
+        friends={friends}
+        handleGetUsersSubmit={handleGetUsersSubmit}
+        handleGetOneUserDreamsSubmit={handleGetOneUserDreamsSubmit}/>
+
         }>
         </Route>
 
         <Route
         path="/change-my-profile"
         element={
-        <ChangeMyProfile/>
+        <ChangeMyProfile
+          onChangeSubmit={changeUserInfoSubmit}/>
         }>
         </Route>
 
+        <Route
+        path="*"
+        element={
+        <NotFoundPage />
+        }>
+        </Route>
 
     
       </Routes>
@@ -196,6 +380,28 @@ function App() {
     <InfoTooltip 
       isOpen={isInfoTooltip}
       onClose={closeAllPopups}/>
+
+    <AddDreamPopup
+      isOpen={isAddDreamPopup}
+      onClose={closeAllPopups}
+      onAddDream={handleAddDreamSubmit}
+    />  
+
+    <ImagePopup 
+      dream={selectedDream}
+      onClose={closeAllPopups}
+    />
+
+    <MotanOpenPopap
+      motan={selectedMotan}
+      onClose={closeAllPopups}
+    />
+
+    <PopapChangeAvatar
+      onClose={closeAllPopups}
+      isOpen={isChangeAvatarPopup}
+      handleUpdateAvatarSubmit={handleUpdateAvatar} 
+    />
 
     <Footer/>
     </div>
@@ -205,9 +411,5 @@ function App() {
 
 export default App;
 /*
-        <Route
-        path="*"
-        element={
-        <NotFoundPage />
-        }>
-        </Route>*/
+background-color: rgb(6, 104, 71, 0.4);
+*/

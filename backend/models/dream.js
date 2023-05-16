@@ -11,7 +11,7 @@ const dreamSchema = new mongoose.Schema({
   imgLink: {
     type: String,
     required: [true, 'Поле, обязательно для заполнения'],
-    validate: validateURL,
+    /*validate: validateURL,*/
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,13 +20,13 @@ const dreamSchema = new mongoose.Schema({
   },
   price: {
     type: String,
-    required: [true, 'Поле, обязательно для заполнения'],
+    //required: [true, 'Поле, обязательно для заполнения'],
     //default: [],
   },
   dreamLink: {
     type: String,
     required: [true, 'Поле, обязательно для заполнения'],
-    validate: validateURL,
+   /* validate: validateURL,*/
   },
   createdAt: {
     type: Date,

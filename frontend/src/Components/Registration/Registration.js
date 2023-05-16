@@ -74,7 +74,7 @@ const [values, setValues] = React.useState({});
         </button>
         <div className='register__wrapper'>
           <p className='register__subtitle'>Уже зарегистрированы?
-          <Link className='register__entrylink' to="/sign-in"> Войти</Link></p>
+          <Link className='register__entrylink' to="/signin"> Войти</Link></p>
         </div>
     </form>
     </section>

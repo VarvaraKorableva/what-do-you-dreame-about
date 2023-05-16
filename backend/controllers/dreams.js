@@ -1,4 +1,5 @@
 const Dream = require('../models/dream');
+const User = require('../models/user');
 
 const NotFoundError = require('../Errors/NotFoundError');
 const CastError = require('../Errors/CastError');
@@ -6,6 +7,36 @@ const ForbiddenError = require('../Errors/ForbiddenError');
 
 module.exports.getDreams = (req, res, next) => {
   Dream.find({})
+    .then((dreams) => res.send({ data: dreams }))
+    .catch((err) => {
+      next(err);
+    });
+};
+
+module.exports.getOneUserDreams = (req, res, next) => {
+  const { _id } = {id};
+  User.findById({ _id })
+    .then((user) => {
+      Dream.find({id : ObjectId})
+      .then((dreams) => res.send({ data: dreams }))
+      .catch((err) => {
+        next(err);
+      });
+    })
+};
+
+
+module.exports.getMyDreams = (req, res, next) => {
+  Dream.find({owner : req.user})
+    .then((dreams) => res.send({ data: dreams }))
+    .catch((err) => {
+      next(err);
+    });
+};
+
+module.exports.getMyFriendDreams = (req, res, next) => {
+  const { userId } = req.params;
+  Dream.find({owner : userId})
     .then((dreams) => res.send({ data: dreams }))
     .catch((err) => {
       next(err);

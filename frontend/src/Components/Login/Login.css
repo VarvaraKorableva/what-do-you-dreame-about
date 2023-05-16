@@ -13,7 +13,7 @@
 .login__form {
   width: 396px;
   margin: auto;
-  margin-top: 70px;
+  /*margin-top: 70px;*/
   margin-bottom: 70px;
   display: flex;
   flex-direction: column;
@@ -57,12 +57,13 @@
      font-weight: 500;
      margin-top: 40px;
      margin-bottom: 40px;
+     color: #08341F;
    }
 
    @media screen and (max-width: 450px) {
      .login__title  {
        margin: auto;
-       margin-top: 50px;
+       /*margin-top: 50px;*/
        margin-bottom: 80px;
      }
    }
@@ -75,7 +76,7 @@
    }
 
    .login__inputname {
-     color: #A0A0A0;
+     color: #fff;
      font-weight: 400;
      font-size: 10px;
      margin-bottom: 10px;
@@ -86,8 +87,8 @@
     color: black;
     width: 100%;
     height: 46px;
-    background-color: rgb(6, 104, 71, 0.9);
-    border: 1px solid rgb(6, 104, 71, 0.8);
+    background-color: rgb(6, 104, 71, 0.5);
+    border: none;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -102,7 +103,7 @@
      color: black;
      padding-left: 15px;
    }
-
+/*
    .login__inputwrong {
      width: 100%;
      height: 46px;
@@ -111,7 +112,7 @@
      border-radius: 10px;
      margin-bottom: 20px;
      padding-left: 15px;
-   }
+   }*/
 
    .login__input:last-of-type {
      margin-bottom: 0px;
@@ -148,14 +149,15 @@
       font-size: 12px;
     }
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 450px) {
     .login__entrylink  {
       font-size: 10px;
     }
   }
 
    .login__subtitle {
-     color: #A0A0A0;
+     /*color: #A0A0A0;*/
+     color: #fff;
      font-weight: 400;
      font-size: 14px;
      margin-top: 16px;
@@ -169,7 +171,7 @@
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 450px) {
     .login__subtitle  {
       font-size: 10px;
     }
@@ -178,12 +180,6 @@
   .login__wrapper {
     display: flex;
     justify-content: center;
-  }
-
-  .login__inputmistake {
-    color: #EE3465;
-    font-weight: 400;
-    font-size: 10px;
   }
 
   .login__btn_active {
@@ -206,7 +202,7 @@
   .login__btn_active {
     width: 100%;
     font-size: 12px;
-    margin-top: 157px;
+    margin-top: 130px;
   }
 }
 
