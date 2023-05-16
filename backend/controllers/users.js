@@ -101,7 +101,7 @@ module.exports.getUser = (req, res, next) => {
     })
     .catch(next);
 };
-
+/*
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
@@ -116,7 +116,7 @@ module.exports.updateAvatar = (req, res, next) => {
         next(new CastError('Введены некорректные данные'));
       } else { next(err); }
     });
-};
+};*/
 //presentDates,
 
 module.exports.updateUser = (req, res, next) => {
@@ -137,21 +137,44 @@ module.exports.updateUser = (req, res, next) => {
 module.exports.logout = (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 };
-
 /*
-module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+const multer = require('multer');
+
+const upload = multer({
+  storage: multer.memoryStorage(), // используем память, чтобы хранить файлы
+  limits: { fileSize: 10 * 1024 * 1024 }, // ограничение размера файла до 10 МБ
+  fileFilter: (req, file, cb) => { // настраиваем фильтр файлов
+    // тут можно добавить свои кастомные фильтры
+    cb(null, true);
+  },
+});
+
+*/
+module.exports.updateAvatar = (req, res, next) => {
+  // считываем содержимое файла в виде двоичных данных
+  const buffer = req.file.buffer;
+  User.findByIdAndUpdate(req.user._id, { avatar: buffer }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Ошибка, пользователь не найден');
       }
       return res.send(user);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new CastError('Введены некорректные данные'));
       } else { next(err); }
     });
-};
+};/*
+  try {
+    // считываем содержимое файла в виде двоичных данных
+    const buffer = req.file.buffer;
+
+    // сохраняем аватарку в базе данных
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { avatar: buffer },
+      { new: true } // возвращать обновленный документ
+    );
 
 */

@@ -1,0 +1,161 @@
+.popap-change-avatar__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .popap-change-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility 1s, opacity 1s;
+    box-sizing: border-box;
+  }
+  
+  .popap-change-avatar__opened {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 1s, opacity 1s;
+    }
+  
+    .popap-change-avatar__close-button {
+      background-image: url(../../../images/Close_Icon.svg);
+      /*margin-bottom: 5px;*/
+      width: 32px;
+      height: 32px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      /*align-self: flex-end;*/
+      transition: 0.5s ease;
+      position: absolute;
+      top: 10px;
+      right: 0;
+    }
+    
+    .popap-change-avatar__close-button:hover {
+      opacity: 60%;
+      /*border-radius: 1px solid #fff;*/
+      transition: 0.5s ease;
+    }
+  
+    .popap-change-avatar__title {
+      color: #fff;
+    }
+  
+    .popap-change-avatar__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: calc(430px - (36px*2));
+      min-height: calc(330px - (34px + 37px));
+      background-color: #fff;
+      color: black;
+      border-radius: 10px;
+      padding-left: 36px;
+      padding-right: 36px;
+      padding-bottom: 37px;
+      padding-top: 34px;
+    }
+    
+    @media screen and (max-width: 600px) {
+      .popap-change-avatar__form {
+        width: calc(282px - (22px*2));
+        min-height: calc(322px - (25px*2));
+        padding-left: 22px;
+        padding-right: 22px;
+        padding-bottom: 25px;
+        padding-top: 25px;
+      }
+    }  
+  /*
+    .add-dream-popup__form {
+      width: 396px;
+      margin: auto;
+      margin-bottom: 70px;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    @media screen and (max-width: 500px) {
+      .add-dream-popup__form  {
+        width: 300px;
+      }
+    }
+    
+    @media screen and (max-width: 450px) {
+      .add-dream-popup__form  {
+        width: 260px;
+      }
+    }
+  */
+    .popap-change-avatar__input {
+      color: black;
+      width: 100%;
+      height: 46px;
+      /*background-color: rgb(6, 104, 71, 0.9);
+      background-color: rgba(35, 112, 226, 0.7);*/
+      background-color: rgba(55, 147, 233, 0.7);
+      /*border: 1px solid rgb(6, 104, 71, 0.8);*/
+      border: none;
+      border-radius: 10px;
+      margin-top: 10px;
+      margin-bottom: 0px;
+      cursor: pointer;
+    }
+    
+    .popap-change-avatar__input:hover {
+      border: 1px solid #F9F9F9;
+    } 
+  
+    .popap-change-avatar__input::placeholder {
+      /*color:#ebb2a0;*/
+      color: #fff;
+    }
+  
+  .popap-change-avatar__btn {
+      color: #fff;
+      width: 100%;
+      height: 45px;
+      background-color: #ff6838;
+      /*background-color: rgba(229, 140, 45, 0.7);*/
+      border: none;
+      margin-top: 70px;
+      border-radius: 10px;
+      padding: 0;
+      font-weight: 400;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 1s ease;
+  }
+  
+  @media screen and (max-width: 450px) {
+    .popap-change-avatar__btn {
+      width: 100%;
+      font-size: 12px;
+    }
+  }

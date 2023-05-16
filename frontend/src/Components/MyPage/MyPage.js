@@ -1,11 +1,11 @@
 import React from 'react'
 import './MyPage.css'
 import DreamsField from '../DreamsField/DreamsField'
-import Header from '../Header/Header'
+//import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
-function MyPage({addPopupOpen, dreams, OnDeleteMyDream, onCardClick}) {
+function MyPage({onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) {
 
 /*const avatar = {
   "avatar":"https://media.istockphoto.com/id/613654620/photo/fashionable-big-red-handbag-on-the-arm-of-the-girl.jpg?b=1&s=170667a&w=0&k=20&c=DCLVnlYnAFIJW0vH1YmzvfhaJQKkbKz0D_ZiXdgyRXc="
@@ -28,12 +28,25 @@ return (
           <p className='myPage_view-link-text'>Изменить информацию о себе →</p>
         </Link>
         
-        <Link to="/friends" className='myPage_inf myPage__link'>
+        <Link to="/my-friends" className='myPage_inf myPage__link'>
           <p className='myPage_view-link-text'>Посмотреть о чем мечтают мои друзья →</p>
+        </Link>
+
+        <Link to="/friends" className='myPage_inf myPage__link'>
+          <p className='myPage_view-link-text'>Поиск друзей →</p>
         </Link>
       
       </div>  
-      <img className='myPage_img' src={currentUser.avatar} alt={imgname}></img>
+      <button 
+        type="button" 
+        className='myPage_img-btn' 
+        onClick={onImgToChangeAvatar}>
+        <img 
+          className='myPage_img' 
+          src={currentUser.avatar} 
+          alt={currentUser.name}>
+        </img>
+      </button>
     </div>  
     <button 
           className='myPage_addBTN'
@@ -63,3 +76,5 @@ export default MyPage;
 //<p className='myPage__subtitle'>What my friends dream about ...</p>
 
 //<div className='myPage_addBTN-container'>
+
+//<button className='myPage_img-btn'></button> onClick={onEditAvatar}

@@ -163,6 +163,20 @@ export const changeUserInfo = ( userData ) => {
   })
       .then(checkResponse)
 };
+
+export const updateUserAvatar = (data) => {
+  return fetch (`${BASE_URL}/users/me/avatar`, {
+    credentials: 'include',
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({avatar:data})
+  })
+  .then(checkResponse)
+}
+
 //name, about, birthday, avatar
 
 /*

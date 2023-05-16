@@ -263,3 +263,10 @@
 .myPage_view-link-text {
   margin: 0;
 }
+
+.myPage_img-btn {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}

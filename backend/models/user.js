@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://images.unsplash.com/photo-1670067974780-79d187bf7246?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60',
     validate: validateURL,
+    //Buffer
   },
   email: {
     type: String,

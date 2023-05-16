@@ -19,11 +19,13 @@ import ChangeMyProfile from './Components/ChangeMyProfile/ChangeMyProfile'
 import AddDreamPopup from './Components/Popups/AddDreamPopup/AddDreamPopup'
 import ImagePopup from './Components/Popups/ImagePopup/ImagePopup'
 import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
+import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
 
 function App() {
 
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false)
   const [isAddDreamPopup, setIsAddDreamPopup] = React.useState(false)
+  const [isChangeAvatarPopup, setIsChangeAvatarPopup] = React.useState(false)
   const [isLoggin, setIsLoggin] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
   const [dreams, setDreams] = React.useState([])
@@ -88,6 +90,21 @@ function App() {
       })
       })
   }
+
+  function handleUpdateAvatar(data) {
+    //setShowLoading(true);
+    Api.updateUserAvatar(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      /*.finally(() => {
+        setShowLoading(false);
+    })*/
+  }
 /*
   React.useEffect(() => {
     Api.getUserInfo()
@@ -118,6 +135,10 @@ function App() {
   function handleAddDreamClick(){
     setIsAddDreamPopup(true)
   } 
+
+  function handleChangeAvatarClick(){
+    setIsChangeAvatarPopup(true)
+  }
   
   function closeAllPopups() {
     /*setIsEditAvatarPopupOpen(false)
@@ -126,6 +147,8 @@ function App() {
     setIsDeletePopupOpen(false)*/
     setIsInfoTooltip(false)
     setIsAddDreamPopup(false)
+    setIsChangeAvatarPopup(false)
+    console.log('button close')
     setSelectedDream({})
     setSelectedMotan({})
   }
@@ -260,14 +283,17 @@ function changeUserInfoSubmit(userData) {
       }*/
     })
 }
-
+//updateUserAvatar
   return (
     
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
+
       <Header
         isLoggin={isLoggin}
-        signOut={signOut}/>
+        signOut={signOut}
+      />
+
       <Routes>
 
         <Route
@@ -297,6 +323,7 @@ function changeUserInfoSubmit(userData) {
               OnDeleteMyDream={handleDeleteDream}
               dreams={dreams}
               onCardClick={handleDreamClick}
+              onImgToChangeAvatar={handleChangeAvatarClick}
             />
           </ProtectedRoute>
 
@@ -368,6 +395,12 @@ function changeUserInfoSubmit(userData) {
     <MotanOpenPopap
       motan={selectedMotan}
       onClose={closeAllPopups}
+    />
+
+    <PopapChangeAvatar
+      onClose={closeAllPopups}
+      isOpen={isChangeAvatarPopup}
+      handleUpdateAvatarSubmit={handleUpdateAvatar} 
     />
 
     <Footer/>

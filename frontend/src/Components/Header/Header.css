@@ -10,6 +10,18 @@
   padding-bottom: 5px;*/
 }
 
+@media screen and (max-width: 1000px) {
+  .header_container {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .header_container {
+    margin-bottom: 10px;
+  }
+}
+
 .header_logo {
   color: #fff;
   font-size: 1rem;
