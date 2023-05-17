@@ -79,22 +79,13 @@ app.all('*', () => {
 });
 
 
-<<<<<<< HEAD
 //mongoose.set("strictQuery", true);
-
-=======
-mongoose.set("strictQuery", true);
 /*
->>>>>>> 4760978d73c7c988a31f10b66399908f75874257
 mongoose.connect('mongodb://localhost:27017/dreamsAbout', 
 { 
   useNewUrlParser: true, 
   family: 4 
-<<<<<<< HEAD
-});/*
-=======
 });*/
->>>>>>> 4760978d73c7c988a31f10b66399908f75874257
 mongoose 
  .connect('mongodb://localhost:27017/dreamsAbout', {
         useNewUrlParser: true,
