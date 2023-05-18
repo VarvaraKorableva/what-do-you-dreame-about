@@ -52,7 +52,7 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       type="button" 
       onClick={onClose}>
     </button>
-    <h2 className="add-dream-popup__title">Add Dream</h2>
+    <h2 className="add-dream-popup__title">Add a new dream</h2>
       <form 
         className='add-dream-popup__form'
         onSubmit={handleSubmit}>

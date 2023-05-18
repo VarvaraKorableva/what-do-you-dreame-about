@@ -70,11 +70,11 @@ const [values, setValues] = React.useState({});
           type="submit"
           className={`'register__btn' ${isValid? 'register__btn_active': 'register__btn'}`}
           disabled={!isValid}>
-            Зарегистрироваться
+            SignUp
         </button>
         <div className='register__wrapper'>
-          <p className='register__subtitle'>Уже зарегистрированы?
-          <Link className='register__entrylink' to="/signin"> Войти</Link></p>
+          <p className='register__subtitle'>Already signUp?
+          <Link className='register__entrylink' to="/signin"> SignIn</Link></p>
         </div>
     </form>
     </section>

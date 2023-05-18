@@ -60,7 +60,6 @@
   
   .add-dream-popup__close-button:hover {
     opacity: 60%;
-    /*border-radius: 1px solid #fff;*/
     transition: 0.5s ease;
   }
 
@@ -75,6 +74,7 @@
     width: calc(430px - (36px*2));
     min-height: calc(330px - (34px + 37px));
     background-color: #fff;
+    /*backdrop-filter: blur();*/
     color: black;
     border-radius: 10px;
     padding-left: 36px;
@@ -93,36 +93,13 @@
       padding-top: 25px;
     }
   }  
-/*
-  .add-dream-popup__form {
-    width: 396px;
-    margin: auto;
-    margin-bottom: 70px;
-    display: flex;
-    flex-direction: column;
-  }
 
-  @media screen and (max-width: 500px) {
-    .add-dream-popup__form  {
-      width: 300px;
-    }
-  }
-  
-  @media screen and (max-width: 450px) {
-    .add-dream-popup__form  {
-      width: 260px;
-    }
-  }
-*/
   .add-dream-popup__input {
     color: black;
     width: 100%;
-    height: 46px;
-    /*background-color: rgb(6, 104, 71, 0.9);
-    background-color: rgba(35, 112, 226, 0.7);*/
-    background-color: rgba(55, 147, 233, 0.7);
-    /*border: 1px solid rgb(6, 104, 71, 0.8);*/
-    border: none;
+    height: 40px;
+    border: 1px solid black;
+    background-color: transparent;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -130,23 +107,24 @@
   }
   
   .add-dream-popup__input:hover {
-    border: 1px solid #F9F9F9;
+    border: 2px solid black;
   } 
 
   .add-dream-popup__input::placeholder {
     /*color:#ebb2a0;*/
-    color: #fff;
+    color: black;
+    font-size: 12px;
+    padding: 3px;
   }
 
 .add-dream-popup__btn {
-    color: #fff;
+    color: black;
     width: 100%;
     height: 45px;
-    background-color: #ff6838;
-    /*background-color: rgba(229, 140, 45, 0.7);*/
-    border: none;
+    border: 2px solid black;
+    background-color: transparent;
     margin-top: 70px;
-    border-radius: 10px;
+    border-radius: 50px;
     padding: 0;
     font-weight: 400;
     font-size: 14px;
@@ -159,4 +137,9 @@
     width: 100%;
     font-size: 12px;
   }
+}
+
+.add-dream-popup__btn:hover {
+  background-color: black;
+  color: #fff;
 }

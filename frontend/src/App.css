@@ -2,7 +2,26 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: rgba(55, 147, 233, 0.7);
-  padding: 10px;
-  /*justify-content: space-between;*/
+  background-color: #fff;
+
+  padding: 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+@media screen and (max-width: 800px) {
+  .App {
+    padding: 25px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .App {
+    padding: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }

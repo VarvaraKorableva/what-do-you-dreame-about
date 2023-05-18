@@ -44,8 +44,8 @@
     width: 100%;
     height: 50px;
     list-style-type: none;
-    background-color: rgb(6, 104, 71, 0.9);
-    border: 1px solid rgb(6, 104, 71, 0.8);
+    background-color: transparent;
+    border: 1px solid black;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -56,8 +56,7 @@
 
 .friendsSearching__input:hover {
     opacity: 0.5;
-    background-color: rgb(6, 104, 71);
-    border: 1px solid  rgb(6, 104, 71, 0.8);
+    border: 2px solid  black;
     
 }
 
@@ -77,13 +76,12 @@
 }
 
 .friendsSearching__input-loop-btn:hover {
-  background-color: #fff;
   opacity: 0.6;
   border-radius: 50%;
 }
 
 .friendsSearching__title {
-    color: #fff;
+    color: black;
     margin-left: 200px;
     font-size: 2rem;
 }

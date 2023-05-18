@@ -59,7 +59,7 @@
    }
    
    .change-information__inputname {
-     color: #fff;
+     color: black;
      font-weight: 400;
      font-size: 10px;
      margin-bottom: 10px;
@@ -70,25 +70,17 @@
    .change-information__input {
      color: black;
      width: 100%;
-     height: 46px;
-     /*background-color: #f9f9f9;
-     border: none;
-     border-radius: 2px;*/
-     background-color: rgb(6, 104, 71, 0.4);
+     height: 40px;
+     background-color: transparent;
+     border: 1px solid black;
      border-radius: 10px;
      margin-top: 10px;
      margin-bottom: 0px;
      cursor: pointer;
-     border: none;
    }
    
    .change-information__input:hover {
-     border: 1px solid #F9F9F9;
-   }
-   
-   .change-information__input::placeholder {
-     color: black;
-     padding-left: 15px;
+     border: 2px solid black;
    }
    
    .change-information__inputwrong {
@@ -119,8 +111,8 @@
    }
    
    .change-information__btn_active {
-     background-color: #ff6838;
-     color: #ffffff;
+     background-color: black;
+     color: #fff;
      width: 100%;
      height: 45px;
      border: none;
@@ -147,11 +139,11 @@
    }
    
    .change-information__btn {
-       color: #ffffff;
+       color: black;
        width: 100%;
        height: 45px;
-       background-color: #ebb2a0;
-       border: none;
+       background-color: transparent;
+       border: 1px solid black;
        margin-top: 70px;
        border-radius: 3%;
        padding: 0;
@@ -171,7 +163,7 @@
    
    .change-information__entrylink {
      cursor: pointer;
-     color: #ff6838;
+     color: black;
      font-weight: 400;
      font-size: 14px;
      text-decoration: none;
@@ -203,7 +195,7 @@
 }   
 
 .change-information__greetings {
-  color: #08341F;
+  color: black;
   justify-content: center;
   align-self: center;
   margin-top: 0;
