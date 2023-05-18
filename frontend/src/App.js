@@ -372,7 +372,7 @@ function changeUserInfoSubmit(userData) {
             friends={friends}
             motanots={motanots}
             isLength={isLength}
-            handleMotanClick={handleMotanClick}
+            onFriendCardClick={handleMotanClick}
           />
         }>
         </Route>

@@ -1,25 +1,46 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import './MyFriendsPage.css'
-//import DreamsField from '../../DreamsField/DreamsField'
+import DreamsField from '../../DreamsField/DreamsField'
 import PriceCategory from '../../PriceCategory/PriceCategory'
 //import * as Api from '../../../Api/Api'
 
-function MyFriendsPage({friends, motanots, handleMotanClick, isLength}) {
-
-const navigate = useNavigate()
+function MyFriendsPage({friends, motanots, isLength, onFriendCardClick}) {
   
-let { id } = useParams();
-const friend = friends.find(f => f._id === id);
+  const [toRenderDreams, setToRenderDreams] = React.useState([])
+  const [isShowAllBtnClicked, setIsShowAllBtnClicked] = React.useState(false)
+  const [isShowCategoryBtnClicked, setIsShowCategoryBtnClicked] = React.useState(false)
 
-const isFriend = false
+  const navigate = useNavigate()
+  
+  let { id } = useParams();
+  const friend = friends.find(f => f._id === id);
 
-function goBack() {
-  navigate(-1);
-}
+  //const isFriend = false
 
-const date = '20.06.2023';
-const days = 6;
+  function goBack() {
+    navigate(-1);
+  }
+
+  const date = '20.06.2023';
+  const days = 6;
+
+  function showAllFriendsDreams() {
+    setToRenderDreams(motanots)
+    changeShowAllBtnStatus()
+  }
+
+  function changeShowAllBtnStatus() {
+    setIsShowAllBtnClicked(true)
+    setIsShowCategoryBtnClicked(false)
+  }
+
+  function changeShowCategoryBtnStatus() {
+    setIsShowCategoryBtnClicked(true)
+    setIsShowAllBtnClicked(false)
+  }
+
+  
 
 return (
   <div>
@@ -48,18 +69,28 @@ return (
 
     {
       isLength?
+      <>
         <div className='my-friends-page__filter-btn-container'>
-          <button className='my-friends-page__filter-btn'>Show  categories</button>
-          <button className='my-friends-page__filter-btn'>Show all dreams</button>
+          <button className='my-friends-page__filter-btn' onClick={changeShowCategoryBtnStatus}>Show  categories</button>
+          <button className='my-friends-page__filter-btn' onClick={showAllFriendsDreams}>Show all dreams</button>
         </div>
+          {isShowAllBtnClicked?
+            <DreamsField
+              toRenderFriendsDreams={toRenderDreams}
+              onFriendCardClick={onFriendCardClick}
+            />
+          :
+            <PriceCategory
+              motanots={motanots}
+              isLength={isLength}
+              friend={friend}
+            /> 
+          }
+       
+      </>
       :
-      <></>
+        <></>
     }
-    <PriceCategory
-      motanots={motanots}
-      isLength={isLength}
-      friend={friend}
-    />
   </div>
 )
 }
@@ -67,10 +98,11 @@ return (
 export default MyFriendsPage;
 
 /*
-    <DreamsField
-      isLength={isLength}
+    <PriceCategory
       motanots={motanots}
-      handleMotanClick={handleMotanClick}
+      isLength={isLength}
+      friend={friend}
     />
+
 
 */
