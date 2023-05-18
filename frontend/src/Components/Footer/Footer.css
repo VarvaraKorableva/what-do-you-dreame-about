@@ -1,18 +1,23 @@
 .footer__container {
   display: flex;
-  justify-content: space-between;
- 
-  
+  justify-content: end;
+  height: 32px;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 0;
+  margin-top: 25px;
+  max-width: 880px;
+  align-self: flex-end;
 }
 
 .footer__text {
-  color: #08341F;
-  font-size: 200;
-  margin-right: 10px;
-  margin-left: 10px;
+  color: black;
+  margin: 0;
   cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .footer__text:hover {
-    opacity: 0.8;
+  opacity: 0.5;
 }

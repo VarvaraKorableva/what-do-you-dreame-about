@@ -1,41 +1,67 @@
 import React from 'react'
 import './MyPage.css'
 import DreamsField from '../DreamsField/DreamsField'
-//import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
-function MyPage({onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) {
+function MyPage({addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) {
 
-/*const avatar = {
-  "avatar":"https://media.istockphoto.com/id/613654620/photo/fashionable-big-red-handbag-on-the-arm-of-the-girl.jpg?b=1&s=170667a&w=0&k=20&c=DCLVnlYnAFIJW0vH1YmzvfhaJQKkbKz0D_ZiXdgyRXc="
-}*/
+const [toRenderDreams, setToRenderDreams] = React.useState([])
+const [isAddAllBtnClicked, setIsAddAllBtnClicked] = React.useState(false)
+const [isAddlimitBtnClicked, setIsAddlimitBtnClicked] = React.useState(false)
+const [isDreamsArrEmpty, setIsDreamsArrEmpty] = React.useState(false)
 
 const currentUser = React.useContext(CurrentUserContext)
-const imgname = "avatar"
+
+React.useEffect(() => {
+  setToRenderDreams(dreams)
+  setIsAddAllBtnClicked(false)
+  setIsAddlimitBtnClicked(false)
+  checkLengthOfDreams()
+}, [dreams]);
+
+React.useEffect(() => {
+  checkLengthOfDreams()
+}, [isAddAllBtnClicked]);
+
+const isEpmty = toRenderDreams.length === 0
+const isDisappear = toRenderDreams.length <= limit
+
+function changeAllDreamsBtnStatus() {
+  setIsAddAllBtnClicked(true)
+}
+/////not right
+
+function checkLengthOfDreams() {
+  if(isAddAllBtnClicked) {
+    setIsDreamsArrEmpty(true)
+  }else{
+    setIsDreamsArrEmpty(false)
+  }
+}
+
+function handleAddDreams() {
+  addDreams()
+  setIsAddlimitBtnClicked(true)
+}
+
 
 return (
   <div>
     
     <div className='myPage_profile-container'>
       <div className='myPage_inf-container'>
-        <p className='myPage_inf'>{currentUser.name}</p>
-        <p className='myPage_inf'>{currentUser.birthday}</p>
-        <p className='myPage_inf'>{currentUser.about}</p>
-        <p className='myPage_inf'>{currentUser.email}</p>
+        <p className='myPage_inf'>Hello, {currentUser.name}</p>
 
         <Link to="/change-my-profile" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>Изменить информацию о себе →</p>
+          <p className='myPage_view-link-text'>Change information about yourself →</p>
         </Link>
-        
         <Link to="/my-friends" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>Посмотреть о чем мечтают мои друзья →</p>
+          <p className='myPage_view-link-text'>See what my friends dream about →</p>
         </Link>
-
         <Link to="/friends" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>Поиск друзей →</p>
+          <p className='myPage_view-link-text'>Search for friends →</p>
         </Link>
-      
       </div>  
       <button 
         type="button" 
@@ -48,33 +74,51 @@ return (
         </img>
       </button>
     </div>  
-    <button 
-          className='myPage_addBTN'
-          type='button'
-          onClick={addPopupOpen}>
-          добавить мечту
-        </button>
-
-    <h2 className='myPage__title'>My dreams ...</h2>
-
+    <div className='myPage_addBTN-container'>
+      <button 
+        className='myPage_addBTN'
+        type='button'
+        onClick={addPopupOpen}>
+        Add a new dream
+      </button>
+    </div>
+    {isEpmty?
+    <span>nothing to render</span>
+    :
+    <>
     <DreamsField
-    dreams={dreams}
+    dreams={toRenderDreams}
     OnDeleteMyDream={OnDeleteMyDream}
     onCardClick={onCardClick}
+    limit={limit}
+    isAddAllBtnClicked={isAddAllBtnClicked}
     />
 
-    
+    <div className='myPage__container-add-more-to-the-page'>
+      {isDreamsArrEmpty || isDisappear?
+        <></>
+      :
+        <>
+          <button 
+            className='myPage__add-more-to-the-page'
+            type='button'
+            onClick={handleAddDreams}>
+            See more
+          </button>
+          <button
+            className='myPage__add-more-to-the-page'
+            type='button'
+            onClick={changeAllDreamsBtnStatus}>
+            See all
+          </button>
+        </>
+      }
+    </div>
+    </>
+  }
+
   </div>  
 )
 }
 
 export default MyPage;
-
-//<button className='myPage__addBTN'>Add more</button>
-
-//<p className='myPage__subtitle'>I dream about ...</p>
-//<p className='myPage__subtitle'>What my friends dream about ...</p>
-
-//<div className='myPage_addBTN-container'>
-
-//<button className='myPage_img-btn'></button> onClick={onEditAvatar}

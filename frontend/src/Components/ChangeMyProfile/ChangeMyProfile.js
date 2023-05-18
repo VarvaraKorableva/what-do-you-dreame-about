@@ -30,7 +30,7 @@ const [values, setValues] = React.useState({});
 
   return (
     <section className='change-information'>
-      <h3 className='change-information__greetings'>Привет, {currentUser.name}!</h3>
+      <h3 className='change-information__greetings'>Hello, {currentUser.name}!</h3>
       <form 
         className='change-information__form'
         onSubmit={handleSubmit}>

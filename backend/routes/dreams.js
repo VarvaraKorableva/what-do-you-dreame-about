@@ -20,9 +20,9 @@ router.get('/dreams/:userId', getMyFriendDreams);//getMyFriendDreams
 router.post('/dreams', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    imgLink: Joi.string().required().pattern(Reg),
+    imgLink: Joi.string().required(),//.pattern(Reg)
     price: Joi.string().required().min(2).max(30),
-    dreamLink: Joi.string().required().pattern(Reg),
+    dreamLink: Joi.string().required(),//.pattern(Reg)
   }),
 }), createDream);
 

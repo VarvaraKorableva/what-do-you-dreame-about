@@ -25,7 +25,7 @@ function handleSubmit(e) {
         <Link className='login__logolink' to="/">
         <p className='login__logo'></p>
         </Link>
-        <h2 className='login__title'>Рады видеть!</h2>
+        <h2 className='login__title'>Glad to see you!</h2>
         <fieldset className='login__fieldset'>
           <label  className='login__inputname'>E-mail
             <input className='login__input'
@@ -55,10 +55,10 @@ function handleSubmit(e) {
           </span>
         </fieldset>
 
-        <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>Войти</button>
+        <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>SignIn</button>
           <div className='login__wrapper'>
-            <p className='login__subtitle'>Еще не зарегистрированы?
-            <Link className='login__entrylink' to="/signup">Зарегистрироваться</Link>
+            <p className='login__subtitle'>Not registered yet?
+            <Link className='login__entrylink' to="/signup">signUp</Link>
             </p>
           </div>
       </form>

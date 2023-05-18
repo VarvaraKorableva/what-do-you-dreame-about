@@ -1,20 +1,43 @@
 import './PriceCategory.css';
+import React from 'react'
 
-function PriceCategory({dream, onMotanClick}) {
- 
+function PriceCategory({motanots, onMotanClick, isLength, friend}) {
+ /*
   function handleClick() {
     onMotanClick(dream);
     console.log(dream._id)
-  }
-  
+  }*/
+
+
+  function handleClick() {
+    console.log('click')
+  }/*
+  const [isLength, setIsLength] = React.useState(false)
+
+  function checkArray() {
+    if(matanots.length) {
+      return setIsLength(true)
+    } else {
+      setIsLength(false)
+    }
+  } 
+
+  React.useEffect(() => {
+    checkArray()
+  }, []);*/
 
   return ( 
-    <div className="price-category__container" onClick = {handleClick}>
-      <img className="price-category__img"
-        alt = {dream.name} 
-        src = {dream.imgLink}
-      ></img>
+    isLength?
+
+    <div className='price-category__field'>
+        <button className="price-category__container" onClick = {handleClick}>Until 100 $</button>
+        <button className="price-category__container" onClick = {handleClick}>Until 250 $</button>
+        <button className="price-category__container" onClick = {handleClick}>Until 500 $</button>
+        <button className="price-category__container" onClick = {handleClick}>More 500 $</button>
     </div>
+    :
+
+    <p className="price-category__message-empty-array">{friend.name} hasn't added any gifts yet</p>
   );
 }
     

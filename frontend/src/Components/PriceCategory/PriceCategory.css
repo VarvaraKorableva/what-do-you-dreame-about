@@ -1,40 +1,54 @@
 
-  .price-category__container {
-    min-width: 282px;
-    height: 362px;
-    list-style-type: none;
-    background-color: #fff;
-    color: black;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    object-fit: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.price-category__field {
+    max-width: 500px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: auto;
+    gap: 15px;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    cursor: pointer;
-    /*background-color: rgb(6, 104, 71, 0.4);*/
-    box-shadow: 10px 5px 5px rgba(35, 112, 226, 0.7);
+  @media screen and (max-width: 650px) {
+    .price-category__field {
+      margin-bottom: 0;
+      gap: 10px;
+    }
   }
-  
-  .price-category__container:hover {
-    background-color: rgb(6, 104, 71, 0.8);
-  }
-  
-  @media screen and (max-width: 600px) {
-      .price-category__container {
-        min-width: 150px;
-        height: 150px;
-      }
-  }
-  
-  @media screen and (max-width: 400px) {
-      .price-category__container {
-        min-width: 120px;
-        height: 120px;
-      }
-  }
+
+.price-category__container {
+  height: 150px;
+  list-style-type: none;
+  background-color: rgb(244, 236, 251);
+  color: black;
+  border-radius: 10px;
+  border: 1px solid black;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 12px;
+  font-weight: 500px;
+  cursor: pointer;
+  align-items: center;
+
+}
+
+.price-category__container:hover {
+  border: 2px solid black;
+}
+
+@media screen and (max-width: 600px) {
+    .price-category__container {
+      height: 120px;
+    }
+}
 
 .price-category__price-title {
     text-align: center;
@@ -52,4 +66,19 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.price-category__message-empty-array {
+  text-align: center;
+  max-width: 880px;
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+@media screen and (max-width: 600px) {
+  .price-category__message-empty-array {
+    margin-top: 80px;
+  margin-bottom: 80px;
+  }
 }

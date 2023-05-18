@@ -20,6 +20,7 @@ import AddDreamPopup from './Components/Popups/AddDreamPopup/AddDreamPopup'
 import ImagePopup from './Components/Popups/ImagePopup/ImagePopup'
 import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
 import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
+import useWindowDimensions from './hook/useWindowDimensions'
 
 function App() {
 
@@ -31,10 +32,31 @@ function App() {
   const [dreams, setDreams] = React.useState([])
   const [friends, setFriends] = React.useState([])
   const [motanots, setMotanots] = React.useState([]) 
-  const [selectedDream, setSelectedDream] = React.useState({});
-  const [selectedMotan, setSelectedMotan] = React.useState({});
+  const [selectedDream, setSelectedDream] = React.useState({})
+  const [selectedMotan, setSelectedMotan] = React.useState({})
+  const [limit, setLimit] = React.useState(0)
+  const [amount, setAmount] = React.useState(0)
+  const [isLength, setIsLength] = React.useState(false)
+  const { width } = useWindowDimensions()
   //const [user, setUser] = React.useState({})
   const navigate = useNavigate()
+
+  const getLimit = () => {
+    if (width <= 700 && width > 450) {
+      setLimit(6);
+      setAmount(3)
+    } else if (width <= 450) {
+      setLimit(4);
+      setAmount(4)
+    } else {
+      setLimit(6);
+      setAmount(3)
+    }
+  };
+
+  const addDreams = () => setLimit(limit + amount);
+
+  React.useEffect(getLimit, [width]);
 
   function handleRegSubmit(login){
     Api.register({
@@ -230,11 +252,20 @@ function App() {
       })
   }
 
+  function checkArray() {
+    if(motanots.length) {
+      return setIsLength(true)
+    } else {
+      setIsLength(false)
+    }
+  } 
+
   ///переписать не на текущего юзера, а на юзера с айди
   function handleGetOneUserDreamsSubmit(_id) {
   Api.getOneFriendDreams(_id) 
   .then((res) => {
     console.log(res.data)
+    checkArray()
     setMotanots(res.data)
   })
   .catch((err) => {
@@ -283,6 +314,8 @@ function changeUserInfoSubmit(userData) {
       }*/
     })
 }
+
+
 //updateUserAvatar
   return (
     
@@ -324,6 +357,8 @@ function changeUserInfoSubmit(userData) {
               dreams={dreams}
               onCardClick={handleDreamClick}
               onImgToChangeAvatar={handleChangeAvatarClick}
+              addDreams={addDreams}
+              limit={limit}
             />
           </ProtectedRoute>
 
@@ -336,7 +371,8 @@ function changeUserInfoSubmit(userData) {
           <MyFriendsPage
             friends={friends}
             motanots={motanots}
-            handleMotanClick={handleMotanClick}
+            isLength={isLength}
+            onFriendCardClick={handleMotanClick}
           />
         }>
         </Route>
