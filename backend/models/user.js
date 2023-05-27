@@ -10,39 +10,49 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 30,
     required: true,
-    //default: 'Жак-Ив Кусто',
   },
 
   birthday: {
     type: Date,
     default: "",
   },
-/*
-  presentDates [{
+
+  presentDates: [{
     type: Date,
-    
   }],
 /*
   dreams: [{ 
     type: Schema.Types.ObjectId, 
     ref: 'dream'
-  }],*/
-  /*
+  }],
+  
   gender: {
     type: String, // гендер — это строка
     enum: ['м', 'ж', 'другой'] // gender может принимать одно из трёх значений
-  },*/
+  },
   about: {
     type: String,
     minlength: 2,
     maxlength: 150,
     //default: 'Исследователь',
-  },
+  },/*
+  avatar: {
+    filename: { type: String },
+    path: { type: String },
+    contentType: { type: String },
+    size: { type: Number },
+  },*/
+  /*
   avatar: {
     type: String,
     default: 'https://images.unsplash.com/photo-1670067974780-79d187bf7246?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60',
     validate: validateURL,
-    //Buffer
+
+  },*/
+  avatar: {
+    type: String,
+    //default: '/uploads/image-1684910204242-126322040.jpg', // Здесь указывается путь к дефолтной аватарке
+    validate: validateURL,
   },
   email: {
     type: String,
@@ -58,7 +68,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  friends: [],
+ 
   /*
   hobbies: [{ //оно должно содержать массив строк. Каждая — длиной от 2 до 30 символов
     type: String,

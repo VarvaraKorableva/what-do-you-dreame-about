@@ -3,6 +3,21 @@ import './ImagePopup.css'
 
 
 function ImagePopup({ dream, onClose }) {
+/*
+  const priceWithZero = dream.price
+
+  function format(str) {
+    const s = str.length;
+    const chars = str.split('');
+    const strWithSpaces = chars.reduceRight((acc, char, i) => {
+        const spaceOrNothing = ((((s - i) % 3) === 0) ? ' ' : '');
+        return (spaceOrNothing + char + acc);
+    }, '');
+
+    return ((strWithSpaces[0] === ' ') ? strWithSpaces.slice(1) : strWithSpaces);
+}
+
+  const price = format(priceWithZero)*/
 
   return (
     <aside className={`img-popup ${dream.imgLink ? 'img-popup__opened' : ''}`}>

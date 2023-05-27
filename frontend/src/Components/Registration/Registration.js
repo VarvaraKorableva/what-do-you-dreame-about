@@ -1,12 +1,17 @@
 import React from 'react'
 import './Registration.css'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 function Registration({onRegister}){
 const isValid = true
 
 const [values, setValues] = React.useState({});
-
+//const [avatarImg, setAvatarImg] = React.useState(null); 
+/*
+function handleAvatarChange(e) {
+  setAvatarImg(e.target.files[0]);
+}*/
+  
   function handleChange(e) {
     const { value, name } = e.target;
     setValues({ ...values, [name]: value });
@@ -65,6 +70,7 @@ const [values, setValues] = React.useState({});
           <span className='register__inputmistake'>
           </span>
 
+
       </fieldset>
         <button
           type="submit"
@@ -83,3 +89,16 @@ const [values, setValues] = React.useState({});
 
 
 export default Registration;                
+
+
+/*
+<label className='register__inputname'>Avatar<span className='register__inputname-span'></span>
+<input className='register__input'
+  name="avatar"
+  type="file"
+  onChange={handleAvatarChange}
+/>
+</label>
+
+<span className='register__inputmistake'>
+</span>*/

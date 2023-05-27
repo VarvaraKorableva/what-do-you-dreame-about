@@ -138,14 +138,15 @@
     }
   
   .popap-change-avatar__btn {
-      color: #fff;
+      color: black;
       width: 100%;
       height: 45px;
-      background-color: #ff6838;
+      background-color: transparent;
       /*background-color: rgba(229, 140, 45, 0.7);*/
       border: none;
       margin-top: 70px;
       border-radius: 10px;
+      border: 1px solid black;
       padding: 0;
       font-weight: 400;
       font-size: 14px;

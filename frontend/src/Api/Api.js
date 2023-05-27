@@ -9,7 +9,7 @@ export const BASE_URL = '//localhost:3000';
 
 export const register = ( {password, email, name} ) => {
   return fetch(`${BASE_URL}/signup`, {
-    credentials: 'include',
+    //credentials: 'include',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -61,20 +61,50 @@ export const getContent = () => {
       },
   })
       .then(checkResponse)
+      
 };
-/*
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+
+export const getMyDates = () => {
+  return fetch(`${BASE_URL}/importantdates/myimportantdates`, {
       credentials: 'include',
       method: "GET",
       headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
       },
   })
       .then(checkResponse)
-};*/
+};
+
+export const addMyNewDate = (data) => {
+  return fetch(`${BASE_URL}/importantdates`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: data.name,
+      date: data.date,
+      description: data.description,
+    })
+  })
+    .then(checkResponse);
+}
+
+export const getOneFriendImportantDates = (id) => {
+  return fetch(`${BASE_URL}/importantdates/${id}`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+
+  })
+  .then(checkResponse);
+}
 
 export const addMyDream = (data) => {
   return fetch(`${BASE_URL}/dreams`, {
@@ -110,7 +140,7 @@ body: JSON.stringify({
   _id: id
 })*/
 export const getOneFriendDreams = (id) => {
-  return fetch(`${BASE_URL}/dreams/${id}`, {
+  return fetch(`${BASE_URL}/forAllDreams/${id}`, {
     credentials: 'include',
     method:'GET',
     headers: {
@@ -158,24 +188,26 @@ export const changeUserInfo = ( userData ) => {
         name: userData.name,
         about: userData.about,
         birthday: userData.birthday,
-        avatar: userData.avatar,
+        //avatar: userData.avatar,
       })
   })
       .then(checkResponse)
 };
 
-export const updateUserAvatar = (data) => {
-  return fetch (`${BASE_URL}/users/me/avatar`, {
+export const updateUserAvatar = (formData) => {
+  return fetch (`${BASE_URL}/upload`, {
     credentials: 'include',
-    method: 'PATCH',
+    method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({avatar:data})
+    body: formData
   })
   .then(checkResponse)
 }
+
+//body: formData
 
 //name, about, birthday, avatar
 
@@ -253,3 +285,15 @@ const api = new Api({
 });
 
 export {api};*/
+
+export const getDinamicUser = (id) => {
+  return fetch(`${BASE_URL}/usersopenrouter/${id}`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(checkResponse);
+}

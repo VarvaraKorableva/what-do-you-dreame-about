@@ -6,34 +6,28 @@ const {
   getUsers,
   getUser,
   updateUser,
-  updateAvatar,
+  //updateAvatar,
   getСurrentUser,
 } = require('../controllers/users');
 
-router.get('/users', getUsers);
+//router.get('/users', getUsers);
 
-router.get('/users/me', getСurrentUser);
-
+router.get('/users/me', getСurrentUser);//
+/*
 router.get('/users/:userId', celebrate({
-  params: Joi.object().keys({
+    params: Joi.object().keys({
     userId: Joi.string().hex().length(24).required(),
   }),
-}), getUser);
+}), getUser);*/
 
-router.patch('/users/me', celebrate({
+router.patch('/users/me', celebrate({//
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
     birthday: Joi.date(),
-    avatar: Joi.string().required(),//pattern(Reg)
+
   }),
 }), updateUser);
 
-router.patch('/users/me/avatar', celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required(),
-  }),
-}), updateAvatar);
 
 module.exports = router;
-//.pattern(Reg)

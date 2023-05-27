@@ -4,7 +4,7 @@ import FullFriendsField from '../FullFriendsField/FullFriendsField'
 
 import * as Api from '../../../Api/Api'
 
-function FriendsSearching({handleGetUsersSubmit, friends, handleGetOneUserDreamsSubmit}) {
+function FriendsSearching({handleGetUsersSubmit, friends}) {
 
   const [keyWord, setKeyWord] = React.useState('')
   //const [users, setUsers] = React.useState([])
@@ -80,7 +80,7 @@ return (
 
   <FullFriendsField 
     friends={friends}
-    handleGetOneUserDreamsSubmit={handleGetOneUserDreamsSubmit}
+    //handleGetOneUserDreamsSubmit={handleGetOneUserDreamsSubmit}
   />
 
   </div>  

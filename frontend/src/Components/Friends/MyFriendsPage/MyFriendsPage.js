@@ -1,35 +1,89 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+
 import './MyFriendsPage.css'
 import DreamsField from '../../DreamsField/DreamsField'
 import PriceCategory from '../../PriceCategory/PriceCategory'
-//import * as Api from '../../../Api/Api'
+import * as Api from '../../../Api/Api'
 
-function MyFriendsPage({friends, motanots, isLength, onFriendCardClick}) {
+function MyFriendsPage({onFriendCardClick, isLoggin}) {
   
   const [toRenderDreams, setToRenderDreams] = React.useState([])
   const [isShowAllBtnClicked, setIsShowAllBtnClicked] = React.useState(false)
   const [isShowCategoryBtnClicked, setIsShowCategoryBtnClicked] = React.useState(false)
+  const [isFilterBtnClicked, setIsFilterBtnClicked] = React.useState(false)
+  const [motanots, setMotanots] = React.useState([]) 
+  const [isLength, setIsLength] = React.useState(false)
+  const [dates, setDates] = React.useState([]) 
 
-  const navigate = useNavigate()
-  
-  let { id } = useParams();
-  const friend = friends.find(f => f._id === id);
-
-  //const isFriend = false
-
-  function goBack() {
-    navigate(-1);
-  }
+  const [userData, setUserData] = React.useState(null)
 
   const date = '20.06.2023';
   const days = 6;
 
+  const navigate = useNavigate()
+  
+  let { id } = useParams();
+  //const friend = friends.find(f => f._id === id);
+
+  React.useEffect(() => {
+    const getUser = (userId) => {
+      Api.getDinamicUser(userId)
+        .then((res) => {
+          setUserData(res.user);
+        })
+        .catch(error => console.error(error));
+    };
+    getUser(id);
+  }, [id]);
+
+  function checkArray() {
+    if(motanots.length) {
+      return setIsLength(true)
+    } else {
+      setIsLength(false)
+    }
+  } 
+
+React.useEffect(() => {
+  const getDreams = (userId) => {
+    Api.getOneFriendDreams(userId)
+      .then((res) => {
+        setMotanots(res.data)
+        
+      })
+      .catch(error => console.error(error));
+  };
+  getDreams(id);
+}, [id]);
+
+
+React.useEffect(() => {
+  checkArray()
+}, [motanots]);
+
+  function goBack() {
+    navigate(-1);
+  }
+ 
+React.useEffect(() => {
+  const getDates = (userId) => {
+    Api.getOneFriendImportantDates(userId)
+      .then((res) => {
+        console.log(res.data)
+        setDates(res.data)
+      })
+      .catch(error => console.error(error));
+  };
+  getDates(id);
+}, [id]);
+
   function showAllFriendsDreams() {
     setToRenderDreams(motanots)
     changeShowAllBtnStatus()
+    setIsFilterBtnClicked(false)
   }
-
+//just btn to change field
   function changeShowAllBtnStatus() {
     setIsShowAllBtnClicked(true)
     setIsShowCategoryBtnClicked(false)
@@ -40,7 +94,29 @@ function MyFriendsPage({friends, motanots, isLength, onFriendCardClick}) {
     setIsShowAllBtnClicked(false)
   }
 
-  
+  function getResultFor100() {
+    setIsFilterBtnClicked(true)
+    setToRenderDreams(motanots.filter(dream => dream.price < 101))
+  }
+
+  function getResultFor250() {
+    setIsFilterBtnClicked(true)
+    setToRenderDreams(motanots.filter(dream => dream.price < 251 && dream.price > 100))
+  }
+
+  function getResultFor500() {
+    setIsFilterBtnClicked(true)
+    setToRenderDreams(motanots.filter(dream => dream.price <= 500 && dream.price > 201))
+  }
+
+  function getResultForMore500() {
+    setIsFilterBtnClicked(true)
+    setToRenderDreams(motanots.filter(dream => dream.price > 501))
+  }
+
+  if (!userData || !motanots) {
+    return <div>Loading...</div>;
+  }
 
 return (
   <div>
@@ -49,15 +125,28 @@ return (
 
       <div className='my-friends-page__inf-container'>
         <button className='my-friends-page__back-btn' onClick={goBack}>⟵ Back</button>
-        <p className='my-friends-page__inf'>{friend.name}</p>
-        <p className='my-friends-page__inf'>{friend.birthday}</p>
-        <p className='my-friends-page__inf'>{friend.about}</p>
-        <p className='my-friends-page__inf'>See all important dates for {friend.name}</p>
-        <button className='my-friends-page__add-friend-btn'>Add to the friend</button>
+
+        <p className='my-friends-page__inf'>{userData.name}</p>
+        <p className='my-friends-page__inf'>{userData.birthday}</p>
+        <p className='my-friends-page__inf'>{userData.about}</p>
+        
+        <Link to={`/users/${id}/dates`}>
+          <p className='my-friends-page__inf'>See all important dates for {userData.name} →</p>
+        </Link>
+        
+        {isLoggin?
+          <button className='my-friends-page__add-friend-btn'>Add to the friend</button>
+        :
+          <></>
+        }
       </div> 
  
       <div className='my-friends-page__img-container'>
-        <img className='my-friends-page__img' src={friend.avatar}></img>
+        <img 
+          className='my-friends-page__img' 
+          //src={userData.avatar}>
+          src={`http://localhost:3000${userData.avatar}`}>
+        </img>
       </div>
 
     </div>  
@@ -80,16 +169,31 @@ return (
               onFriendCardClick={onFriendCardClick}
             />
           :
-            <PriceCategory
-              motanots={motanots}
-              isLength={isLength}
-              friend={friend}
-            /> 
+            <>
+              {isFilterBtnClicked?
+                <DreamsField
+                  toRenderFriendsDreams={toRenderDreams}
+                  onFriendCardClick={onFriendCardClick}
+                />
+              :
+                <PriceCategory
+                  motanots={motanots}
+                  isLength={isLength}
+                  friend={userData}
+                  getResultFor100={getResultFor100}
+                  getResultFor250={getResultFor250}
+                  getResultFor500={getResultFor500}
+                  getResultForMore500={getResultForMore500}
+                />
+              }
+            </>
           }
-       
       </>
       :
-        <></>
+      <div className='my-friends-page__container-remind'>
+        <p className='my-friends-page__message-about-empty-arr'>{userData.name}  did't have time to tell about dreams, </p>
+        <button className='my-friends-page__remind-btn'>to remind?</button>
+      </div>  
     }
   </div>
 )
@@ -97,12 +201,24 @@ return (
 
 export default MyFriendsPage;
 
+
 /*
-    <PriceCategory
-      motanots={motanots}
-      isLength={isLength}
-      friend={friend}
-    />
 
+{isFilterBtnClicked?
+                <DreamsField
+                  toRenderFriendsDreams={toRenderDreams}
+                  onFriendCardClick={onFriendCardClick}
+                />
+              :
+                <PriceCategory
+                  motanots={motanots}
+                  isLength={isLength}
+                  friend={friend}
+                  getResultFor100={getResultFor100}
+                  getResultFor250={getResultFor250}
+                  getResultFor500={getResultFor500}
+                  getResultForMore500={getResultForMore500}
+                />
+              }
 
-*/
+/*<button className='my-friends-page__add-friend-btn'>Look all users</button>*/

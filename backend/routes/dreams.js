@@ -11,11 +11,11 @@ const {
   getMyFriendDreams
 } = require('../controllers/dreams');
 
-router.get('/dreams', getDreams);
+//router.get('/dreams', getDreams);/
 
 router.get('/dreams/mydreams', getMyDreams);
 
-router.get('/dreams/:userId', getMyFriendDreams);//getMyFriendDreams
+//router.get('/dreams/:userId', getMyFriendDreams);//getMyFriendDreams
 
 router.post('/dreams', celebrate({
   body: Joi.object().keys({

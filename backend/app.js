@@ -1,33 +1,45 @@
-/*const express = require('express');
-const { PORT = 3000 } = process.env;
-const app = express();
-
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`)
-}) */
-
+const User = require('./models/user');
 require('dotenv').config();
-
+//import cors from 'cors';
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
+
 const { login, createUser, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+//const multer = require('./middlewares/multer');
 const NotFoundError = require('./Errors/NotFoundError');
 const handleErrors = require('./middlewares/errors');
 const { Reg } = require('./utils/const');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const multer = require('multer');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(express.json());
-app.use(bodyParser.json());
+const storage = multer.diskStorage({
+  destination: function (_, __, cb) {
+    cb(null, 'uploads');
+  },
+  filename: function (_, file, cb) {
+    //cb(null, file.originalname);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = file.originalname.split('.').pop();
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension);
+  }
+});
 
+// Создание экземпляра multer с настройками хранилища
+const upload = multer({ storage });
+
+app.use(express.json());
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 
 app.use(requestLogger);
@@ -48,6 +60,7 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадет');
   }, 0);
 });
+app.use('/uploads', express.static('uploads'));
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -68,11 +81,35 @@ app.post('/signup', celebrate({
 
 app.post('/signout', logout);
 
+
+app.use(require('./routes/usersForAll'));
+app.use(require('./routes/myFriendDreams'));
 app.use(auth);
 
-//app.use(require('./routes/subscription'));
+//
+
+app.patch('/upload', upload.single('image'), (req, res) => {
+  const userId = req.body.userId;
+  const imageBuffer = req.file.buffer;
+
+  User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+});
+
 app.use(require('./routes/users'));
 app.use(require('./routes/dreams'));
+app.use(require('./routes/importantDates'));
+//app.use(require('./routes/subscription'));
+
 
 app.all('*', () => {
   throw new NotFoundError('Страница не найдена');
@@ -107,3 +144,25 @@ app.listen(PORT, () => {
 });
 
 module.exports = { app };
+
+
+/*
+
+// Создание хранилища для загруженных файлов
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Указывает папку, куда сохранять загруженные файлы
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    // Генерирует уникальное имя файла
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = file.originalname.split('.').pop();
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension);
+  }
+});
+
+// Создание экземпляра multer с настройками хранилища
+const upload = multer({ storage: storage });
+
+*/

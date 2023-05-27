@@ -1,4 +1,4 @@
-//import logo from './logo.svg'
+
 import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {CurrentUserContext} from './contexts/CurrentUserContext'
@@ -11,35 +11,50 @@ import Header from './Components/Header/Header'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 import Registration from './Components/Registration/Registration'
 import MyFriendsPage from './Components/Friends/MyFriendsPage/MyFriendsPage'
-import FriendsDreamsSlider from './Components/Friends/FriendsDreamsSlider/FriendsDreamsSlider'
+import AllMyFriendsPageAndSerching from './Components/Friends/AllMyFriendsPageAndSerching/AllMyFriendsPageAndSerching'
+//import FriendsDreamsSlider from './Components/Friends/FriendsDreamsSlider/FriendsDreamsSlider'
 import Login from './Components/Login/Login'
 import FriendsSearching from './Components/Friends/ FriendsSearching/FriendsSearching'
-import InfoTooltip from './Components/InfoTooltip/InfoTooltip'
+import AddAvatarPopap from './Components/Popups/AddAvatarPopap/AddAvatarPopap'
 import ChangeMyProfile from './Components/ChangeMyProfile/ChangeMyProfile'
 import AddDreamPopup from './Components/Popups/AddDreamPopup/AddDreamPopup'
 import ImagePopup from './Components/Popups/ImagePopup/ImagePopup'
 import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
+import AddNewDatePopap from './Components/Popups/AddNewDatePopap/AddNewDatePopap'
 import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
+import MyImportantDatesPage from './Components/MyImportantDatesPage/MyImportantDatesPage'
 import useWindowDimensions from './hook/useWindowDimensions'
+import axios from 'axios';
 
 function App() {
 
-  const [isInfoTooltip, setIsInfoTooltip] = React.useState(false)
+  const [isAddAvatarPopap, setIsAddAvatarPopap] = React.useState(false)
   const [isAddDreamPopup, setIsAddDreamPopup] = React.useState(false)
+  const [isAddNewDatePopup, setIsAddNewDatePopup] = React.useState(false)
   const [isChangeAvatarPopup, setIsChangeAvatarPopup] = React.useState(false)
   const [isLoggin, setIsLoggin] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
   const [dreams, setDreams] = React.useState([])
+  const [importantDates, setImportantDates] = React.useState([])
   const [friends, setFriends] = React.useState([])
-  const [motanots, setMotanots] = React.useState([]) 
   const [selectedDream, setSelectedDream] = React.useState({})
   const [selectedMotan, setSelectedMotan] = React.useState({})
   const [limit, setLimit] = React.useState(0)
   const [amount, setAmount] = React.useState(0)
-  const [isLength, setIsLength] = React.useState(false)
-  const { width } = useWindowDimensions()
-  //const [user, setUser] = React.useState({})
+
+  const userId = currentUser._id
+
   const navigate = useNavigate()
+
+// Изменить настройки по умолчанию
+  axios.defaults.maxContentLength = 3 * 1024 * 1024;
+// Создать экземпляр axios с настройками по умолчанию
+  const instance = axios.create({
+    maxContentLength: 5 * 1024 * 1024,
+    withCredentials: true,
+  });
+ 
+  const { width } = useWindowDimensions()
 
   const getLimit = () => {
     if (width <= 700 && width > 450) {
@@ -58,104 +73,133 @@ function App() {
 
   React.useEffect(getLimit, [width]);
 
-  function handleRegSubmit(login){
+  function handleRegSubmit(values) {
     Api.register({
-      password:login.password,
-      email:login.email,
-      name:login.name,
-  })
+      password: values.password,
+      email: values.email,
+      name: values.name,
+    })
+    .then(() => {
+      setIsAddAvatarPopap(true)
+    })
     .then(() => {
       Api.getContent()
-      .then((data) => {
-        setCurrentUser(data.user)
+      .then((res) => {
+        setCurrentUser(res.user)
       })  
     })
     .then(() => {
-      //setNoMistake(true)
-      setIsInfoTooltip(true)
-      setIsLoggin(true)
+        setDreams([]);
     }) 
+    .then(() => {
+      setIsLoggin(true)
+      navigate(`/users/${userId}`)
+    })
     .catch((err) => {
       console.log(err)
     })
   }
 
-  function handleLoginSubmit(password, email){
-    Api.authorize(password, email)
-      .then ((res) => {
-        /*const token = res.token;
-        Api.getContent(token)
-          .then((data) => {
-            setCurrentUser(data.user)
-            //setUser(res.user)
-            //navigate('/user/:_id')
-            navigate('/my-page')
-            setIsLoggin(true)
-        })*/
+    function handleLoginSubmit(password, email){
+      Api.authorize(password, email)
+      .then (() => {
         Api.getContent()
           .then((data) => {
             setCurrentUser(data.user)
-            //setUser(res.user)
-            //navigate('/user/:_id')
-            setIsInfoTooltip(true)
-            navigate('/my-page')
+            const userId = data.user._id
+            navigate(`/users/${userId}`)
+            setIsLoggin(true)
+          })
+      })  
+      .then (() => {
+        Api.getInitialMyDreams()
+          .then((dreams) => {
+            setDreams(dreams.data);
+          })
+      })
+      .then(() => {
+        Api.getMyDates()
+          .then((res)=> {
+            setImportantDates(res.data)
+          })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  /*
+  function handleLoginSubmit(password, email){
+    Api.authorize(password, email)
+      .then ((res) => {
+        Api.getContent()
+          .then((data) => {
+            setCurrentUser(data.user)
+            //navigate('/my-page')
+            const userId = data.user._id
+            navigate(`/users/${userId}`)
             setIsLoggin(true)
         })
         Api.getInitialMyDreams()
           .then((dreams) => {
             setDreams(dreams.data);
-        })  
-      .catch((err) => {
-        //setIsInfoTooltip(true)
-        //setNoMistake(false)
-        console.log(err)
+        })
+        
       })
+      .than(() => {
+        Api.getMyDates()
+          .than((res)=> {
+            setImportantDates(res.data)
+          })
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
-
-  function handleUpdateAvatar(data) {
-    //setShowLoading(true);
-    Api.updateUserAvatar(data)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  */
+  
+  
+  function handleUpdateAvatar(formData) {
+    instance.patch('http://localhost:3000/upload', formData)
+    .then(response => {
+      console.log('ok')
+    })
+    .then(() => {
+      Api.getContent()
+      .then((data) => {
+        setCurrentUser(data.user)
+        closeAllPopups()
+      })  
+    })
+    .catch(error => {
+      console.log(error)
+    });
       /*.finally(() => {
         setShowLoading(false);
     })*/
   }
-/*
-  React.useEffect(() => {
-    Api.getUserInfo()
-    .then((data) => {
-      setCurrentUser(data.user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  },[isLoggin]);*/
 
   function signOut(){
     Api.signOut() 
       .then((res) => {
         setIsLoggin(false)
         setCurrentUser({});
+        setImportantDates(null)
         console.log(currentUser)
         navigate('/signin')
-        //тут должен быть не редирект а изменение статуса на не юзера, должен измениться вид
-        //типо просматриваешь без регистрации?
       })
       .catch((err) => {
         console.log(err)
         setIsLoggin(false)
       })
   } 
-
+  
   function handleAddDreamClick(){
     setIsAddDreamPopup(true)
+  } 
+
+  function handleAddNewDateClick(){
+    setIsAddNewDatePopup(true)
   } 
 
   function handleChangeAvatarClick(){
@@ -163,16 +207,27 @@ function App() {
   }
   
   function closeAllPopups() {
-    /*setIsEditAvatarPopupOpen(false)
-    setIsAddDreamPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setIsDeletePopupOpen(false)*/
-    setIsInfoTooltip(false)
+    setIsAddAvatarPopap(false)
     setIsAddDreamPopup(false)
     setIsChangeAvatarPopup(false)
-    console.log('button close')
+    setIsAddNewDatePopup(false)
     setSelectedDream({})
     setSelectedMotan({})
+  }
+  
+  function handleAddNewDateSubmit(data) {
+    //setShowLoading(true);
+    Api.addMyNewDate(data)
+      .then((res) => {
+        setImportantDates([res, ...importantDates]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //setShowLoading(false);
+      })
   }
   
   function handleAddDreamSubmit(data) {
@@ -205,44 +260,11 @@ function App() {
         console.log(err)
       })
   }
-  //перенесла ее в соответствующий компонент-френдс серчинг
-/*
-  function handleGetUsersSubmit() {
-    Api.getUsers()
-      .then((res) => {
-        const users = res.data
-        //localStorage.setItem('users', users)
-        console.log(users)
-        //localStorage.setItem('users', JSON.stringify(users))
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        //setShowLoading(false);
-      })
-  }  */
-/*
-  React.useEffect(() => {
-    Api.getInitialMyDreams()
-    .then((dreams) => {
-      setDreams(dreams.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  },[isLoggin]);*/
-
 
   function handleGetUsersSubmit() {
     Api.getUsers()
       .then((res) => {
-        //const data = res.data
-        //console.log(res.data)
         setFriends(res.data)
-        //localStorage.setItem('users', users)
-       
-        //localStorage.setItem('users', JSON.stringify(users))
       })
       .catch((err) => {
         console.log(err)
@@ -252,27 +274,6 @@ function App() {
       })
   }
 
-  function checkArray() {
-    if(motanots.length) {
-      return setIsLength(true)
-    } else {
-      setIsLength(false)
-    }
-  } 
-
-  ///переписать не на текущего юзера, а на юзера с айди
-  function handleGetOneUserDreamsSubmit(_id) {
-  Api.getOneFriendDreams(_id) 
-  .then((res) => {
-    console.log(res.data)
-    checkArray()
-    setMotanots(res.data)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-}
-
 function handleDreamClick(dream) {
   setSelectedDream(dream);
 }
@@ -280,7 +281,6 @@ function handleDreamClick(dream) {
 function handleMotanClick(motan) {
   setSelectedMotan(motan);
 }
-
 
 function changeUserInfoSubmit(userData) {
   Api.changeUserInfo(userData)
@@ -290,7 +290,6 @@ function changeUserInfoSubmit(userData) {
         name: userData.name,
         about: userData.about,
         birthday: userData.birthday,
-        avatar: userData.avatar,
       });
       /*setProfileError(false)
       setChangeProfileMessage('Изменения внесены')
@@ -314,6 +313,19 @@ function changeUserInfoSubmit(userData) {
       }*/
     })
 }
+
+function getMyImportantDates() {
+  Api.getMyDates()
+    .then((res)=> {
+      setImportantDates(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+}
+
+
+
 
 
 //updateUserAvatar
@@ -348,7 +360,7 @@ function changeUserInfoSubmit(userData) {
         </Route>
 
         <Route
-        exact path="/my-page"
+        exact path={`/users/${userId}`}
         element={
           <ProtectedRoute isLoggin={isLoggin}>
             <MyPage
@@ -359,63 +371,89 @@ function changeUserInfoSubmit(userData) {
               onImgToChangeAvatar={handleChangeAvatarClick}
               addDreams={addDreams}
               limit={limit}
+              getMyImportantDates={getMyImportantDates}
             />
           </ProtectedRoute>
-
         }>
         </Route>  
         
         <Route 
-        path='/friends/:id' 
+        path='/users/:id' 
         element={
           <MyFriendsPage
             friends={friends}
-            motanots={motanots}
-            isLength={isLength}
+            isLoggin={isLoggin}
             onFriendCardClick={handleMotanClick}
           />
         }>
         </Route>
 
         <Route
-        path="/my-friends-full-dreams"
-        element={
-        <FriendsDreamsSlider/>
-        }>
-        </Route>
-
-        <Route
-        path="/friends"  ///Searching
+        path="/users"  ///Searching
         element={
         <FriendsSearching
         friends={friends}
         handleGetUsersSubmit={handleGetUsersSubmit}
-        handleGetOneUserDreamsSubmit={handleGetOneUserDreamsSubmit}/>
+        />
+        }>
+        </Route>
 
+        <Route
+        path="/my-friends"  ///Searching (MY!!!)
+        element={
+          <ProtectedRoute isLoggin={isLoggin}>
+            <AllMyFriendsPageAndSerching
+              handleGetUsersSubmit={handleGetUsersSubmit}
+            />
+          </ProtectedRoute>
         }>
         </Route>
 
         <Route
         path="/change-my-profile"
         element={
-        <ChangeMyProfile
-          onChangeSubmit={changeUserInfoSubmit}/>
+          <ProtectedRoute isLoggin={isLoggin}>
+            <ChangeMyProfile
+              onChangeSubmit={changeUserInfoSubmit}
+            />
+          </ProtectedRoute>
+        }>
+        </Route>
+
+        <Route
+        path={`/users/${userId}/dates`}
+        element={
+          <ProtectedRoute isLoggin={isLoggin}>
+            <MyImportantDatesPage
+              addPopupOpen={handleAddNewDateClick}
+              importantDates={importantDates}
+              getMyImportantDates={getMyImportantDates}
+            />
+          </ProtectedRoute>
+        }>
+        </Route>
+
+        <Route 
+        path='/users/:id/dates' 
+        element={
+          <MyImportantDatesPage
+        />
         }>
         </Route>
 
         <Route
         path="*"
         element={
-        <NotFoundPage />
+          <NotFoundPage />
         }>
         </Route>
 
-    
       </Routes>
 
-    <InfoTooltip 
-      isOpen={isInfoTooltip}
-      onClose={closeAllPopups}/>
+    <AddAvatarPopap 
+      isOpen={isAddAvatarPopap}
+      onClose={closeAllPopups}
+      handleUpdateAvatar={handleUpdateAvatar}/>
 
     <AddDreamPopup
       isOpen={isAddDreamPopup}
@@ -436,7 +474,13 @@ function changeUserInfoSubmit(userData) {
     <PopapChangeAvatar
       onClose={closeAllPopups}
       isOpen={isChangeAvatarPopup}
-      handleUpdateAvatarSubmit={handleUpdateAvatar} 
+      handleUpdateAvatarSubmit={handleUpdateAvatar}
+    />
+
+    <AddNewDatePopap
+      isOpen={isAddNewDatePopup}
+      onClose={closeAllPopups}
+      onAddDate={handleAddNewDateSubmit}
     />
 
     <Footer/>
@@ -446,6 +490,25 @@ function changeUserInfoSubmit(userData) {
 }
 
 export default App;
+
+
 /*
-background-color: rgb(6, 104, 71, 0.4);
+<Route
+        exact path="/my-page"
+        element={
+          <ProtectedRoute isLoggin={isLoggin}>
+            <MyPage
+              addPopupOpen={handleAddDreamClick}
+              OnDeleteMyDream={handleDeleteDream}
+              dreams={dreams}
+              onCardClick={handleDreamClick}
+              onImgToChangeAvatar={handleChangeAvatarClick}
+              addDreams={addDreams}
+              limit={limit}
+            />
+          </ProtectedRoute>
+        }>
+        </Route>  
+
+
 */

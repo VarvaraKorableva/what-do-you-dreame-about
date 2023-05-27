@@ -143,7 +143,7 @@
   border: 1px solid black;
   border-radius: 50px;
   font-size: 12px;
-  font-weight: 500px;
+  font-weight: 700px;
   cursor: pointer;
 }
 
@@ -181,7 +181,6 @@
   height: 30px;
   border: none;
   font-size: 12px;
-  font-weight: 500px;
 }
 
 .my-friends-page__filter-btn:first-of-type {
@@ -190,5 +189,49 @@
 
 .my-friends-page__filter-btn:hover {
   opacity: 0.8;
+}
+
+.my-friends-page__container-remind {
+  display: flex;
+  text-align: center;
+  max-width: 880px;
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: 150px;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .my-friends-page__container-remind {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+}
+
+.my-friends-page__message-about-empty-arr {
+  font-size: 12px;
+  margin: 0;
+
+}
+
+.my-friends-page__remind-btn {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 12px;
+  border: 1px solid black;
+  color: black;
+  border-radius: 50px;
+  width: 100px;
+  height: 30px;
+  margin-left: 10px;
+  transition: 0.5s;
+}
+
+.my-friends-page__remind-btn:hover {
+  background-color: black;
+  color: #fff;
+  transition: 0.5s;
 }
 

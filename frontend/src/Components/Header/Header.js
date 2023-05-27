@@ -1,25 +1,29 @@
 import React from 'react'
 import './Header.css'
 import { Link, useLocation } from 'react-router-dom'
-//import {CurrentUserContext} from '../../contexts/CurrentUserContext'
+import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
 function Header({isLoggin, signOut}) {
+  
+const currentUser = React.useContext(CurrentUserContext)
+
+const userId = currentUser._id
 
 const location = useLocation();
 
 return (
   <div className='header_container'>
-    <Link to="/my-page" className='header_logo'>
+    <Link to={`/users/${userId}`} className='header_logo'>
       <h1 className='header_logo'> What-do-you-dreame-about ?</h1>
     </Link>
-      {isLoggin && location.pathname === '/my-page'?
+      {isLoggin && location.pathname === `/users/${userId}`?
         <div className='header_wrapper'>
           <button className='header_LogOut-btn' onClick={signOut}>LogOut</button>
         </div>
       :  
       isLoggin ?
         <div className='header_wrapper'>
-          <Link to="/my-page" className='header_login-link'>
+          <Link to={`/users/${userId}`} className='header_login-link'>
             <p className='header_login-link'>My Page</p>
           </Link>
         </div>

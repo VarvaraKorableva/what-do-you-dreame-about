@@ -25,7 +25,7 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
   }
 
   function handlePriceChange(e) {
-    setPrice(e.target.value)
+    setPrice(e.target.value.replaceAll(' ', ''))
   }
 
   function handleDreamLinkChange(e) {

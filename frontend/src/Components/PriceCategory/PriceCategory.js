@@ -1,12 +1,29 @@
 import './PriceCategory.css';
 import React from 'react'
 
-function PriceCategory({motanots, onMotanClick, isLength, friend}) {
- /*
-  function handleClick() {
-    onMotanClick(dream);
-    console.log(dream._id)
-  }*/
+function PriceCategory({
+  isLength, friend, 
+  getResultFor100,
+  getResultFor250,
+  getResultFor500,
+  getResultForMore500
+}) {
+
+  function handle100Click() {
+    getResultFor100()
+  }
+
+  function handle250Click() {
+    getResultFor250()
+  }
+
+  function handle500Click() {
+    getResultFor500()
+  }
+
+  function handleMore500Click() {
+    getResultForMore500()
+  }
 
 
   function handleClick() {
@@ -30,10 +47,10 @@ function PriceCategory({motanots, onMotanClick, isLength, friend}) {
     isLength?
 
     <div className='price-category__field'>
-        <button className="price-category__container" onClick = {handleClick}>Until 100 $</button>
-        <button className="price-category__container" onClick = {handleClick}>Until 250 $</button>
-        <button className="price-category__container" onClick = {handleClick}>Until 500 $</button>
-        <button className="price-category__container" onClick = {handleClick}>More 500 $</button>
+        <button className="price-category__container" onClick = {handle100Click}>Until 100 $</button>
+        <button className="price-category__container" onClick = {handle250Click}>Until 250 $</button>
+        <button className="price-category__container" onClick = {handle500Click}>Until 500 $</button>
+        <button className="price-category__container" onClick = {handleMore500Click}>More 500 $</button>
     </div>
     :
 

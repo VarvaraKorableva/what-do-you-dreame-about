@@ -246,3 +246,38 @@
     margin-right: 15px;
   }
 }
+
+.myPage__container-about-empty-arr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+  margin-bottom: 150px;
+  max-width: 880px;
+  margin: auto;
+}
+
+.myPage__message-about-empty-arr {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .myPage__message-about-empty-arr {
+    margin-top: 15px;
+  }
+}
+
+.myPage__arrow-img {
+  width: 100px;
+  height: 100px;
+}
+
+@media screen and (max-width: 500px) {
+  .myPage__arrow-img {
+    width: 60px;
+    height: 60px;
+  }
+}

@@ -1,28 +1,34 @@
 import React from 'react'
 import './PopapChangeAvatar.css'
 
+import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
 function PopapChangeAvatar({onClose, isOpen, handleUpdateAvatarSubmit}) {
 
-  const [img, setImg] = React.useState()
-  const editAvatarRef = React.useRef('')
+const currentUser = React.useContext(CurrentUserContext)  
 
-  function handleImgLinkChange(e) {
-    setImg(e.target.files[0]);
-  }
-/*
+const [img, setImg] = React.useState(null);
+const editAvatarRef = React.useRef(null);
 
+function handleImgLinkChange(e) {
+  setImg(e.target.files[0]);
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  if (img) {
+    const userId = currentUser._id;
     const formData = new FormData();
-    formData.append('image', selectedFile);
-*/
-  function handleSubmit(e) {
-    e.preventDefault();
-    /*const formData = new FormData();
-    formData.append('image', img);*/
-    handleUpdateAvatarSubmit(
-    editAvatarRef.current.value
-    );
+    
+    formData.append('userId', userId);
+    formData.append('image', img);
+
+    handleUpdateAvatarSubmit(formData)
+
+  } else {
+    console.log('Файл не выбран');
   }
+}
 
   return (
     
@@ -38,14 +44,18 @@ function PopapChangeAvatar({onClose, isOpen, handleUpdateAvatarSubmit}) {
       <form 
         className='popap-change-avatar__form'
         onSubmit={handleSubmit}
+        method="post" 
+        encType="multipart/form-data"
         >
+ 
         <input
           ref={editAvatarRef}
           className='popap-change-avatar__input'
-          name='img'
+          name='image'
           type="file"
           placeholder="Add your picture"
           onChange={handleImgLinkChange}
+          
         >
         </input>
 
@@ -62,3 +72,13 @@ function PopapChangeAvatar({onClose, isOpen, handleUpdateAvatarSubmit}) {
 }
 
 export default PopapChangeAvatar;
+
+/*
+
+        <button 
+          onClick={() => editAvatarRef.current.click()}
+          className='popap-change-avatar__input'>
+          Загрузить картинку
+        </button> 
+
+*/

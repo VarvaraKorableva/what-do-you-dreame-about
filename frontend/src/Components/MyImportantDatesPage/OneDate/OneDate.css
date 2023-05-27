@@ -1,0 +1,97 @@
+.oneDate__container {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  border: 1px solid black;
+  border-radius: 50px;
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  justify-content: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: 1s ease;
+  
+}
+
+.oneDate__container:hover {
+  background-color: black;
+  color: #fff;
+  transition: 1s ease;
+}
+
+.oneDate__container__opened {
+  width: 220px;
+  min-height: 150px;
+  position: relative;
+  z-index: 2;
+}
+
+.oneDate__openBTN {
+  align-self: flex-end;
+  cursor: pointer;
+  background-image: url(../../../images/arrow.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-color: #fff;
+  border-radius: 50px;
+  border:none;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  /*border: 1px solid black;*/
+}
+
+.oneDate__openBTN:hover {
+  opacity: 0.5;
+  
+}
+
+.oneDate__inf {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500px;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.oneDate__inf-title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.oneDate__delete-BTN {
+  border: 1px solid black;
+  border-radius: 50px;
+  background-color: #fff;
+  cursor: pointer;
+  width: 90px;
+  height: 30px;
+  margin-right: 5px;
+  transition: 1s;
+}
+
+.oneDate__delete-BTN:hover {
+    opacity: 0.8;
+    transition: 1s;
+}
+
+.oneDate__BTN-container{
+  display: flex;
+  margin-top: 10px;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
