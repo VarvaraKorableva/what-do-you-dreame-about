@@ -1,10 +1,14 @@
 const multer = require('multer');
 
-const upload = multer({
-  storage: multer.memoryStorage(), // используем память, чтобы хранить файлы
-  limits: { fileSize: 10 * 1024 * 1024 }, // ограничение размера файла до 10 МБ
-  fileFilter: (req, file, cb) => { // настраиваем фильтр файлов
-    // тут можно добавить свои кастомные фильтры
-    cb(null, true);
-  },
-});
+const uploadSingle = (req, res, next) => {
+  upload.single('file')(req, res, function (error) {
+    if (error instanceof multer.MulterError) {
+      // Обработка ошибки Multer
+      return res.status(400).json({ error: error.message });
+    } else if (error) {
+      // Обработка других ошибок
+      return res.status(500).json({ error: 'Server error' });
+    }
+    next();
+  });
+};

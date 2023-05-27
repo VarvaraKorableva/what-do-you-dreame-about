@@ -16,6 +16,7 @@
   cursor: pointer;
   font-size: 12px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .footer__text:hover {

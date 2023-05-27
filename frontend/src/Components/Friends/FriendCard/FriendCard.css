@@ -99,19 +99,40 @@
   opacity: 0.7;
 }
 
-.friendCard__friends-btn {
-  border: none;
-  height: 20px;
-  width: 60px;
-  color: black;
-  margin-left: 10px;
-  font-size: 300;
-  color: rgb(131, 126, 126);
-  opacity: 0.8;
-  cursor: pointer;
-  text-align: right;
+.friendCard__friends-link-text {
+  font-size: 12px;
+  font-weight: 400;
 } 
 
-.friendCard__friends-btn:hover {
-  color:black;
+@media screen and (max-width: 800px) {
+  .friendCard__friends-link-text {
+    font-size: 10px;
+  }
+} 
+
+.friendCard__friends-link {
+  display: flex;
+  border: none;
+  height: 30px;
+  width: 30%;
+  background-color: transparent;
+  margin-left: 10px;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 50px;
+  align-self: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+}
+
+.friendCard__friends-link:hover {
+  color: #fff;
+  background-color: black;
 }

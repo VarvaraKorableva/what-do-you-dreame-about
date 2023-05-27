@@ -1,0 +1,13 @@
+.allFriendsField__field {
+    display: grid;
+    gap: 11px;
+    padding: 0;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 75px));
+    grid-template-rows: auto;
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    justify-content: center;
+}

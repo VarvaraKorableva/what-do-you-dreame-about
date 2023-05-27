@@ -1,0 +1,36 @@
+.oneFriendCard__container {
+  /*width: 50px;*/
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.oneFriendCard__container:last-of-type {
+  margin-right: 0;
+}
+
+.oneFriendCard__img-container {
+  /*width: 50px;*/
+  height: 50px;
+}
+.oneFriendCard__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.oneFriendCard__inf-container {
+  max-width: 100%;
+  text-align: center;
+}
+.oneFriendCard__inf {
+  margin-bottom: 0;
+  margin-top: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

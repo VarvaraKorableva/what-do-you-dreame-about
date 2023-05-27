@@ -1,10 +1,12 @@
 import React from 'react'
 import './MyPage.css'
 import DreamsField from '../DreamsField/DreamsField'
+import arrow from '../../images/lineToButton.png'
+
 import { Link } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
-function MyPage({addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) {
+function MyPage({ addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) { 
 
 const [toRenderDreams, setToRenderDreams] = React.useState([])
 const [isAddAllBtnClicked, setIsAddAllBtnClicked] = React.useState(false)
@@ -12,6 +14,8 @@ const [isAddlimitBtnClicked, setIsAddlimitBtnClicked] = React.useState(false)
 const [isDreamsArrEmpty, setIsDreamsArrEmpty] = React.useState(false)
 
 const currentUser = React.useContext(CurrentUserContext)
+
+const userId = currentUser._id
 
 React.useEffect(() => {
   setToRenderDreams(dreams)
@@ -30,7 +34,6 @@ const isDisappear = toRenderDreams.length <= limit
 function changeAllDreamsBtnStatus() {
   setIsAddAllBtnClicked(true)
 }
-/////not right
 
 function checkLengthOfDreams() {
   if(isAddAllBtnClicked) {
@@ -45,7 +48,6 @@ function handleAddDreams() {
   setIsAddlimitBtnClicked(true)
 }
 
-
 return (
   <div>
     
@@ -53,13 +55,18 @@ return (
       <div className='myPage_inf-container'>
         <p className='myPage_inf'>Hello, {currentUser.name}</p>
 
+        <Link to={`/users/${userId}/dates`} 
+          className='myPage_inf myPage__link'
+        >
+          <p className='myPage_view-link-text'>Add important dates →</p>
+        </Link>
         <Link to="/change-my-profile" className='myPage_inf myPage__link'>
           <p className='myPage_view-link-text'>Change information about yourself →</p>
         </Link>
         <Link to="/my-friends" className='myPage_inf myPage__link'>
           <p className='myPage_view-link-text'>See what my friends dream about →</p>
         </Link>
-        <Link to="/friends" className='myPage_inf myPage__link'>
+        <Link to="/users" className='myPage_inf myPage__link'>
           <p className='myPage_view-link-text'>Search for friends →</p>
         </Link>
       </div>  
@@ -69,7 +76,11 @@ return (
         onClick={onImgToChangeAvatar}>
         <img 
           className='myPage_img' 
-          src={currentUser.avatar} 
+          //src={currentUser.avatar} 6904_3992fe627ce13433b109e56fa618cf79-500x500.jpeg
+          //src={`http:\\localhost:3000\${currentUser.avatar}`} 
+          src={`http://localhost:3000${currentUser.avatar}`}
+
+          //http://localhost:3000/6904_3992fe627ce13433b109e56fa618cf79-500x500.jpeg
           alt={currentUser.name}>
         </img>
       </button>
@@ -83,7 +94,13 @@ return (
       </button>
     </div>
     {isEpmty?
-    <span>nothing to render</span>
+    <div className='myPage__container-about-empty-arr'>
+      <img src={arrow} alt="arrImg" className='myPage__arrow-img'/>
+      <p className='myPage__message-about-empty-arr'>
+        In order to add a dream, click on the button and fill out the form. 
+        Add a dream link so that your friend can easily fulfill your dream.
+      </p>
+    </div>
     :
     <>
     <DreamsField

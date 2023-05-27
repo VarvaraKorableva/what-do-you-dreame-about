@@ -28,21 +28,12 @@ module.exports.createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    /*
-    .then((userData) => res.status(201).send({
-      email: userData.email,
-      id: userData._id,
-      name: userData.name,
-      about: userData.about,
-      avatar: userData.avatar,
-    }))*/
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'SECRET_KEY', { expiresIn: '7d' });
       return res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
-        .send({  });//token
+        .send({ user });
     })
-    // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new CastError('Введены некорректные данные'));
@@ -60,7 +51,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'SECRET_KEY', { expiresIn: '7d' });
       return res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
-        .send({  });//token
+        .send({ user });
     })
     .catch(() => {
       next(new AuthError('Ошибка доступа'));
@@ -92,7 +83,6 @@ module.exports.getСurrentUser = (req, res, next) => {
 module.exports.getUser = (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId)
-    // eslint-disable-next-line consistent-return
     .then((user) => {
       if (!user) {
         return next(new NotFoundError('Ошибка, пользователь по указанному _Id не найден'));
@@ -101,27 +91,10 @@ module.exports.getUser = (req, res, next) => {
     })
     .catch(next);
 };
-/*
-module.exports.updateAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Ошибка, пользователь не найден');
-      }
-      return res.send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new CastError('Введены некорректные данные'));
-      } else { next(err); }
-    });
-};*/
-//presentDates,
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, about, birthday, avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about, birthday, avatar }, { new: true, runValidators: true })
+  const { name, about, birthday } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, about, birthday }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Ошибка, пользователь не найден');
@@ -137,44 +110,25 @@ module.exports.updateUser = (req, res, next) => {
 module.exports.logout = (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 };
-/*
-const multer = require('multer');
 
-const upload = multer({
-  storage: multer.memoryStorage(), // используем память, чтобы хранить файлы
-  limits: { fileSize: 10 * 1024 * 1024 }, // ограничение размера файла до 10 МБ
-  fileFilter: (req, file, cb) => { // настраиваем фильтр файлов
-    // тут можно добавить свои кастомные фильтры
-    cb(null, true);
-  },
-});
-
-*/
-module.exports.updateAvatar = (req, res, next) => {
-  // считываем содержимое файла в виде двоичных данных
-  const buffer = req.file.buffer;
-  User.findByIdAndUpdate(req.user._id, { avatar: buffer }, { new: true, runValidators: true })
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Ошибка, пользователь не найден');
-      }
-      return res.send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new CastError('Введены некорректные данные'));
-      } else { next(err); }
-    });
-};/*
+module.exports.updateAvatar = async (req, res) => {
   try {
-    // считываем содержимое файла в виде двоичных данных
-    const buffer = req.file.buffer;
-
-    // сохраняем аватарку в базе данных
     const user = await User.findByIdAndUpdate(
-      req.user.id,
-      { avatar: buffer },
-      { new: true } // возвращать обновленный документ
+      req.user._id,
+      { avatar: req.file.filename }, // Поле `avatar` будет содержать имя файла
+      { new: true, runValidators: true }
     );
 
-*/
+    if (!user) {
+      return res.status(404).json({ error: 'Пользователь не найден' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    if (error.name === 'ValidationError' || error.name === 'CastError') {
+      res.status(400).json({ error: 'Некорректные данные' });
+    } else {
+      res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    } 
+  }
+};

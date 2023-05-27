@@ -1,0 +1,52 @@
+/*.datesField__field {
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: auto;
+    gap: 25px;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 500px) {
+    .datesField__field {
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 0;
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    .datesField__field {
+      grid-template-columns: repeat(2, 1fr);
+
+    }
+  }*/
+
+  .datesField__field {
+    max-width: 880px;
+    display: flex;
+    flex-wrap: wrap;
+  
+    align-items: center;
+    justify-content: center;
+ 
+    gap: 25px;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 500px) {
+    .datesField__field {
+      margin-top: 30px;
+      margin-bottom: 0;
+      gap: 20px;
+    }
+  }

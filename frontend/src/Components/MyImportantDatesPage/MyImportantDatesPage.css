@@ -1,0 +1,23 @@
+.my-important-dates__add-btn {
+    width: 250px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: black;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-self: center;
+    margin: auto;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.my-important-dates__add-btn:hover {
+    opacity: 0.8;
+    transition: 1s;
+    border: 3px solid black;
+}
