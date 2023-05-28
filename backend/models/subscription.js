@@ -18,3 +18,26 @@ const subscriptionSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('subscription', subscriptionSchema);
+
+
+
+
+/*
+const mongoose = require('mongoose');
+
+const subscriberSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  subscriber: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+});
+
+const Subscriber = mongoose.model('Subscriber', subscriberSchema);
+
+module.exports = Subscriber;
+
+*/

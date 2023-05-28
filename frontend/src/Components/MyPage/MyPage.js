@@ -54,21 +54,17 @@ return (
     <div className='myPage_profile-container'>
       <div className='myPage_inf-container'>
         <p className='myPage_inf'>Hello, {currentUser.name}</p>
-
-        <Link to={`/users/${userId}/dates`} 
-          className='myPage_inf myPage__link'
-        >
-          <p className='myPage_view-link-text'>Add important dates →</p>
-        </Link>
-        <Link to="/change-my-profile" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>Change information about yourself →</p>
-        </Link>
-        <Link to="/my-friends" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>See what my friends dream about →</p>
-        </Link>
-        <Link to="/users" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>Search for friends →</p>
-        </Link>
+        <div className='myPage_link-container'>
+          <Link to={`/users/${userId}/dates`} className='myPage_inf myPage__link'>
+            <p className='myPage_view-link-text'>Add important dates →</p>
+          </Link>
+          <Link to="/change-my-profile" className='myPage_inf myPage__link'>
+            <p className='myPage_view-link-text'>Change information about yourself →</p>
+          </Link>
+          <Link to="/users" className='myPage_inf myPage__link'>
+            <p className='myPage_view-link-text'>Search people →</p>
+          </Link>
+        </div>
       </div>  
       <button 
         type="button" 
@@ -139,3 +135,10 @@ return (
 }
 
 export default MyPage;
+
+
+/*
+        <Link to="/my-friends" className='myPage_inf myPage__link'>
+          <p className='myPage_view-link-text'>See what my friends dream about →</p>
+        </Link>
+*/

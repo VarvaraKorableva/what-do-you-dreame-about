@@ -2,7 +2,8 @@
 import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {CurrentUserContext} from './contexts/CurrentUserContext'
-import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute'
+import {useGetMyDatesQuery} from './redux'
 import './App.css'
 import * as Api from './Api/Api'
 import MyPage from './Components/MyPage/MyPage'
@@ -46,6 +47,12 @@ function App() {
 
   const navigate = useNavigate()
 
+  //const {data = [], isloading} = useGetMyDatesQuery();
+  
+  
+  //if (isloading) return <h1>Loading...</h1>
+
+  
 // Изменить настройки по умолчанию
   axios.defaults.maxContentLength = 3 * 1024 * 1024;
 // Создать экземпляр axios с настройками по умолчанию
@@ -372,6 +379,7 @@ function getMyImportantDates() {
               addDreams={addDreams}
               limit={limit}
               getMyImportantDates={getMyImportantDates}
+              
             />
           </ProtectedRoute>
         }>
@@ -428,6 +436,7 @@ function getMyImportantDates() {
               addPopupOpen={handleAddNewDateClick}
               importantDates={importantDates}
               getMyImportantDates={getMyImportantDates}
+             
             />
           </ProtectedRoute>
         }>

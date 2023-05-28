@@ -69,14 +69,6 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
  
-  /*
-  hobbies: [{ //оно должно содержать массив строк. Каждая — длиной от 2 до 30 символов
-    type: String,
-    minlength: 2,
-    maxlength: 30,
-  }]
-
-  */
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {

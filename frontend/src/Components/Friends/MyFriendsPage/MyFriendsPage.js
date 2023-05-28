@@ -20,6 +20,24 @@ function MyFriendsPage({onFriendCardClick, isLoggin}) {
 
   const date = '20.06.2023';
   const days = 6;
+/*
+  const events = [
+    {
+      date:'31.12.2023',
+      name:'New Year',
+      id:'1'
+    },
+    {
+      date:'08.12.2023',
+      name:'New Year',
+      id:'1'
+    },
+  ]
+  
+  const serverDate = '2024-03-08';
+  const formattedDate = new Date(serverDate).toLocaleDateString('en-GB');
+  
+  */
 
   const navigate = useNavigate()
   
@@ -117,6 +135,21 @@ React.useEffect(() => {
   if (!userData || !motanots) {
     return <div>Loading...</div>;
   }
+/*
+  function handleSubscribe(id) {
+    //setShowLoading(true);
+    Api.subscribe(id)
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //setShowLoading(false);
+      })
+  }*/
+  //subscribe
 
 return (
   <div>
@@ -127,18 +160,12 @@ return (
         <button className='my-friends-page__back-btn' onClick={goBack}>⟵ Back</button>
 
         <p className='my-friends-page__inf'>{userData.name}</p>
-        <p className='my-friends-page__inf'>{userData.birthday}</p>
-        <p className='my-friends-page__inf'>{userData.about}</p>
+
         
         <Link to={`/users/${id}/dates`}>
           <p className='my-friends-page__inf'>See all important dates for {userData.name} →</p>
         </Link>
         
-        {isLoggin?
-          <button className='my-friends-page__add-friend-btn'>Add to the friend</button>
-        :
-          <></>
-        }
       </div> 
  
       <div className='my-friends-page__img-container'>
@@ -222,3 +249,19 @@ export default MyFriendsPage;
               }
 
 /*<button className='my-friends-page__add-friend-btn'>Look all users</button>*/
+
+
+/*
+        {isLoggin?
+          <button 
+            className='my-friends-page__add-friend-btn'
+            //onClick={handleSubscribe}
+          >
+              Add to the friend
+          </button>
+        :
+          <></>
+        }
+        <p className='my-friends-page__inf'>{userData.birthday}</p>
+        <p className='my-friends-page__inf'>{userData.about}</p>
+*/
