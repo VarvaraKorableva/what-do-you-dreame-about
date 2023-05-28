@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: auto;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   max-width: 880px;
 }
 
@@ -16,6 +16,7 @@
 .myPage_inf-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 450px) {
@@ -30,6 +31,11 @@
     
     margin-top: 25px;
   }
+}
+
+.myPage_link-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .myPage_inf {
@@ -57,8 +63,10 @@
 }
 
 .myPage_img {
-  width: 300px;
-  height: 300px;
+  /*width: 300px;
+  height: 300px;*/
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   border: 3px solid black;
   cursor: pointer;
@@ -67,15 +75,15 @@
 
 @media screen and (max-width: 950px) {
   .myPage_img {
-    width: 250px;
-    height: 250px;;
+    width: 200px;
+    height: 200px;;
   }
 }
 
 @media screen and (max-width: 600px) {
   .myPage_img {
-    width: 200px;
-    height: 200px;;
+    width: 150px;
+    height: 150px;;
   }
 }
 

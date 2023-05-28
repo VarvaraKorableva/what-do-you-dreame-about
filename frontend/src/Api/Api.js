@@ -188,7 +188,6 @@ export const changeUserInfo = ( userData ) => {
         name: userData.name,
         about: userData.about,
         birthday: userData.birthday,
-        //avatar: userData.avatar,
       })
   })
       .then(checkResponse)
@@ -297,3 +296,44 @@ export const getDinamicUser = (id) => {
   })
   .then(checkResponse);
 }
+
+ /* export const subscribe = (userId) => {
+    return fetch(`${BASE_URL}/subscribe`, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId: userId })
+    })
+      .then(checkResponse);
+  }
+
+  export const unsubscribe = (userId) => {
+    return fetch(`${BASE_URL}/unsubscribe`, {
+      credentials: 'include',
+      method: 'DELETE',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId: userId })
+    })
+      .then(checkResponse);
+  }
+
+
+  export const getAllSubsriptions = () => {
+    return fetch(`${BASE_URL}/users`, {
+      credentials: 'include',
+      method:'GET',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(checkResponse);
+  }
+
+  ///subscriptions/:userId*/
