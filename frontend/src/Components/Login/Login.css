@@ -95,16 +95,6 @@
      color: black;
      padding-left: 15px;
    }
-/*
-   .login__inputwrong {
-     width: 100%;
-     height: 46px;
-     background-color: #f9f9f9;
-     border: none;
-     border-radius: 10px;
-     margin-bottom: 20px;
-     padding-left: 15px;
-   }*/
 
    .login__input:last-of-type {
      margin-bottom: 0px;
@@ -180,8 +170,8 @@
   width: 100%;
   height: 45px;
   border: none;
+  border-radius: 50px;
   margin-top: 69px;
-  border-radius: 10px;
   padding: 0;
   font-weight: 400;
   font-size: 14px;
@@ -210,11 +200,10 @@
     background-color: transparent;
     border: 1px solid black;
     margin-top: 69px;
-    border-radius: 3%;
+    border-radius: 50px;
     padding: 0;
     font-weight: 400;
     font-size: 14px;
-    cursor: pointer;
     transition: 1s ease;
 
 }
@@ -223,6 +212,13 @@
   .login__btn {
     width: 100%;
     font-size: 12px;
-    margin-top: 157px;
+    margin-top: 120px;
   }
+}
+
+.login__inputmistake {
+  font-size: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: rgb(181, 71, 71);
 }

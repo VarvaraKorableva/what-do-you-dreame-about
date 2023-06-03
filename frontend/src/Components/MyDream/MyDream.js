@@ -43,7 +43,7 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
       
       <div className="myDream__inf-container">
         <p className="myDream__inf">Name: {dream.name}</p>
-        <p className="myDream__inf">Price: {price}</p>
+        <p className="myDream__inf">Price: {price} $</p>
         <a className="myDream__inf myDream__inf-link" href={dream.imgLink} target='blank' >Link: {dream.imgLink}</a>
       </div>
 

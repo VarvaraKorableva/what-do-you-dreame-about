@@ -34,7 +34,7 @@ function MyFriendOneDream({friendDream, onFriendCardClick}) {
       
       <div className="myFriendOneDream__inf-container">
         <p className="myFriendOneDream__inf">Name: {friendDream.name}</p>
-        <p className="myFriendOneDream__inf">Price: {price}</p>
+        <p className="myFriendOneDream__inf">Price: {price} $</p>
         <a className="myFriendOneDream__inf myDream__inf-link" href={friendDream.imgLink} target='blank' >Link: {friendDream.imgLink}</a>
       </div>
 

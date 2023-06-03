@@ -255,8 +255,42 @@
     background-color: transparent;
     color: black;
     border: 1px solid black;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-top: 45px;
+    /*cursor: pointer;*/
+    border-radius: 50px;
+    margin-top: 15px;
 
+  }
+
+  .popap-add-avatar__btn__active {
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    color: #fff;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 15px;
+  }
+
+
+  .popap-add-avatar__imagePreview-container {
+    /*width: 150px;
+    height: 150px;*/
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .popap-add-avatar__imagePreview {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .popap-add-avatar__error-message {
+    font-size: 10px;
+    margin-top: 10px;
+    color: rgb(181, 71, 71);
   }

@@ -6,74 +6,61 @@ import * as Api from '../../../Api/Api'
 
 function FriendsSearching({handleGetUsersSubmit, friends}) {
 
-  const [keyWord, setKeyWord] = React.useState('')
-  //const [users, setUsers] = React.useState([])
-// Сделать контейнер для друзей, но через флекс, хотя можно и через грид
-//сделать компонент контейнер + непосредственный друг-карточка друга
-function handleSubmit(e) {
-  e.preventDefault();
-  //handleFriendsSearchSubmit()
-  handleGetUsersSubmit();
-}
-/*
-function handleGetUsersSubmit() {
-  Api.getUsers()
-    .then((res) => {
-      //const data = res.data
-      console.log(res)
-      setUsers(res.data)
-      //localStorage.setItem('users', users)
-     
-      //localStorage.setItem('users', JSON.stringify(users))
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    .finally(() => {
-      //setShowLoading(false);
-    })
-} */ /*
-//keyWordFromInput
-function handleFriendsSearchSubmit() {
-  //setKeyWord(keyWordFromInput)
-  //localStorage.setItem('keyWord', keyWord)
-  Api.getUsers()
-  .then((res) => {
+  const [keyWord, setKeyWord] = React.useState('')//setError
+  const [error, setError] = React.useState('')
+  const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
 
-    setUsers(res.data)
-    
-    //const usersAfterFilter = filterUsers(users, keyWord)
-    //localStorage.setItem('usersAfterFilter', JSON.stringify(usersAfterFilter))
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-  .finally(() => {
-    //setIsLoading(false)
-  })
-}*/
+  const handleSearchInputChange = (e) => {
+    setKeyWord(e.target.value)
+  }
+
+  /*
+  function handleSubmit(e) {
+    e.preventDefault();
+    const afterFilter = filterItems(friends, keyWord);
+    setUsersAfterFilter(afterFilter);
+  }*/
+  
+  function filterItems(friends, keyWord) {
+    const queryFriends = Array.isArray(friends)
+      ? friends.filter((item) => {
+          return (
+            typeof item === 'string' && item.toLowerCase().includes(keyWord.toLowerCase())
+          );
+        })
+      : [];
+    return queryFriends;
+  }
 /*
-function filterUsers(users, keyWord) {
-  const queryUsers = Array.isArray(users) ?
-  users.filter((item) => {
-    return (
-      item.nameRU.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
-    )
-  })
-  : []
-  return queryUsers
-}*/
+  React.useEffect(() => {
+    handleGetUsersSubmit();
+  }, []);*/
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const afterFilter = filterItems(friends, keyWord)
+    setUsersAfterFilter(afterFilter)
+    console.log(friends)
+    console.log(keyWord)
+    console.log(afterFilter)
+  }
+
 
 return (
   <>
 
   <div className='friendsSearching__container'>
     <form className='friendsSearching__form' onSubmit={handleSubmit}>
-       <input className='friendsSearching__input'></input>
+      <input 
+        className='friendsSearching__input'
+        value={keyWord || ''}
+        onChange={handleSearchInputChange}>
+      </input>
        <button 
          className='friendsSearching__input-loop-btn'
          type='submit'
-       ></button>
+       >
+      </button>
     </form>
 
     <p className='friendsSearching__title'>Friends list:</p>

@@ -5,8 +5,9 @@ import './MyFriendsPage.css'
 import DreamsField from '../../DreamsField/DreamsField'
 import PriceCategory from '../../PriceCategory/PriceCategory'
 import * as Api from '../../../Api/Api'
+import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
-function MyFriendsPage({onFriendCardClick, isLoggin}) {
+function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubsriptions}) {
   
   const [toRenderDreams, setToRenderDreams] = React.useState([])
   const [isShowAllBtnClicked, setIsShowAllBtnClicked] = React.useState(false)
@@ -15,34 +16,46 @@ function MyFriendsPage({onFriendCardClick, isLoggin}) {
   const [motanots, setMotanots] = React.useState([]) 
   const [isLength, setIsLength] = React.useState(false)
   const [dates, setDates] = React.useState([]) 
+  //const [allMySubsriptions, setAllMySubsriptions] = React.useState([])
 
   const [userData, setUserData] = React.useState(null)
 
-  const date = '20.06.2023';
-  const days = 6;
-/*
-  const events = [
-    {
-      date:'31.12.2023',
-      name:'New Year',
-      id:'1'
-    },
-    {
-      date:'08.12.2023',
-      name:'New Year',
-      id:'1'
-    },
-  ]
-  
-  const serverDate = '2024-03-08';
-  const formattedDate = new Date(serverDate).toLocaleDateString('en-GB');
-  
-  */
+  const currentUser = React.useContext(CurrentUserContext)
+
+  const userId = currentUser._id
 
   const navigate = useNavigate()
   
   let { id } = useParams();
-  //const friend = friends.find(f => f._id === id);
+ 
+
+  React.useEffect(() => {
+    /*if(!allMySubsriptions){
+      return
+    }*/
+    getAllSubsriptions(userId)
+    
+  }, []);
+
+  let isSubsriptions = allMySubsriptions.some(subscriber => subscriber.subscriber === id)
+  console.log(isSubsriptions)
+
+  function handleSubscribe() {
+    const subscriberId = id
+    addSubscribe(subscriberId, userId)
+  }
+
+  function handleDeleteSubscribe() {
+    let subscription = allMySubsriptions.find(subscription => subscription.subscriber === id)
+    console.log(subscription._id)
+    let subscriptionId = subscription._id
+    deleteSubsription(subscriptionId)
+  }
+
+  //deleteSubsription
+
+  const date = '20.06.2023';
+  const days = 6;
 
   React.useEffect(() => {
     const getUser = (userId) => {
@@ -88,7 +101,7 @@ React.useEffect(() => {
   const getDates = (userId) => {
     Api.getOneFriendImportantDates(userId)
       .then((res) => {
-        console.log(res.data)
+        //console.log(res.data)
         setDates(res.data)
       })
       .catch(error => console.error(error));
@@ -135,6 +148,7 @@ React.useEffect(() => {
   if (!userData || !motanots) {
     return <div>Loading...</div>;
   }
+
 /*
   function handleSubscribe(id) {
     //setShowLoading(true);
@@ -150,7 +164,7 @@ React.useEffect(() => {
       })
   }*/
   //subscribe
-
+  
 return (
   <div>
     
@@ -165,6 +179,28 @@ return (
         <Link to={`/users/${id}/dates`}>
           <p className='my-friends-page__inf'>See all important dates for {userData.name} →</p>
         </Link>
+
+        {isLoggin?
+          <>
+            {isSubsriptions?
+              <button 
+                className='my-friends-page__add-friend-btn'
+                onClick={handleDeleteSubscribe}
+              >
+                Unsubscribe
+              </button>
+            :
+              <button 
+                className='my-friends-page__add-friend-btn'
+                onClick={handleSubscribe}
+              >
+                Subscribe
+              </button>
+            }
+          </>
+        :
+          <></>
+        }
         
       </div> 
  
