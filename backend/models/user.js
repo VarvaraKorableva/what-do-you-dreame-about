@@ -14,13 +14,14 @@ const userSchema = new mongoose.Schema({
 
   birthday: {
     type: Date,
-    default: "",
+    default: null,
+    //required: false,
   },
-
+/*
   presentDates: [{
     type: Date,
   }],
-/*
+
   dreams: [{ 
     type: Schema.Types.ObjectId, 
     ref: 'dream'

@@ -9,7 +9,7 @@ export const BASE_URL = '//localhost:3000';
 
 export const register = ( {password, email, name} ) => {
   return fetch(`${BASE_URL}/signup`, {
-    //credentials: 'include',
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -18,7 +18,8 @@ export const register = ( {password, email, name} ) => {
     body: JSON.stringify({
       password: password,
       email: email,
-      name: name 
+      name: name,
+     // birthday: birthday, 
       })
   }).then((res) => {
     console.log(res);
@@ -26,7 +27,7 @@ export const register = ( {password, email, name} ) => {
   });
 }; 
 
-export const authorize = ( password, email ) => {
+export const authorize = ( {password, email} ) => {
   return fetch(`${BASE_URL}/signin`, {
       credentials: 'include',
       method: "POST",
@@ -34,7 +35,10 @@ export const authorize = ( password, email ) => {
           "Accept": "application/json",
           "Content-Type": "application/json"
       },
-      body: JSON.stringify({ password, email })
+      body: JSON.stringify({ 
+        password: password,
+        email: email, 
+      })
   })
       .then(checkResponse)
 };
@@ -193,97 +197,49 @@ export const changeUserInfo = ( userData ) => {
       .then(checkResponse)
 };
 
-export const updateUserAvatar = (formData) => {
-  return fetch (`${BASE_URL}/upload`, {
+export const subscribe = (subscriberId, userId) => {
+  return fetch (`${BASE_URL}/subscribe`, {
     credentials: 'include',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: formData
+    body: JSON.stringify({
+      subscriberId: subscriberId,
+      userId: userId
+    })
   })
-  .then(checkResponse)
+  .then(checkResponse);
 }
 
-//body: formData
+export const getAllSubsriptions = (userId) => {
+  return fetch(`${BASE_URL}/subscribe/${userId}`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(checkResponse);
+}
 
+export const deleteSubsription = (subscriptionId) => {
+  return fetch (`${BASE_URL}/unsubscribe/${subscriptionId}`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(checkResponse);
+}
+
+///subscribe/:userId
+///unsubscribe/:userId
 //name, about, birthday, avatar
-
-/*
-
-  getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
-      credentials: 'include',
-      method:'GET',
-      headers: this._headers
-    })
-    .then(this._checkResponse);
-  }
-
-  setUserInfo(userData) {
-    return fetch(`${this._url}/users/me`, {
-      credentials: 'include',
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: userData.name,
-        about: userData.about
-      })
-    })
-    .then(this._checkResponse);
-  }
-
-  getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      credentials: 'include',
-      method:'GET',
-      headers: this._headers
-    })
-    .then(this._checkResponse);
-  }
-
-
-
-  deleteCard(id) {
-    return fetch (`${this._url}/cards/${id}`, {
-      credentials: 'include',
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(this._checkResponse);
-  }
-
-  changeLikeStatus(id, isLiked) {
-    return fetch (`${this._url}/cards/${id}/likes`, {
-      credentials: 'include',
-      method: `${isLiked ? 'PUT' : 'DELETE'}`,
-      headers: this._headers
-    })
-        .then(this._checkResponse);
-  }
-
-  updateUserAvatar(data) {
-    return fetch (`${this._url}/users/me/avatar`, {
-      credentials: 'include',
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: data.avatar
-      })
-    })
-      .then(this._checkResponse);
-  }
-}
-
-const api = new Api({
-  url:'//localhost:3000',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-export {api};*/
 
 export const getDinamicUser = (id) => {
   return fetch(`${BASE_URL}/usersopenrouter/${id}`, {
@@ -321,19 +277,6 @@ export const getDinamicUser = (id) => {
       body: JSON.stringify({ userId: userId })
     })
       .then(checkResponse);
-  }
-
-
-  export const getAllSubsriptions = () => {
-    return fetch(`${BASE_URL}/users`, {
-      credentials: 'include',
-      method:'GET',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then(checkResponse);
   }
 
   ///subscriptions/:userId*/

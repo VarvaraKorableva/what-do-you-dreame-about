@@ -7,17 +7,48 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
     const [name, setName] = React.useState('')
     const [date, setDate] = React.useState('')
     const [description, setDescription] = React.useState('')
+
+    const [errorNameMessage, setErrorNameMessage] = React.useState('')
+    const [errorDateMessage, setErrorDateMessage] = React.useState('')
+    //const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
+
+    const [errorName, setErrorName] = React.useState(true)
+    const [errorDate, setErrorDate] = React.useState(true)
+    //const [errorDescription, setErrorDescription] = React.useState(true)
+
+    const [isValid, setIsValid] = React.useState(false);
   
-    function handleEventChange(e) {
-      setName(e.target.value)
+
+    const handleEventChange = (e) => {
+      if (!e.target.value.length) {
+        setErrorNameMessage('The name of event field must be filled in.')
+        setErrorName(true);
+       } else if (e.target.value.length < 2) {
+        setErrorNameMessage('The name of event must be at least 2 characters long.')
+        setErrorName(true);
+       } else if (e.target.value.length > 30) {
+        setErrorNameMessage('The name of event must be no more than 30 characters.')
+        setErrorName(true);
+       } else {
+        setErrorNameMessage('')
+        setErrorName(false);
+       }
+       setName(e.target.value)
     }
-  
-    function handleDescriptionChange(e) {
-        setDescription(e.target.value)
+
+    const handleDescriptionChange = (e) => {
+      setDescription(e.target.value)
     }
   
     function handleDateOfEventChange(e) {
         setDate(e.target.value)
+        if(!date) {
+          setErrorDate(true)
+          setErrorDateMessage('дата должна быть заполнена')
+        } else {
+          setErrorDate(false)
+          setErrorDateMessage('')
+        }
     }
   
     function handleSubmit(e) {
@@ -29,38 +60,51 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       });
     }
   
+    React.useEffect(() => {
+      if (errorName || errorDate) {
+        setIsValid(false)
+      } else {
+        setIsValid(true)
+      }
+    }, [errorName, errorDate])
+
     return (
       
-      <div className={`add-dream-popup ${isOpen && 'add-dream-popup__opened'}`}>
+      <div className={`add-new-date-popup ${isOpen && 'add-new-date-popup__opened'}`}>
   
-      <div className="add-dream-popup__container">
+      <div className="add-new-date-popup__container">
       <button 
-        className="add-dream-popup__close-button" 
+        className="add-new-date-popup__close-button" 
         type="button" 
         onClick={onClose}>
       </button>
-      <h2 className="add-dream-popup__title">Add a new date</h2>
+      <h2 className="add-new-date-popup__title">Add a new date</h2>
         <form 
-          className='add-dream-popup__form'
+          className='add-new-date-popup__form'
           onSubmit={handleSubmit}>
           <input
-            className='add-dream-popup__input'
+            className='add-new-date-popup__input'
             name='name'
             type='text'
             placeholder="Name of event"
             onChange={handleEventChange}
           ></input>
+
+          <span className='add-new-date-popup__inputmistake'>{errorNameMessage}</span>
   
           <input
-            className='add-dream-popup__input'
+            className='add-new-date-popup__input'
             name='date'
             type='date'
+            lang="en"
             placeholder="Date of event"
             onChange={handleDateOfEventChange}
           ></input>
+
+          <span className='add-new-date-popup__inputmistake'>{errorDateMessage}</span>
   
           <input
-            className='add-dream-popup__input'
+            className='add-new-date-popup__input'
             name='description'
             type='text'
             placeholder="Describe the event a little bit"
@@ -68,10 +112,11 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
           ></input>
   
           <button 
-            className='add-dream-popup__btn'
             type='submit'
-            >
-              Create
+            className={`'add-new-date-popup__btn' ${isValid? 'add-new-date-popup__btn_active': 'add-dream-popup__btn'}`}
+            disabled={!isValid}
+          >
+            Create
           </button>
         </form>  
       </div>

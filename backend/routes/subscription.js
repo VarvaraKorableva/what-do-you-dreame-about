@@ -1,28 +1,15 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
-/*
-const {
-    createSubscription,
-    getSubscription,
-} = require('../controllers/subscription');
+const subscriptionController = require('../controllers/subscription');
 
-router.post('/subscription', createSubscription);
-router.get('/subscription', getSubscription);
+// Создать подписку
+router.post('/subscribe', subscriptionController.createSubscription);
 
+// Удалить подписку
+router.delete('/unsubscribe/:userId', subscriptionController.deleteSubscription);
 
-module.exports = router;*/
-
-
-const subscriptionController = require('../controllers/subscriptionController');
-
-
-
-router.get('/subscriptions/:userId', subscriptionController.getSubscriptions);
-
-// Subscribe to a user
-router.post('/subscribe', subscriptionController.subscribeToUser);
-
-// Unsubscribe from a user
-router.delete('/unsubscribe', subscriptionController.unsubscribeFromUser);
+// Получить все подписки определенного пользователя
+router.get('/subscribe/:userId', subscriptionController.getUserSubscriptions);
 
 module.exports = router;

@@ -42,6 +42,7 @@ function App() {
   const [selectedMotan, setSelectedMotan] = React.useState({})
   const [limit, setLimit] = React.useState(0)
   const [amount, setAmount] = React.useState(0)
+  const [allMySubsriptions,setAllMySubsriptions] = React.useState([])
 
   const userId = currentUser._id
 
@@ -80,35 +81,33 @@ function App() {
 
   React.useEffect(getLimit, [width]);
 
-  function handleRegSubmit(values) {
+  function handleRegSubmit(userData) {
     Api.register({
-      password: values.password,
-      email: values.email,
-      name: values.name,
-    })
-    .then(() => {
-      setIsAddAvatarPopap(true)
+      password: userData.password,
+      email: userData.email,
+      name:userData.name
     })
     .then(() => {
       Api.getContent()
-      .then((res) => {
-        setCurrentUser(res.user)
+      .then((data) => {
+        setCurrentUser(data.user)
       })  
     })
     .then(() => {
-        setDreams([]);
+      setDreams([]);
     }) 
     .then(() => {
-      setIsLoggin(true)
-      navigate(`/users/${userId}`)
+      setIsAddAvatarPopap(true)
     })
     .catch((err) => {
       console.log(err)
     })
   }
-
-    function handleLoginSubmit(password, email){
-      Api.authorize(password, email)
+    function handleLoginSubmit(userData){
+      Api.authorize({
+        password: userData.password, 
+        email: userData.email
+      })
       .then (() => {
         Api.getContent()
           .then((data) => {
@@ -135,49 +134,40 @@ function App() {
       })
   }
 
-  /*
-  function handleLoginSubmit(password, email){
-    Api.authorize(password, email)
-      .then ((res) => {
-        Api.getContent()
-          .then((data) => {
-            setCurrentUser(data.user)
-            //navigate('/my-page')
-            const userId = data.user._id
-            navigate(`/users/${userId}`)
-            setIsLoggin(true)
-        })
-        Api.getInitialMyDreams()
-          .then((dreams) => {
-            setDreams(dreams.data);
-        })
-        
-      })
-      .than(() => {
-        Api.getMyDates()
-          .than((res)=> {
-            setImportantDates(res.data)
-          })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-  */
-  
-  
   function handleUpdateAvatar(formData) {
     instance.patch('http://localhost:3000/upload', formData)
-    .then(response => {
-      console.log('ok')
-    })
     .then(() => {
       Api.getContent()
       .then((data) => {
         setCurrentUser(data.user)
-        closeAllPopups()
       })  
     })
+    .then(() => {
+      closeAllPopups()
+    }) 
+    .catch(error => {
+      console.log(error)
+    });
+      /*.finally(() => {
+        setShowLoading(false);
+    })*/
+  }
+
+  function handleAddAvatar(formData) {
+    instance.post('http://localhost:3000/upload', formData)
+    .then(() => {
+      Api.getContent()
+      .then((data) => {
+        setCurrentUser(data.user)
+      })  
+    })
+    .then(() => {
+      setIsLoggin(true)
+      navigate(`/users/${userId}`)
+    })
+    .then(() => {
+      closeAllPopups()
+    }) 
     .catch(error => {
       console.log(error)
     });
@@ -331,6 +321,40 @@ function getMyImportantDates() {
     });
 }
 
+function addSubscribe(subscriberId, userId) {
+  Api.subscribe(subscriberId, userId)
+  .then((res) => {
+    setAllMySubsriptions([res, ...allMySubsriptions]);
+  })
+  .catch((err) => {
+    console.log(err)
+  });
+}
+
+function getAllSubsriptions(userId) {
+  Api.getAllSubsriptions(userId)
+  .then((res)=> {
+    setAllMySubsriptions(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  });
+}
+
+//deleteSubsription
+
+function deleteSubscription(subscriptionId) {
+  return Api.deleteSubsription(subscriptionId)
+    .then(() => {
+      console.log("Subscription deleted successfully");
+    })
+    .then(() => {
+      setAllMySubsriptions((state) => state.filter((item) => item._id !== subscriptionId))
+    })
+    .catch((err) => {
+      console.log("Error deleting subscription:", err);
+    });
+}
 
 
 
@@ -392,6 +416,10 @@ function getMyImportantDates() {
             friends={friends}
             isLoggin={isLoggin}
             onFriendCardClick={handleMotanClick}
+            addSubscribe={addSubscribe}
+            getAllSubsriptions={getAllSubsriptions}
+            allMySubsriptions={allMySubsriptions}
+            deleteSubsription={deleteSubscription}
           />
         }>
         </Route>
@@ -462,7 +490,7 @@ function getMyImportantDates() {
     <AddAvatarPopap 
       isOpen={isAddAvatarPopap}
       onClose={closeAllPopups}
-      handleUpdateAvatar={handleUpdateAvatar}/>
+      handleAddAvatar={handleAddAvatar}/>
 
     <AddDreamPopup
       isOpen={isAddDreamPopup}

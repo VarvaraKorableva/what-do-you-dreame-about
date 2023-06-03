@@ -88,6 +88,23 @@ app.use(auth);
 
 //
 
+app.post('/upload', upload.single('image'), (req, res) => {
+  const userId = req.body.userId;
+  const imageBuffer = req.file.buffer;
+
+  User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+});
+
 app.patch('/upload', upload.single('image'), (req, res) => {
   const userId = req.body.userId;
   const imageBuffer = req.file.buffer;
@@ -108,7 +125,7 @@ app.patch('/upload', upload.single('image'), (req, res) => {
 app.use(require('./routes/users'));
 app.use(require('./routes/dreams'));
 app.use(require('./routes/importantDates'));
-//app.use(require('./routes/subscription'));
+app.use(require('./routes/subscription'));
 
 
 app.all('*', () => {
@@ -144,25 +161,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = { app };
-
-
-/*
-
-// Создание хранилища для загруженных файлов
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Указывает папку, куда сохранять загруженные файлы
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    // Генерирует уникальное имя файла
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const extension = file.originalname.split('.').pop();
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension);
-  }
-});
-
-// Создание экземпляра multer с настройками хранилища
-const upload = multer({ storage: storage });
-
-*/
