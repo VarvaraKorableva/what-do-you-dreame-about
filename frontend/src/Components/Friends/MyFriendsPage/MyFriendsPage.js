@@ -24,6 +24,8 @@ function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick,
 
   const userId = currentUser._id
 
+  //const userIdForSub = currentUser._id
+
   const navigate = useNavigate()
   
   let { id } = useParams();
@@ -42,6 +44,8 @@ function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick,
 
   function handleSubscribe() {
     const subscriberId = id
+    
+
     addSubscribe(subscriberId, userId)
   }
 

@@ -35,7 +35,7 @@ function OneDate({date, isCurrentUser}) {
           >
         </button>
 
-        <p className="oneDate__inf-title">{date.name}</p>
+        <p className="oneDate__inf-title" onClick={handleClick}>{date.name}</p>
         {expanded && (
         <div className="content">
           <p className="oneDate__inf">{formattedDate}</p>

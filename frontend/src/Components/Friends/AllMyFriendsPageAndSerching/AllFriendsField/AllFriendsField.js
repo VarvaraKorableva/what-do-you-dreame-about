@@ -4,12 +4,12 @@ import OneFriendCard from '../OneFriendCard/OneFriendCard'
 import './AllFriendsField.css'
 import { useLocation } from 'react-router-dom'
 
-function AllFriendsField({onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
+function AllFriendsField({allMySubsriptions}) {
 
 const location = useLocation()
-
+ /*
 const friends = [
-   /* 
+   
   {
    name: "Ivan",
    img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
@@ -32,7 +32,7 @@ const friends = [
     name: "Segrei",
     img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
     id: '12345'
-   },*/
+   },
    {name: "Varvara",
      img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
      id: '123456'
@@ -47,14 +47,14 @@ const friends = [
       id: '123456'
    },
   
-]
+]*/
 
 return ( 
   <>
       <ul className='allFriendsField__field'>
-        {friends.map((friend) => (
+        {allMySubsriptions.map((friend) => (
           <OneFriendCard 
-            key={friend.id}
+            key={friend._id}
             friend={friend}
             //OnDeleteMyDream={OnDeleteMyDream}
             //onCardClick={onCardClick}

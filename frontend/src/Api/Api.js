@@ -180,7 +180,7 @@ export const deleteDream = (id) => {
     .then(checkResponse);
 }
 
-export const changeUserInfo = ( userData ) => {
+export const changeUserInfo = ( {name, birthday} ) => {
   return fetch(`${BASE_URL}/users/me`, {
       credentials: 'include',
       method: 'PATCH',
@@ -189,9 +189,9 @@ export const changeUserInfo = ( userData ) => {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: userData.name,
-        about: userData.about,
-        birthday: userData.birthday,
+        name: name,
+        birthday: birthday,
+        //password: password,
       })
   })
       .then(checkResponse)

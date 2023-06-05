@@ -21,7 +21,7 @@ router.post('/importantdates', /*celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     date: Joi.string().required(),//.pattern(Reg)
-    description: Joi.string().required().min(0).max(30),
+    description: Joi.string().min(0).max(30).optional(),
   }),
 }), */createImportantDate);
 

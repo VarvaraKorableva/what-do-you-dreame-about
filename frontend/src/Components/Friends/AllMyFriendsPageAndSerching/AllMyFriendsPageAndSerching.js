@@ -1,10 +1,27 @@
 import React from 'react'
 import './AllMyFriendsPageAndSerching.css'
 import AllFriendsField from './AllFriendsField/AllFriendsField'
+import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
-import * as Api from '../../../Api/Api'
+function AllMyFriendsPageAndSerching({ getAllSubsriptions, allMySubsriptions}) {
 
-function AllMyFriendsPageAndSerching({friends}) {
+const currentUser = React.useContext(CurrentUserContext)
+  
+const userId = currentUser._id
+/*
+React.useEffect(() => {
+  handleGetUsersSubmit()
+  //console.log(friends)///запросила всех френдсов
+}, []);*/
+
+React.useEffect(() => {
+  getAllSubsriptions(userId) //(получить всех моих подписчиков )
+  console.log(allMySubsriptions)
+  //console.log(friends)
+}, []);
+
+
+
 
 return (
 
@@ -20,7 +37,7 @@ return (
     <p className='allfriendsSearching__title'>Friends list:</p>
 
     <AllFriendsField 
-      friends={friends}
+      allMySubsriptions={allMySubsriptions}
     />
 
   </div>  

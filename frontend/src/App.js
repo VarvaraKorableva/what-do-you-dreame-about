@@ -280,12 +280,15 @@ function handleMotanClick(motan) {
 }
 
 function changeUserInfoSubmit(userData) {
-  Api.changeUserInfo(userData)
+  Api.changeUserInfo({
+    name: userData.name,
+    birthday: userData.birthday,
+    //password: userData.password,
+  })
     .then((data) => {
       setCurrentUser({
         ...currentUser,
         name: userData.name,
-        about: userData.about,
         birthday: userData.birthday,
       });
       /*setProfileError(false)
@@ -435,10 +438,13 @@ function deleteSubscription(subscriptionId) {
         </Route>
 
         <Route
-        path="/my-friends"  ///Searching (MY!!!)
+        path="/my-subscriptions"  ///Searching (MY!!!)
         element={
           <ProtectedRoute isLoggin={isLoggin}>
             <AllMyFriendsPageAndSerching
+              getAllSubsriptions = {getAllSubsriptions}
+              allMySubsriptions={allMySubsriptions}
+              friends={friends}
               handleGetUsersSubmit={handleGetUsersSubmit}
             />
           </ProtectedRoute>

@@ -14,7 +14,7 @@ const subscriptionSchema = new mongoose.Schema({
   createdAt: { 
     type: Date, 
     default: Date.now 
-  }
+  },
 });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);

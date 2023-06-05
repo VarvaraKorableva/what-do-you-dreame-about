@@ -61,6 +61,9 @@ return (
           <Link to="/change-my-profile" className='myPage_inf myPage__link'>
             <p className='myPage_view-link-text'>Change information about yourself →</p>
           </Link>
+          <Link to="/my-subscriptions" className='myPage_inf myPage__link'>
+            <p className='myPage_view-link-text'>See what my friends dream about →</p>
+          </Link>
           <Link to="/users" className='myPage_inf myPage__link'>
             <p className='myPage_view-link-text'>Search people →</p>
           </Link>
