@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   birthday: {
     type: Date,
     default: null,
-    //required: false,
+    required: false,
   },
 /*
   presentDates: [{
@@ -36,19 +36,6 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 150,
     //default: 'Исследователь',
-  },/*
-  avatar: {
-    filename: { type: String },
-    path: { type: String },
-    contentType: { type: String },
-    size: { type: Number },
-  },*/
-  /*
-  avatar: {
-    type: String,
-    default: 'https://images.unsplash.com/photo-1670067974780-79d187bf7246?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60',
-    validate: validateURL,
-
   },*/
   avatar: {
     type: String,
@@ -92,11 +79,3 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 };
 
 module.exports = mongoose.model('user', userSchema);
-
-/*
-String // строка
-Number // число
-Date // дата
-Boolean // логическое: true или false
-Array // массив 
-*/

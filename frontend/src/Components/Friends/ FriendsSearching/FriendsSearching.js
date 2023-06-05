@@ -2,49 +2,49 @@ import React from 'react'
 import './FriendsSearching.css'
 import FullFriendsField from '../FullFriendsField/FullFriendsField'
 
-import * as Api from '../../../Api/Api'
-
 function FriendsSearching({handleGetUsersSubmit, friends}) {
 
-  const [keyWord, setKeyWord] = React.useState('')//setError
-  const [error, setError] = React.useState('')
+  const [keyWord, setKeyWord] = React.useState('')
+  const [error, setError] = React.useState(false)
   const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
+
+  React.useEffect(() => {
+    handleGetUsersSubmit()
+  }, []);
 
   const handleSearchInputChange = (e) => {
     setKeyWord(e.target.value)
+    setError(false)
+  }
+ 
+  function handleSubmit (e) {
+    e.preventDefault();
+    filterAllFriends(friends, keyWord)
   }
 
-  /*
-  function handleSubmit(e) {
-    e.preventDefault();
-    const afterFilter = filterItems(friends, keyWord);
-    setUsersAfterFilter(afterFilter);
-  }*/
+  function filterAllFriends(friends, keyWord) {
+    const friendsAfterFilter = filterItems(friends, keyWord)
+    setUsersAfterFilter(friendsAfterFilter)
+    console.log(usersAfterFilter)
+  }
+
   
-  function filterItems(friends, keyWord) {
-    const queryFriends = Array.isArray(friends)
-      ? friends.filter((item) => {
-          return (
-            typeof item === 'string' && item.toLowerCase().includes(keyWord.toLowerCase())
-          );
-        })
-      : [];
-    return queryFriends;
-  }
 /*
-  React.useEffect(() => {
-    handleGetUsersSubmit();
-  }, []);*/
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const afterFilter = filterItems(friends, keyWord)
-    setUsersAfterFilter(afterFilter)
-    console.log(friends)
-    console.log(keyWord)
-    console.log(afterFilter)
+  function filterItems(friends, keyWord) {
+    return friends.filter((item) => {
+      return (
+        item.nameRU && item.nameRU.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
+      )
+    })
   }
-
+*/
+function filterItems(friends, keyWord) {
+  return friends.filter((item) => {
+    return (
+      item.name.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
+    )
+  });
+}
 
 return (
   <>
@@ -66,8 +66,7 @@ return (
     <p className='friendsSearching__title'>Friends list:</p>
 
   <FullFriendsField 
-    friends={friends}
-    //handleGetOneUserDreamsSubmit={handleGetOneUserDreamsSubmit}
+    friends={usersAfterFilter}
   />
 
   </div>  
@@ -76,24 +75,3 @@ return (
 }
 
 export default FriendsSearching;
-
-/**
-<div className="friends">
-        <ul className="friends__list">
-        {
-          friends.map((friend) => {
-            return (
-              <li className="friend-preview" key={friend.id} >
-                <Link to={`${friend.id}`}>
-                    <img className="friend-preview__image" src={friend.profilePicDark} alt=""/>
-                    <span className="friend-preview__name">{friend.name}</span>
-                </Link>
-              </li>
-            )
-          })
-        }
-        </ul>
-      </div> 
-
-
- */

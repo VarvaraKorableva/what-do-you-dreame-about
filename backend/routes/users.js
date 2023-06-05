@@ -20,11 +20,11 @@ router.get('/users/:userId', celebrate({
   }),
 }), getUser);*/
 
-router.patch('/users/me', celebrate({//
+router.patch('/users/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    birthday: Joi.date(),
+    name: Joi.string().min(2).max(30).optional(),
+    birthday: Joi.date().allow(''),
+    //password: Joi.string().optional(),
 
   }),
 }), updateUser);

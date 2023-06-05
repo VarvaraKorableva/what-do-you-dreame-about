@@ -21,7 +21,6 @@ const importantDatesSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [false, 'Укажите название'],
-    ///minlength: [0, 'Название должно превышать 2 символа'],
     maxlength: [30, 'Название не должно превышать 30 символов'],
   },
   createdAt: {

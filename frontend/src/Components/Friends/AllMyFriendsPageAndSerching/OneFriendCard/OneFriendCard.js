@@ -1,6 +1,6 @@
 import './OneFriendCard.css';
 
-function OneFriendCard({friend, OnDeleteMyDream, onCardClick}) {
+function OneFriendCard({friend}) {
 
   
   

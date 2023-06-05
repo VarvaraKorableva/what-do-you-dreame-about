@@ -10,11 +10,11 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
 
     const [errorNameMessage, setErrorNameMessage] = React.useState('')
     const [errorDateMessage, setErrorDateMessage] = React.useState('')
-    //const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
+    const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
 
     const [errorName, setErrorName] = React.useState(true)
     const [errorDate, setErrorDate] = React.useState(true)
-    //const [errorDescription, setErrorDescription] = React.useState(true)
+    const [errorDescription, setErrorDescription] = React.useState(false)
 
     const [isValid, setIsValid] = React.useState(false);
   
@@ -26,8 +26,8 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
        } else if (e.target.value.length < 2) {
         setErrorNameMessage('The name of event must be at least 2 characters long.')
         setErrorName(true);
-       } else if (e.target.value.length > 30) {
-        setErrorNameMessage('The name of event must be no more than 30 characters.')
+       } else if (e.target.value.length > 20) {
+        setErrorNameMessage('The name of event must be no more than 20 characters.')
         setErrorName(true);
        } else {
         setErrorNameMessage('')
@@ -38,11 +38,18 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
 
     const handleDescriptionChange = (e) => {
       setDescription(e.target.value)
+        if(e.target.value.length > 25) {
+          setErrorDescription(true)
+          setErrorDescriptionMessage('Не должна привышать 25 символов')
+        } else {
+          setErrorDescription(false)
+          setErrorDescriptionMessage('')
+        }
     }
   
     function handleDateOfEventChange(e) {
-        setDate(e.target.value)
-        if(!date) {
+      setDate(e.target.value)
+        if(!(e.target.value)) {
           setErrorDate(true)
           setErrorDateMessage('дата должна быть заполнена')
         } else {
@@ -61,12 +68,18 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
     }
   
     React.useEffect(() => {
-      if (errorName || errorDate) {
+      if (errorName || errorDate || errorDescription) {
         setIsValid(false)
       } else {
         setIsValid(true)
       }
-    }, [errorName, errorDate])
+    }, [errorName, errorDate, errorDescription])
+/*
+    React.useEffect(() => {
+      setName('')
+      setDate('')
+      setDescription('')
+    }, [])*/
 
     return (
       
@@ -86,6 +99,7 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
             className='add-new-date-popup__input'
             name='name'
             type='text'
+            
             placeholder="Name of event"
             onChange={handleEventChange}
           ></input>
@@ -97,6 +111,7 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
             name='date'
             type='date'
             lang="en"
+            
             placeholder="Date of event"
             onChange={handleDateOfEventChange}
           ></input>
@@ -107,13 +122,14 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
             className='add-new-date-popup__input'
             name='description'
             type='text'
+            
             placeholder="Describe the event a little bit"
             onChange={handleDescriptionChange}
           ></input>
-  
+          <span className='add-new-date-popup__inputmistake'>{errorDescriptionMessage}</span>
           <button 
             type='submit'
-            className={`'add-new-date-popup__btn' ${isValid? 'add-new-date-popup__btn_active': 'add-dream-popup__btn'}`}
+            className={`'add-new-event-popup__btn' ${isValid? 'add-new-event-popup__btn_active': 'add-new-event-popup__btn'}`}
             disabled={!isValid}
           >
             Create

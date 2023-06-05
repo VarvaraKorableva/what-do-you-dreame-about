@@ -93,8 +93,8 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, about, birthday } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about, birthday }, { new: true, runValidators: true })
+  const { name, birthday } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, birthday }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Ошибка, пользователь не найден');

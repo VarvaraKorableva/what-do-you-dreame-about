@@ -6,24 +6,129 @@ function ChangeMyProfile({onChangeSubmit}){
 
 const currentUser = React.useContext(CurrentUserContext)
 
-const [values, setValues] = React.useState({});
+// Исходные значения полей формы
+//const initialName = currentUser.name;
+const initialBirthday = (currentUser.birthday === '' || currentUser.birthday === null) ? '': currentUser.birthday;
 
-const isValid = true
+const [name, setName] = React.useState(currentUser.name)
+const [birthday, setBirthday] = React.useState(initialBirthday)
+//const [password, setPassword] = React.useState('')
 
-  function handleChange(e) {
-    const { value, name } = e.target;
-    setValues({ ...values, [name]: value });
+const [errorNameMessage, setErrorNameMessage] = React.useState('')
+const [errorBirthdayMessage, setErrorBirthdayMessage] = React.useState('')
+//const [errorPasswordMessage, setErrorPasswordMessage] = React.useState('')
+
+const [errorName, setErrorName] = React.useState(true)
+const [errorBirthday, setErrorBirthday] = React.useState(true)
+//const [errorPassword, setErrorPassword] = React.useState(true)
+
+const [isValid, setIsValid] = React.useState(false);
+
+const handleNameChange = (e) => {
+  const validName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(
+    e.target.value
+  )
+  if (!(e.target.value.length)) {
+    setName(currentUser.name)
+   } else if (e.target.value.length < 2) {
+    setErrorNameMessage('The username must be at least 2 characters long.')
+    setErrorName(true);
+    setName(currentUser.name)
+    deleteNameErrorMessage()
+    setErrorName(true);
+   } else if (!validName) {
+    setErrorNameMessage('The username should only contain Latin letters, Cyrillic letters, spaces, or hyphens.')
+    setErrorName(true);
+    setName(currentUser.name)
+    deleteNameErrorMessage()
+   } else if (validName) {
+    setErrorNameMessage('')
+    setErrorName(false);
+    setName(e.target.value)
+   } else if (e.target.value.length > 30) {
+    setErrorNameMessage('Имя пользователя должно быть не более 30 символов.')
+    setErrorName(true);
+    deleteNameErrorMessage()
+   } else if (!(e.target.value)) {
+    setName(currentUser.name)
+   } else {
+    setErrorNameMessage('')
+    setErrorName(false);
+   }
+   setName(e.target.value)
+}
+/*
+const handlePasswordChange = (e) => {
+if (e.target.value.length < 5) {
+    setErrorPasswordMessage('Password must contain at least 5 characters.');
+    setErrorPassword(true);
+    deletePasswordErrorMessage()
+  } else if (e.target.value.length > 8) {
+    setErrorPasswordMessage('Password must not exceed 8 characters.');
+    setErrorPassword(true);
+    deletePasswordErrorMessage()
+  } else {
+    setErrorPasswordMessage('');
+    setErrorPassword(false);
   }
+  setPassword(e.target.value);
+};*/
+
+function handleBirthdayOfEventChange(e) {
+  //setBirthday(e.target.value)
+  if(!(e.target.value)) {
+    setErrorBirthday(true)
+    setErrorBirthdayMessage('дата должна быть заполнена')
+    deleteBirthdayErrorMessage()
+    setBirthday(initialBirthday)
+  } else {
+    setErrorBirthday(false)
+    setErrorBirthdayMessage('')
+    setBirthday(e.target.value)
+  }
+}
+
+React.useEffect(() => {
+  if (errorName === false || errorBirthday === false) {
+    setIsValid(true)
+  } else {
+    setIsValid(false)
+  }
+}, [errorName, errorBirthday])
 
   function handleSubmit(e) {
     e.preventDefault();
     onChangeSubmit({
-      name: values.name,
-      birthday: values.birthday,
-      //about: values.about,
-      password: values.password,
+      name, birthday
     });
+    setBirthday(initialBirthday)
+    setName(currentUser.name)
   }
+/*
+  function deletePasswordErrorMessage(){
+    setTimeout(function(){
+      setErrorPasswordMessage('');
+    }, 3000)
+  }*/
+
+  function deleteBirthdayErrorMessage(){
+    setTimeout(function(){ 
+      setErrorBirthdayMessage('');
+    }, 3000)
+  }
+
+  function deleteNameErrorMessage(){
+    setTimeout(function(){
+      setErrorNameMessage('');
+    }, 3000)
+  }
+  // Обработка удаления текста с помощью Backspace
+  const handleKeyUp = (e) => {
+    if (e.keyCode === 8 && !name) {
+      setName(currentUser.name)
+      setErrorName(true);
+    }
+  };
 
   return (
     <section className='change-information'>
@@ -38,35 +143,26 @@ const isValid = true
               name="name"
               type="text"
               autoComplete="on"
-              defaultValue=""
-              onChange={handleChange}
+             //defaultValue=""
+              placeholder={currentUser.name}
+              onChange={handleNameChange}
+              onKeyUp={handleKeyUp}
             />
             </label>
-            <span className='change-information__inputmistake'></span>
+            <span className='change-information__inputmistake'>{errorNameMessage}</span>
 
-            <label className='register__inputname'>Birthday
-            <input className='register__input'
+            <label className='change-information__inputname'>Birthday
+            <input className='change-information__input'
               name="birthday"
               type="date"
               autoComplete="on"
-              defaultValue=''
-              onChange={handleChange}
+              //defaultValue=''
+              placeholder={currentUser.birthday}
+              onChange={handleBirthdayOfEventChange}
             />
             </label>
-            <span className='register__inputmistake'></span>   
+            <span className='change-information__inputmistake'>{errorBirthdayMessage}</span>   
   
-
-            <label className='change-information__inputname'>Password
-            <input className='change-information__input'
-              name="password"
-              type="password"
-              maxLength="8"
-              autoComplete="on"
-              defaultValue=""
-            />
-            </label>
-            <span className='change-information__inputmistake'></span>
-
         </fieldset>
         <button
           type="submit"
@@ -83,14 +179,16 @@ const isValid = true
 export default ChangeMyProfile;
 
 /*
-            <label className='change-information__inputname'>About
+<label className='change-information__inputname'>Password
             <input className='change-information__input'
-              name="about"
-              type="text"
+              name="password"
+              type="password"
+              maxLength="8"
               autoComplete="on"
-              defaultValue={currentUser.about}
-              onChange={handleChange}
+              defaultValue=""
+              onChange={handlePasswordChange}
             />
             </label>
-            <span className='change-information__inputmistake'></span>
+            <span className='change-information__inputmistake'>{errorPasswordMessage}</span>
+
 */
