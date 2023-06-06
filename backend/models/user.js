@@ -17,30 +17,10 @@ const userSchema = new mongoose.Schema({
     default: null,
     required: false,
   },
-/*
-  presentDates: [{
-    type: Date,
-  }],
-
-  dreams: [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'dream'
-  }],
-  
-  gender: {
-    type: String, // гендер — это строка
-    enum: ['м', 'ж', 'другой'] // gender может принимать одно из трёх значений
-  },
-  about: {
-    type: String,
-    minlength: 2,
-    maxlength: 150,
-    //default: 'Исследователь',
-  },*/
   avatar: {
     type: String,
     //default: '/uploads/image-1684910204242-126322040.jpg', // Здесь указывается путь к дефолтной аватарке
-    validate: validateURL,
+    //validate: validateURL,
   },
   email: {
     type: String,

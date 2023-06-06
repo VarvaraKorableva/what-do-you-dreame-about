@@ -3,11 +3,23 @@ import OneFriendCard from '../OneFriendCard/OneFriendCard'
 //import MyFriendOneDream from '../Friends/MyFriendOneDream/MyFriendOneDream'
 import './AllFriendsField.css'
 import { useLocation } from 'react-router-dom'
+//import * as Api from './Api/Api'
 
 function AllFriendsField({allMySubsriptions}) {
+//  const [userDataToRender, setUserDataToRender] = React.useState(null);
 
-const location = useLocation()
- /*
+  const location = useLocation()
+  /*
+  return allMySubsriptions.map((friend) => (
+    Api.getDinamicUser(friend.subscriber)
+        .then((res) => {
+          setUserDataToRender([res, ...userDataToRender]);
+        })
+        .catch(error => console.error(error))
+      )
+  )} */
+
+
 const friends = [
    
   {
@@ -47,14 +59,14 @@ const friends = [
       id: '123456'
    },
   
-]*/
-
+]
+//По новому массиву!!!!
 return ( 
   <>
       <ul className='allFriendsField__field'>
         {allMySubsriptions.map((friend) => (
           <OneFriendCard 
-            key={friend._id}
+            key={friend.subscriberId}
             friend={friend}
             //OnDeleteMyDream={OnDeleteMyDream}
             //onCardClick={onCardClick}

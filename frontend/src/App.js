@@ -123,12 +123,12 @@ function App() {
             setDreams(dreams.data);
           })
       })
-      .then(() => {
+      /*.then(() => {
         Api.getMyDates()
           .then((res)=> {
             setImportantDates(res.data)
           })
-      })
+      })*/
       .catch((err) => {
         console.log(err)
       })
@@ -181,7 +181,7 @@ function App() {
       .then((res) => {
         setIsLoggin(false)
         setCurrentUser({});
-        setImportantDates(null)
+        setImportantDates([])
         console.log(currentUser)
         navigate('/signin')
       })
@@ -211,20 +211,37 @@ function App() {
     setSelectedDream({})
     setSelectedMotan({})
   }
-  
-  function handleAddNewDateSubmit(data) {
-    //setShowLoading(true);
-    Api.addMyNewDate(data)
-      .then((res) => {
-        setImportantDates([res, ...importantDates]);
-        closeAllPopups();
+
+  function getMyImportantDates() {
+    Api.getMyDates()
+      .then((res)=> {
+        setImportantDates(res.data)
       })
       .catch((err) => {
         console.log(err)
-      })
-      .finally(() => {
-        //setShowLoading(false);
-      })
+      });
+  }
+
+  function handleAddNewDateSubmit(data) {
+    //setShowLoading(true);
+    /*Api.addMyNewDate({
+      name: data.name,
+      date: data.date,
+      description: data.description,
+    })*/
+    Api.addMyNewDate(data)
+    .then((res) => {
+      setImportantDates([res, ...importantDates]);
+      //setImportantDates({ ...importantDates, [res.id]: res });
+      //setImportantDates([res, ...Array.from(importantDates)]);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      //setShowLoading(false);
+    })
   }
   
   function handleAddDreamSubmit(data) {
@@ -248,10 +265,7 @@ function App() {
         Api.getInitialMyDreams()
           .then((dreams) => {
             setDreams(dreams.data);
-        })  
-/*        setSavedMovies((movies) =>
-          movies.filter((m) => m._id !== movie._id)
-        )*/
+        })
       })
       .catch((err) => {
         console.log(err)
@@ -283,7 +297,6 @@ function changeUserInfoSubmit(userData) {
   Api.changeUserInfo({
     name: userData.name,
     birthday: userData.birthday,
-    //password: userData.password,
   })
     .then((data) => {
       setCurrentUser({
@@ -314,16 +327,7 @@ function changeUserInfoSubmit(userData) {
     })
 }
 
-function getMyImportantDates() {
-  Api.getMyDates()
-    .then((res)=> {
-      setImportantDates(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-}
-
+//Подписки
 function addSubscribe(subscriberId, userId) {
   Api.subscribe(subscriberId, userId)
   .then((res) => {
@@ -337,14 +341,12 @@ function addSubscribe(subscriberId, userId) {
 function getAllSubsriptions(userId) {
   Api.getAllSubsriptions(userId)
   .then((res)=> {
-    setAllMySubsriptions(res)
+    setAllMySubsriptions(res.transformedSubscriptions)
   })
   .catch((err) => {
     console.log(err)
   });
 }
-
-//deleteSubsription
 
 function deleteSubscription(subscriptionId) {
   return Api.deleteSubsription(subscriptionId)
@@ -359,10 +361,6 @@ function deleteSubscription(subscriptionId) {
     });
 }
 
-
-
-
-//updateUserAvatar
   return (
     
     <CurrentUserContext.Provider value={currentUser}>  
@@ -405,7 +403,7 @@ function deleteSubscription(subscriptionId) {
               onImgToChangeAvatar={handleChangeAvatarClick}
               addDreams={addDreams}
               limit={limit}
-              getMyImportantDates={getMyImportantDates}
+              //getMyImportantDates={getMyImportantDates}
               
             />
           </ProtectedRoute>
@@ -468,9 +466,8 @@ function deleteSubscription(subscriptionId) {
           <ProtectedRoute isLoggin={isLoggin}>
             <MyImportantDatesPage
               addPopupOpen={handleAddNewDateClick}
-              importantDates={importantDates}
-              getMyImportantDates={getMyImportantDates}
-             
+              importantDates={importantDates} //только мои даты
+              getMyImportantDates={getMyImportantDates} //получение только моих дат
             />
           </ProtectedRoute>
         }>
@@ -480,6 +477,7 @@ function deleteSubscription(subscriptionId) {
         path='/users/:id/dates' 
         element={
           <MyImportantDatesPage
+            
         />
         }>
         </Route>

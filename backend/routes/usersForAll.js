@@ -6,7 +6,7 @@ const {
   getUsers,
   getUser,
   updateUser,
-  //updateAvatar,
+  deleteAllUsers,
   getСurrentUser,
 } = require('../controllers/users');
 
@@ -18,5 +18,6 @@ router.get('/usersopenrouter/:userId', /*celebrate({
   }),
 }),*/ getUser);
 
+//router.delete('/users/deleteall', deleteAllUsers);
 
 module.exports = router;

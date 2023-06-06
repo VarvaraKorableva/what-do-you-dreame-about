@@ -25,19 +25,8 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
   function filterAllFriends(friends, keyWord) {
     const friendsAfterFilter = filterItems(friends, keyWord)
     setUsersAfterFilter(friendsAfterFilter)
-    console.log(usersAfterFilter)
   }
 
-  
-/*
-  function filterItems(friends, keyWord) {
-    return friends.filter((item) => {
-      return (
-        item.nameRU && item.nameRU.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
-      )
-    })
-  }
-*/
 function filterItems(friends, keyWord) {
   return friends.filter((item) => {
     return (

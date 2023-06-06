@@ -32,31 +32,24 @@ function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick,
  
 
   React.useEffect(() => {
-    /*if(!allMySubsriptions){
-      return
-    }*/
     getAllSubsriptions(userId)
-    
   }, []);
 
-  let isSubsriptions = allMySubsriptions.some(subscriber => subscriber.subscriber === id)
-  console.log(isSubsriptions)
-
+  let isSubsriptions = allMySubsriptions.some(subscriber => subscriber.subscriberId === id)
+  //console.log(isSubsriptions)
+//const isSubsriptions = true
+//console.log(allMySubsriptions)
   function handleSubscribe() {
     const subscriberId = id
-    
-
     addSubscribe(subscriberId, userId)
   }
 
   function handleDeleteSubscribe() {
-    let subscription = allMySubsriptions.find(subscription => subscription.subscriber === id)
-    console.log(subscription._id)
+    let subscription = allMySubsriptions.find(subscription => subscription.subscriberId === id)
+    console.log(subscription)
     let subscriptionId = subscription._id
     deleteSubsription(subscriptionId)
   }
-
-  //deleteSubsription
 
   const date = '20.06.2023';
   const days = 6;

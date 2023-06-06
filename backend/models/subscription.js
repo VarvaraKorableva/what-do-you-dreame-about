@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const subscriptionSchema = new mongoose.Schema({
   subscriber: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+    ref: 'user', 
     required: true 
   },
   user: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+    ref: 'user', 
     required: true 
   },
   createdAt: { 
