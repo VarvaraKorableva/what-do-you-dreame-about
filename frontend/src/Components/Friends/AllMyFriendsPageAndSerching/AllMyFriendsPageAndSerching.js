@@ -2,26 +2,23 @@ import React from 'react'
 import './AllMyFriendsPageAndSerching.css'
 import AllFriendsField from './AllFriendsField/AllFriendsField'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
+//import * as Api from './Api/Api'
 
-function AllMyFriendsPageAndSerching({ getAllSubsriptions, allMySubsriptions}) {
+function AllMyFriendsPageAndSerching({friends, getAllSubsriptions, allMySubsriptions}) {
 
 const currentUser = React.useContext(CurrentUserContext)
-  
+const [userDataToRender, setUserDataToRender] = React.useState(null);
 const userId = currentUser._id
-/*
-React.useEffect(() => {
-  handleGetUsersSubmit()
-  //console.log(friends)///запросила всех френдсов
-}, []);*/
 
 React.useEffect(() => {
-  getAllSubsriptions(userId) //(получить всех моих подписчиков )
-  console.log(allMySubsriptions)
-  //console.log(friends)
+  getAllSubsriptions(userId) //(получить все свои подписки)
+  //console.log(allMySubsriptions)
+
 }, []);
 
+const data = allMySubsriptions.transformedSubscriptions;
 
-
+console.log(data)
 
 return (
 
@@ -37,7 +34,7 @@ return (
     <p className='allfriendsSearching__title'>Friends list:</p>
 
     <AllFriendsField 
-      allMySubsriptions={allMySubsriptions}
+      allMySubsriptions={data}
     />
 
   </div>  

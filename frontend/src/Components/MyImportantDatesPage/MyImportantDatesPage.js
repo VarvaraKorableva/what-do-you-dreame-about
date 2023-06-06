@@ -6,7 +6,7 @@ import { useParams, Link } from 'react-router-dom'
 import * as Api from '../../Api/Api'
 
 
-function MyImportantDatesPage({ getMyImportantDates, addPopupOpen, importantDates }) {
+function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDates }) {
 
   const currentUser = React.useContext(CurrentUserContext)
   const userId = currentUser._id
@@ -15,35 +15,54 @@ function MyImportantDatesPage({ getMyImportantDates, addPopupOpen, importantDate
   const [isCurrentUser, setIsCurrentUser] = React.useState(false)
 
   const [isMyFriendDates, setIsMyFriendDates] = React.useState(false)
-  const [myFriendImportantDates, setMyFriendImportantDates] = React.useState(null)
+  const [myFriendImportantDates, setMyFriendImportantDates] = React.useState([])
   const [friendName, setFriendName] = React.useState('')
 
-  const name = 'Kate'
-
+// Проверяем кто юзер - есть ли каррент юзер?
   function checkUser () {
     if(id){
       setIsCurrentUser(false)
     }else {
       setIsCurrentUser(true)
-
     }
   }
 
   React.useEffect(() => {
     checkUser();
- }, [id]);
+ }, []);//
+///Проверяем каждый каз когда меняется айди 
 
-  function checkArr () {
-    if(importantDates){
-      return setIsDates(true)
+//есть ли даты?
+  function checkMyArr () {
+    if(importantDates.length){
+      setIsDates(true)
     }else {
       setIsDates(false)
     }
   }
 
   React.useEffect(() => {
-    checkArr()
-  }, [isDates]);
+    const getDates = (id) => { 
+    getMyImportantDates(id)
+    checkMyArr() 
+    }
+
+    if (isCurrentUser && userId) {
+      getDates(userId);
+    }
+  }, [isCurrentUser,userId]);
+
+
+  React.useEffect(() => {
+    const getDates = (id) => { 
+    getMyImportantDates(id)
+    checkMyArr() 
+    }
+
+    if (isCurrentUser && userId) {
+      getDates(userId);
+    }
+  }, [importantDates]);
 
 
   React.useEffect(() => {
@@ -55,7 +74,7 @@ function MyImportantDatesPage({ getMyImportantDates, addPopupOpen, importantDate
         .then(() => {
           //console.log(res.data)
           //setMyFriendImportantDates(res.data)
-          console.log(myFriendImportantDates)
+          //console.log(myFriendImportantDates)
         })
         .catch(error => console.error(error));
     };
@@ -75,7 +94,10 @@ function MyImportantDatesPage({ getMyImportantDates, addPopupOpen, importantDate
     if (id) {
       getUser(id);
     }
-  }, [id]);  
+  }, [id]); 
+   
+
+
 
   function checkMyFriendArr () {
     //if(myFriendImportantDates.length){
@@ -90,12 +112,6 @@ function MyImportantDatesPage({ getMyImportantDates, addPopupOpen, importantDate
   React.useEffect(() => {
     checkMyFriendArr()
   }, [myFriendImportantDates]);
-
-/*
-  if (!importantDates) {
-    return <div>Loading...</div>;
-  }*/
-
 
   return (
     <>

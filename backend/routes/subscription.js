@@ -12,4 +12,8 @@ router.delete('/unsubscribe/:userId', subscriptionController.deleteSubscription)
 // Получить все подписки определенного пользователя
 router.get('/subscribe/:userId', subscriptionController.getUserSubscriptions);
 
+
+//router.delete('/all', subscriptionController.deleteAllSubscriptions);
+
+
 module.exports = router;

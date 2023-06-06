@@ -132,3 +132,13 @@ module.exports.updateAvatar = async (req, res) => {
     } 
   }
 };
+
+module.exports.deleteAllUsers = async (req, res, next) => {
+  try {
+    await User.deleteMany(); // Удаление всех пользователей из коллекции
+
+    res.status(200).json({ message: 'All users have been deleted' });
+  } catch (err) {
+    next(err);
+  }
+};

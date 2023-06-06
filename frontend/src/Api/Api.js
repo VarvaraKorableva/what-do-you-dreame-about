@@ -79,7 +79,7 @@ export const getMyDates = () => {
   })
       .then(checkResponse)
 };
-
+//{name, date, description}
 export const addMyNewDate = (data) => {
   return fetch(`${BASE_URL}/importantdates`, {
     credentials: 'include',
@@ -208,6 +208,8 @@ export const subscribe = (subscriberId, userId) => {
     body: JSON.stringify({
       subscriberId: subscriberId,
       userId: userId
+      /*userId: subscriberId,
+      subscriberId: userId,*/
     })
   })
   .then(checkResponse);
@@ -224,6 +226,18 @@ export const getAllSubsriptions = (userId) => {
   })
   .then(checkResponse);
 }
+/*
+export const getAllSubsriptions = (userId) => {
+  return fetch(`${BASE_URL}/subscribe/${userId}`, {
+    credentials: 'include',
+    method:'GET',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(checkResponse);
+}*/
 
 export const deleteSubsription = (subscriptionId) => {
   return fetch (`${BASE_URL}/unsubscribe/${subscriptionId}`, {
