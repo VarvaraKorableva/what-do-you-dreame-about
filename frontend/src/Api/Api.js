@@ -208,14 +208,12 @@ export const subscribe = (subscriberId, userId) => {
     body: JSON.stringify({
       subscriberId: subscriberId,
       userId: userId
-      /*userId: subscriberId,
-      subscriberId: userId,*/
     })
   })
   .then(checkResponse);
 }
 
-export const getAllSubsriptions = (userId) => {
+export const getAllSubscriptions = (userId) => {
   return fetch(`${BASE_URL}/subscribe/${userId}`, {
     credentials: 'include',
     method:'GET',
@@ -226,20 +224,8 @@ export const getAllSubsriptions = (userId) => {
   })
   .then(checkResponse);
 }
-/*
-export const getAllSubsriptions = (userId) => {
-  return fetch(`${BASE_URL}/subscribe/${userId}`, {
-    credentials: 'include',
-    method:'GET',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  })
-  .then(checkResponse);
-}*/
 
-export const deleteSubsription = (subscriptionId) => {
+export const deleteSubscription = (subscriptionId) => {
   return fetch (`${BASE_URL}/unsubscribe/${subscriptionId}`, {
     credentials: 'include',
     method: 'DELETE',
@@ -250,10 +236,6 @@ export const deleteSubsription = (subscriptionId) => {
   })
     .then(checkResponse);
 }
-
-///subscribe/:userId
-///unsubscribe/:userId
-//name, about, birthday, avatar
 
 export const getDinamicUser = (id) => {
   return fetch(`${BASE_URL}/usersopenrouter/${id}`, {
@@ -266,31 +248,3 @@ export const getDinamicUser = (id) => {
   })
   .then(checkResponse);
 }
-
- /* export const subscribe = (userId) => {
-    return fetch(`${BASE_URL}/subscribe`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userId: userId })
-    })
-      .then(checkResponse);
-  }
-
-  export const unsubscribe = (userId) => {
-    return fetch(`${BASE_URL}/unsubscribe`, {
-      credentials: 'include',
-      method: 'DELETE',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userId: userId })
-    })
-      .then(checkResponse);
-  }
-
-  ///subscriptions/:userId*/

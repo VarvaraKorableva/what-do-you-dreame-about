@@ -1,30 +1,38 @@
 .oneFriendCard__container {
-  /*width: 50px;*/
-  height: 75px;
+  min-width: 50px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   list-style-type: none;
   justify-content: center;
   align-items: center;
-  
+  box-sizing: border-box;
 }
+/*
+@media screen and (max-width: 700px) {
+  .oneFriendCard__container {
+    height: 80px;
+  }
+}*/
 
 .oneFriendCard__container:last-of-type {
   margin-right: 0;
 }
 
-.oneFriendCard__img-container {
-  /*width: 50px;*/
-  height: 50px;
-}
 .oneFriendCard__img {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 50px;
   object-fit: cover;
 }
+
+@media screen and (max-width: 400px) {
+  .oneFriendCard__img {
+    width: 50px;
+    height: 50px;
+  }
+}
 .oneFriendCard__inf-container {
-  max-width: 100%;
   text-align: center;
 }
 .oneFriendCard__inf {
@@ -33,4 +41,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@media screen and (max-width: 700px) {
+  .oneFriendCard__inf {
+    font-size: 12px;
+    font-weight: 400;
+  }
 }

@@ -3,7 +3,6 @@ import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {CurrentUserContext} from './contexts/CurrentUserContext'
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute'
-import {useGetMyDatesQuery} from './redux'
 import './App.css'
 import * as Api from './Api/Api'
 import MyPage from './Components/MyPage/MyPage'
@@ -42,18 +41,15 @@ function App() {
   const [selectedMotan, setSelectedMotan] = React.useState({})
   const [limit, setLimit] = React.useState(0)
   const [amount, setAmount] = React.useState(0)
-  const [allMySubsriptions,setAllMySubsriptions] = React.useState([])
+  const [allMySubscriptions,setAllMySubscriptions] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  
 
   const userId = currentUser._id
 
   const navigate = useNavigate()
 
-  //const {data = [], isloading} = useGetMyDatesQuery();
-  
-  
-  //if (isloading) return <h1>Loading...</h1>
-
-  
 // Изменить настройки по умолчанию
   axios.defaults.maxContentLength = 3 * 1024 * 1024;
 // Создать экземпляр axios с настройками по умолчанию
@@ -213,13 +209,17 @@ function App() {
   }
 
   function getMyImportantDates() {
+    //setShowLoading(true)
     Api.getMyDates()
       .then((res)=> {
         setImportantDates(res.data)
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
+      .finally(() => {
+        setShowLoading(false);
+      })
   }
 
   function handleAddNewDateSubmit(data) {
@@ -273,6 +273,7 @@ function App() {
   }
 
   function handleGetUsersSubmit() {
+    //setShowLoading(true);
     Api.getUsers()
       .then((res) => {
         setFriends(res.data)
@@ -328,33 +329,44 @@ function changeUserInfoSubmit(userData) {
 }
 
 //Подписки
+
 function addSubscribe(subscriberId, userId) {
   Api.subscribe(subscriberId, userId)
   .then((res) => {
-    setAllMySubsriptions([res, ...allMySubsriptions]);
+    //setAllMySubscriptions([res, ...allMySubscriptions]);
+    setAllMySubscriptions((prevSubscriptions) => [res, ...prevSubscriptions]);
   })
   .catch((err) => {
     console.log(err)
-  });
+  })
+  .finally(() => {
+    //setShowLoading(false);
+  })
 }
 
-function getAllSubsriptions(userId) {
-  Api.getAllSubsriptions(userId)
+
+function getAllSubscriptions(userId) {
+  setIsLoading(true)
+  Api.getAllSubscriptions(userId)
   .then((res)=> {
-    setAllMySubsriptions(res.transformedSubscriptions)
+    //const data = res.transformedSubscriptions
+    setAllMySubscriptions(res.transformedSubscriptions)
   })
   .catch((err) => {
     console.log(err)
-  });
+  })
+  .finally(() => {
+    setIsLoading(false)
+  })
 }
 
 function deleteSubscription(subscriptionId) {
-  return Api.deleteSubsription(subscriptionId)
+  return Api.deleteSubscription(subscriptionId)
     .then(() => {
       console.log("Subscription deleted successfully");
     })
     .then(() => {
-      setAllMySubsriptions((state) => state.filter((item) => item._id !== subscriptionId))
+      setAllMySubscriptions((state) => state.filter((item) => item._id !== subscriptionId))
     })
     .catch((err) => {
       console.log("Error deleting subscription:", err);
@@ -418,9 +430,9 @@ function deleteSubscription(subscriptionId) {
             isLoggin={isLoggin}
             onFriendCardClick={handleMotanClick}
             addSubscribe={addSubscribe}
-            getAllSubsriptions={getAllSubsriptions}
-            allMySubsriptions={allMySubsriptions}
-            deleteSubsription={deleteSubscription}
+            getAllSubscriptions={getAllSubscriptions}
+            allMySubscriptions={allMySubscriptions}
+            deleteSubscription={deleteSubscription}
           />
         }>
         </Route>
@@ -440,10 +452,11 @@ function deleteSubscription(subscriptionId) {
         element={
           <ProtectedRoute isLoggin={isLoggin}>
             <AllMyFriendsPageAndSerching
-              getAllSubsriptions = {getAllSubsriptions}
-              allMySubsriptions={allMySubsriptions}
+              getAllSubscriptions = {getAllSubscriptions}
+              allMySubscriptions={allMySubscriptions}
               friends={friends}
               handleGetUsersSubmit={handleGetUsersSubmit}
+              isLoading={isLoading}
             />
           </ProtectedRoute>
         }>
@@ -468,6 +481,7 @@ function deleteSubscription(subscriptionId) {
               addPopupOpen={handleAddNewDateClick}
               importantDates={importantDates} //только мои даты
               getMyImportantDates={getMyImportantDates} //получение только моих дат
+              showLoading={showLoading}
             />
           </ProtectedRoute>
         }>

@@ -7,7 +7,7 @@ import PriceCategory from '../../PriceCategory/PriceCategory'
 import * as Api from '../../../Api/Api'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
-function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubsriptions}) {
+function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubscriptions}) {
   
   const [toRenderDreams, setToRenderDreams] = React.useState([])
   const [isShowAllBtnClicked, setIsShowAllBtnClicked] = React.useState(false)
@@ -16,47 +16,99 @@ function MyFriendsPage({deleteSubsription, allMySubsriptions, onFriendCardClick,
   const [motanots, setMotanots] = React.useState([]) 
   const [isLength, setIsLength] = React.useState(false)
   const [dates, setDates] = React.useState([]) 
-  //const [allMySubsriptions, setAllMySubsriptions] = React.useState([])
-
+  //const [isClick, setIsClick] = React.useState(false)
+  const [isSubscriptions, setIsSubscriptions] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
-
+  
   const currentUser = React.useContext(CurrentUserContext)
-
   const userId = currentUser._id
-
-  //const userIdForSub = currentUser._id
 
   const navigate = useNavigate()
   
   let { id } = useParams();
  
+  React.useEffect(() => {
+    setIsSubscriptions(allMySubscriptions.some(subscriber => subscriber.subscriberId === id));
+  }, [allMySubscriptions, id]);
 
   React.useEffect(() => {
-    getAllSubsriptions(userId)
+    getAllSubscriptions(userId)
   }, []);
-
-  let isSubsriptions = allMySubsriptions.some(subscriber => subscriber.subscriberId === id)
-  //console.log(isSubsriptions)
-//const isSubsriptions = true
-//console.log(allMySubsriptions)
+  //let isSubscriptions = allMySubscriptions.some(subscriber => subscriber.subscriberId == id)
+  //console.log(allMySubscriptions)
+    // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+    //const isLiked = card.likes.some(i => i === currentUser._id);
+    //let isSubscriptions = allMySubscriptions.some(subscriber => subscriber.subscriberId === id)
+  //console.log(dates)
   function handleSubscribe() {
-    const subscriberId = id
-    addSubscribe(subscriberId, userId)
+    const subscriberId = id;
+    addSubscribe(subscriberId, userId);
   }
 
   function handleDeleteSubscribe() {
-    let subscription = allMySubsriptions.find(subscription => subscription.subscriberId === id)
-    console.log(subscription)
-    let subscriptionId = subscription._id
-    deleteSubsription(subscriptionId)
+    let subscription = allMySubscriptions.find(subscription => subscription.subscriberId === id)
+    let subscriptionId = subscription._id //айди подписки (не юзеров)
+   
+    deleteSubscription(subscriptionId)
   }
 
   const date = '20.06.2023';
   const days = 6;
 
+  function findClosestDate(dataArray) {
+    const currentDate = new Date(); // Текущая дата
+  
+    let closestDate = null; // Инициализируем переменную с наиболее близкой датой
+    let closestDiff = Infinity; // Инициализируем переменную с наименьшей разницей
+  
+    for (let i = 0; i < dataArray.length; i++) {
+      const { date } = dataArray[i]; // Получаем значение даты из объекта
+  
+      const diff = Math.abs(currentDate - new Date(date)); // Разница между текущей датой и датой из объекта
+  
+      if (diff < closestDiff) {
+        closestDiff = diff;
+        closestDate = date;
+      }
+    }
+  
+    return closestDate;
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+  
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Месяцы в JavaScript нумеруются с 0, поэтому добавляем 1
+    const year = date.getFullYear();
+  
+    const formattedDate = `${day}.${month}.${year}`;
+  
+    return formattedDate;
+  }
+
+  function calculateDaysLeft(targetDate) {
+    const currentDate = new Date(); // Текущая дата
+    const endDate = new Date(targetDate); // Целевая дата
+  
+    // Разница между целевой датой и текущей датой в миллисекундах
+    const timeDiff = endDate.getTime() - currentDate.getTime();
+  
+    // Количество дней, полученных путем деления разницы на количество миллисекунд в одном дне
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  
+    return daysLeft;
+  }
+  
+  const closestDate = findClosestDate(dates); //ближайшая дата
+
+  const daysLeft = calculateDaysLeft(closestDate); ///сколько дней осталось до ближайщей даты
+  
+  const formattedDate = formatDate(closestDate); ///правильный формат даты
+
   React.useEffect(() => {
-    const getUser = (userId) => {
-      Api.getDinamicUser(userId)
+    const getUser = (friendUserId) => {
+      Api.getDinamicUser(friendUserId)
         .then((res) => {
           setUserData(res.user);
         })
@@ -145,22 +197,6 @@ React.useEffect(() => {
   if (!userData || !motanots) {
     return <div>Loading...</div>;
   }
-
-/*
-  function handleSubscribe(id) {
-    //setShowLoading(true);
-    Api.subscribe(id)
-      .then((res) => {
-
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        //setShowLoading(false);
-      })
-  }*/
-  //subscribe
   
 return (
   <div>
@@ -179,7 +215,7 @@ return (
 
         {isLoggin?
           <>
-            {isSubsriptions?
+            {isSubscriptions?
               <button 
                 className='my-friends-page__add-friend-btn'
                 onClick={handleDeleteSubscribe}
@@ -204,7 +240,6 @@ return (
       <div className='my-friends-page__img-container'>
         <img 
           className='my-friends-page__img' 
-          //src={userData.avatar}>
           src={`http://localhost:3000${userData.avatar}`}>
         </img>
       </div>
@@ -212,8 +247,8 @@ return (
     </div>  
 
     <div className='my-friends-page__date-info'>
-      <p>The next date for the fulfillment of a dream is: {date}</p>
-      <p>{days} days left until the next day of the dream come true</p>
+      <p>The next date for the fulfillment of a dream is: {formattedDate}</p>
+      <p>{daysLeft} days left until the next day of the dream come true</p>
     </div>
 
     {
@@ -260,41 +295,3 @@ return (
 }
 
 export default MyFriendsPage;
-
-
-/*
-
-{isFilterBtnClicked?
-                <DreamsField
-                  toRenderFriendsDreams={toRenderDreams}
-                  onFriendCardClick={onFriendCardClick}
-                />
-              :
-                <PriceCategory
-                  motanots={motanots}
-                  isLength={isLength}
-                  friend={friend}
-                  getResultFor100={getResultFor100}
-                  getResultFor250={getResultFor250}
-                  getResultFor500={getResultFor500}
-                  getResultForMore500={getResultForMore500}
-                />
-              }
-
-/*<button className='my-friends-page__add-friend-btn'>Look all users</button>*/
-
-
-/*
-        {isLoggin?
-          <button 
-            className='my-friends-page__add-friend-btn'
-            //onClick={handleSubscribe}
-          >
-              Add to the friend
-          </button>
-        :
-          <></>
-        }
-        <p className='my-friends-page__inf'>{userData.birthday}</p>
-        <p className='my-friends-page__inf'>{userData.about}</p>
-*/

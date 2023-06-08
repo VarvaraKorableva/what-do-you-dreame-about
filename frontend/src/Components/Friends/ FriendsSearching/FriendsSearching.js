@@ -6,6 +6,7 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
 
   const [keyWord, setKeyWord] = React.useState('')
   const [error, setError] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('Please enter the keyword')
   const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
 
   React.useEffect(() => {
@@ -19,7 +20,12 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
  
   function handleSubmit (e) {
     e.preventDefault();
-    filterAllFriends(friends, keyWord)
+    if (!keyWord) {
+      setError(true)
+    }else{
+      setError(false)
+      filterAllFriends(friends, keyWord)
+    }  
   }
 
   function filterAllFriends(friends, keyWord) {
@@ -45,6 +51,7 @@ return (
         value={keyWord || ''}
         onChange={handleSearchInputChange}>
       </input>
+      {error?<span className='friendsSearching__error-message'>{errorMessage}</span>:<></>}
        <button 
          className='friendsSearching__input-loop-btn'
          type='submit'

@@ -6,19 +6,18 @@ const Subscription = require('../models/subscription');
 const createSubscription = async (req, res, next) => {
   try {
     const { subscriberId, userId } = req.body;
-    const [subscriber, user] = await Promise.all([//я подпискич в данном случа
+    const [subscriber, user] = await Promise.all([//я подпискич в данном случае
       User.findById(subscriberId),
       User.findById(userId)
     ]);
     
-
     if (!subscriber || !user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
     const subscription = await Subscription.create({ subscriber, user });
-    
-    res.status(201).json(subscription);
+    res.status(200).json({ message: 'Subscription created successfully' });
+    //res.status(201).json(subscription);
   } catch (err) {
     next(err);
   }

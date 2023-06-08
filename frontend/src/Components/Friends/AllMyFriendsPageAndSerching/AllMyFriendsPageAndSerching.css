@@ -8,7 +8,6 @@
 .friendsSearching__form {
   position: relative;
   max-width: 100%;
-  
   margin-right: 200px;
   margin-left: 200px;
 }
@@ -42,9 +41,9 @@
   }
 }
 
-.friendsSearching__input {
+.AllMyFriendsPageAndSerching__input {
   width: 100%;
-  height: 50px;
+  height: 55px;
   list-style-type: none;
   background-color: transparent;
   border: 1px solid black;
@@ -53,7 +52,10 @@
   display: flex;
   background-color: transparent;
   cursor: pointer;
-
+  position: relative;
+  padding-left: 60px;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .friendsSearching__input:hover {
@@ -62,22 +64,22 @@
   
 }
 
-.friendsSearching__input-loop-btn {
+.AllMyFriendsPageAndSerching__input-loop-btn {
   background-image: url(../../../images/loop.svg);
   background-position: center;
   width: 23px;
   height: 23px;
   object-fit: cover;
   position: absolute;
-  top: 15px;
-  right: 10px;
+  right: 15px;
+  top: 17px;
   background-color: transparent;
   cursor: pointer;
   z-index: 10;
   border: none;
 }
 
-.friendsSearching__input-loop-btn:hover {
+.AllMyFriendsPageAndSerching__input-loop-btn:hover {
 opacity: 0.6;
 border-radius: 50%;
 }
@@ -85,7 +87,7 @@ border-radius: 50%;
 .allfriendsSearching__title {
   color: black;
   margin-left: 200px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -113,4 +115,31 @@ border-radius: 50%;
   .allfriendsSearching__title {
     margin-left: 0;
   }
+}
+
+.allfriendsSearching__error-message {
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: rgb(181, 71, 71);
+}
+
+.friendsSearching__input-all-btn {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  width: 30px;
+  height: 23px;
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.friendsSearching__input-all-btn:hover {
+  background-color: black;
+  color: #fff;
+  transition: 1s;
 }
