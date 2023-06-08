@@ -4,9 +4,9 @@ import DatesField from './DatesField/DatesField'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import { useParams, Link } from 'react-router-dom'
 import * as Api from '../../Api/Api'
+import Preloader from '../Preloader/Preloader'
 
-
-function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDates }) {
+function MyImportantDatesPage({ showLoading, addPopupOpen, getMyImportantDates, importantDates }) {
 
   const currentUser = React.useContext(CurrentUserContext)
   const userId = currentUser._id
@@ -97,8 +97,6 @@ function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDate
   }, [id]); 
    
 
-
-
   function checkMyFriendArr () {
     //if(myFriendImportantDates.length){
       if(myFriendImportantDates){
@@ -114,8 +112,11 @@ function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDate
   }, [myFriendImportantDates]);
 
   return (
-    <>
-    {isCurrentUser?
+    <div>
+    {showLoading? 
+    <Preloader></Preloader> 
+    : 
+    (isCurrentUser?
       <section className='my-important-dates'>
         {isDates?
           <DatesField 
@@ -143,7 +144,6 @@ function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDate
           <h3 className='my-important-dates__title'>{`${friendName}'s events`}</h3>
           <DatesField 
             myFriendImportantDates={myFriendImportantDates}
-            //isFriend={!isCurrentUser}
           />
           </>
         :
@@ -156,8 +156,8 @@ function MyImportantDatesPage({ addPopupOpen, getMyImportantDates, importantDate
         </Link>
         
     </section>
-  }
-  </>
+  )}
+  </div>
   );
 }
 

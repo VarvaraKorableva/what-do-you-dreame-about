@@ -18,8 +18,7 @@ function FriendCard({friend, handleGetOneUserDreamsSubmit}) {
       <div className="friendCard__img-container"
            key={friend.id}
         //onClick={handleClick}
-      >
-          
+      > 
       <Link to={`${friend._id}`}>
         <img className="friendCard__img" 
           alt = {`${friend.name} avatar`} 
