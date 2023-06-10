@@ -15,16 +15,19 @@ const [keyWord, setKeyWord] = React.useState('')
 const [error, setError] = React.useState(false)
 const [errorMessage, setErrorMessage] = React.useState('')
 const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
+const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
 
 React.useEffect(() => {
   getAllSubscriptions(userId) //(получить все свои подписки)
   //checkArr()
   //console.log(allMySubsriptions)
 }, []);
-/*
+
+
 React.useEffect(() => {
   setUsersAfterFilter(allMySubscriptions)
-}, []);*/
+}, [(isInishialArrOfFriends===true)]);
+
 //console.log(allMySubscriptions)
 const handleSearchInputChange = (e) => {
   setKeyWord(e.target.value)
@@ -41,6 +44,7 @@ function handleSubmit (e) {
     }, "2000");
   } else {
     setError(false)
+    setIsInishialArrOfFriends(false)
     filterAllFriends(allMySubscriptions, keyWord)
   }  
 }
