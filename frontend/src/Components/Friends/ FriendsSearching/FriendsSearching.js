@@ -6,7 +6,7 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
 
   const [keyWord, setKeyWord] = React.useState('')
   const [error, setError] = React.useState(false)
-  const [errorMessage, setErrorMessage] = React.useState('Please enter the keyword')
+  const [errorMessage, setErrorMessage] = React.useState('')
   const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
 
   React.useEffect(() => {
@@ -22,6 +22,10 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
     e.preventDefault();
     if (!keyWord) {
       setError(true)
+      setErrorMessage('Please enter the keyword')
+      setTimeout(() => {
+        setErrorMessage('');
+      }, "2000");
     }else{
       setError(false)
       filterAllFriends(friends, keyWord)
