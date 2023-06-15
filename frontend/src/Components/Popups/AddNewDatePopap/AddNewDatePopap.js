@@ -40,7 +40,7 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       setDescription(e.target.value)
         if(e.target.value.length > 25) {
           setErrorDescription(true)
-          setErrorDescriptionMessage('Не должна привышать 25 символов')
+          setErrorDescriptionMessage('The date must not exceed 25 characters.')
         } else {
           setErrorDescription(false)
           setErrorDescriptionMessage('')
@@ -51,7 +51,7 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       setDate(e.target.value)
         if(!(e.target.value)) {
           setErrorDate(true)
-          setErrorDateMessage('дата должна быть заполнена')
+          setErrorDateMessage('The date must be filled in.')
         } else {
           setErrorDate(false)
           setErrorDateMessage('')

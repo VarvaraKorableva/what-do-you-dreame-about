@@ -29,8 +29,8 @@ function ImagePopup({ dream, onClose }) {
             alt={dream.name} 
             className='img-popup__picture'
           />
-          <p className="img-popup__picture-name">{dream.name}</p>
-          <p className="img-popup__picture-name">Приблизительная стоимость {dream.price}</p>
+          <p className="img-popup__picture-name">Name: {dream.name}</p>
+          <p className="img-popup__picture-name">Approximate cost: {dream.price} $</p>
           
         </div>
       </div>

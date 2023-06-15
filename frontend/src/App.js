@@ -23,6 +23,7 @@ import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
 import AddNewDatePopap from './Components/Popups/AddNewDatePopap/AddNewDatePopap'
 import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
 import MyImportantDatesPage from './Components/MyImportantDatesPage/MyImportantDatesPage'
+import MyFriendsImportantDatesPage from './Components/Friends/MyFriendsImportantDatesPage/MyFriendsImportantDatesPage'
 import useWindowDimensions from './hook/useWindowDimensions'
 import axios from 'axios';
 
@@ -143,11 +144,27 @@ function App() {
     }) 
     .catch(error => {
       console.log(error)
-    });
-      /*.finally(() => {
-        setShowLoading(false);
+    })
+    /*.finally(() => {
+        
     })*/
   }
+/*
+  function handleUpdateAvatar(formData) {
+    instance
+      .patch('http://localhost:3000/upload', formData)
+      .then(() => {
+        Api.getContent().then((data) => {
+          setCurrentUser(data.user);
+        });
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }*/
 
   function handleAddAvatar(formData) {
     instance.post('http://localhost:3000/upload', formData)
@@ -178,7 +195,8 @@ function App() {
         setIsLoggin(false)
         setCurrentUser({});
         setImportantDates([])
-        console.log(currentUser)
+        setAllMySubscriptions([])
+        setFriends([])
         navigate('/signin')
       })
       .catch((err) => {
@@ -209,26 +227,40 @@ function App() {
   }
 
   function getMyImportantDates() {
-    //setShowLoading(true)
+    setIsLoading(true)
     Api.getMyDates()
       .then((res)=> {
         setImportantDates(res.data)
+        console.log(importantDates)
       })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-        setShowLoading(false);
+        setIsLoading(false);
+      })
+  }
+
+  //deleteDate
+  const handleDeleteMyImportantDate = (date) => {
+    setIsLoading(true)
+    Api.deleteDate(date._id)
+      .then(() => {
+        Api.getMyDates()
+          .then((res) => {
+            setImportantDates(res.data);
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setIsLoading(false);
       })
   }
 
   function handleAddNewDateSubmit(data) {
-    //setShowLoading(true);
-    /*Api.addMyNewDate({
-      name: data.name,
-      date: data.date,
-      description: data.description,
-    })*/
+    setShowLoading(true);
     Api.addMyNewDate(data)
     .then((res) => {
       setImportantDates([res, ...importantDates]);
@@ -240,12 +272,11 @@ function App() {
       console.log(err)
     })
     .finally(() => {
-      //setShowLoading(false);
+      setShowLoading(false);
     })
   }
   
   function handleAddDreamSubmit(data) {
-    //setShowLoading(true);
     Api.addMyDream(data)
       .then((res) => {
         setDreams([res, ...dreams]);
@@ -253,9 +284,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-      })
-      .finally(() => {
-        //setShowLoading(false);
       })
   }
 
@@ -333,30 +361,27 @@ function changeUserInfoSubmit(userData) {
 function addSubscribe(subscriberId, userId) {
   Api.subscribe(subscriberId, userId)
   .then((res) => {
-    //setAllMySubscriptions([res, ...allMySubscriptions]);
-    setAllMySubscriptions((prevSubscriptions) => [res, ...prevSubscriptions]);
+    setAllMySubscriptions([res, ...allMySubscriptions]);
   })
   .catch((err) => {
     console.log(err)
-  })
-  .finally(() => {
-    //setShowLoading(false);
   })
 }
 
-
 function getAllSubscriptions(userId) {
-  setIsLoading(true)
+  setShowLoading(true)
+  //setIsLoading(true)
   Api.getAllSubscriptions(userId)
   .then((res)=> {
-    //const data = res.transformedSubscriptions
     setAllMySubscriptions(res.transformedSubscriptions)
+    console.log(allMySubscriptions)
   })
   .catch((err) => {
     console.log(err)
   })
   .finally(() => {
-    setIsLoading(false)
+  setShowLoading(false)
+  //setIsLoading(false)
   })
 }
 
@@ -433,6 +458,7 @@ function deleteSubscription(subscriptionId) {
             getAllSubscriptions={getAllSubscriptions}
             allMySubscriptions={allMySubscriptions}
             deleteSubscription={deleteSubscription}
+            showLoading={showLoading}
           />
         }>
         </Route>
@@ -441,8 +467,8 @@ function deleteSubscription(subscriptionId) {
         path="/users"  ///Searching
         element={
         <FriendsSearching
-        friends={friends}
-        handleGetUsersSubmit={handleGetUsersSubmit}
+          friends={friends}
+          handleGetUsersSubmit={handleGetUsersSubmit}
         />
         }>
         </Route>
@@ -481,7 +507,8 @@ function deleteSubscription(subscriptionId) {
               addPopupOpen={handleAddNewDateClick}
               importantDates={importantDates} //только мои даты
               getMyImportantDates={getMyImportantDates} //получение только моих дат
-              showLoading={showLoading}
+              isLoading={isLoading}
+              onDelete={handleDeleteMyImportantDate}
             />
           </ProtectedRoute>
         }>
@@ -490,8 +517,7 @@ function deleteSubscription(subscriptionId) {
         <Route 
         path='/users/:id/dates' 
         element={
-          <MyImportantDatesPage
-            
+          <MyFriendsImportantDatesPage
         />
         }>
         </Route>

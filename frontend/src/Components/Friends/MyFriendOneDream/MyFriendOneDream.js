@@ -1,6 +1,8 @@
+import React from 'react'
 import './MyFriendOneDream.css';
 
 function MyFriendOneDream({friendDream, onFriendCardClick}) {
+  const [isLink, setIsLink] = React.useState(false)
 
   function handleClick() {
     onFriendCardClick(friendDream);
@@ -20,6 +22,18 @@ function MyFriendOneDream({friendDream, onFriendCardClick}) {
 }
 
   const price = format(priceWithZero)
+
+  function checkLink() {
+    if(!(friendDream.dreamLink === '')){
+        setIsLink(true)
+      }else{
+        setIsLink(false)
+      }
+    }
+  
+    React.useEffect(() => {
+      checkLink()
+    }, [friendDream]);
   
   return ( 
     <div className="myFriendOneDream__container">
@@ -35,7 +49,14 @@ function MyFriendOneDream({friendDream, onFriendCardClick}) {
       <div className="myFriendOneDream__inf-container">
         <p className="myFriendOneDream__inf">Name: {friendDream.name}</p>
         <p className="myFriendOneDream__inf">Price: {price} $</p>
-        <a className="myFriendOneDream__inf myDream__inf-link" href={friendDream.imgLink} target='blank' >Link: {friendDream.imgLink}</a>
+        {isLink?
+        <a className="myFriendOneDream__inf myFriendOneDream__inf-link" href={friendDream.dreamLink} target='blank'>Link: {friendDream.dreamLink}</a>
+        :
+        <p className="myFriendOneDream__inf myFriendOneDream__inf-not-link">Link: <span className="myFriendOneDream__not-added">not added</span></p>
+        }
+        {/*<a className="myFriendOneDream__inf myDream__inf-link" href={friendDream.dreamLink} target='blank' >Link: {friendDream.dreamLink}</a>
+        
+        */}
       </div>
 
     </div>

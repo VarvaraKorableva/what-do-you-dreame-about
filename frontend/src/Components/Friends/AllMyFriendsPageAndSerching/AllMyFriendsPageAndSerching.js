@@ -19,14 +19,12 @@ const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
 
 React.useEffect(() => {
   getAllSubscriptions(userId) //(получить все свои подписки)
-  //checkArr()
-  //console.log(allMySubsriptions)
+  //console.log(allMySubscriptions)
 }, []);
-
 
 React.useEffect(() => {
   setUsersAfterFilter(allMySubscriptions)
-}, [(isInishialArrOfFriends===true)]);
+}, []);
 
 //console.log(allMySubscriptions)
 const handleSearchInputChange = (e) => {
@@ -64,16 +62,9 @@ return friends.filter((item) => {
 }
 
 function showAllSubscriptions() {
+  setIsInishialArrOfFriends(false)
   setUsersAfterFilter(allMySubscriptions)
 }
-/*
-function checkArr() {
-  if(!allMySubscriptions.lenght) {
-    setHaveSubsriptions(false)
-  } else {
-    setHaveSubsriptions(true)
-  }
-}*/
 
 return (
 

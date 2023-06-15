@@ -6,12 +6,11 @@ const dreamSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Укажите название'],
     minlength: [2, 'Название должно превышать 2 символа'],
-    maxlength: [30, 'Название не должно превышать 30 символов'],
+    maxlength: [50, 'Название не должно превышать 50 символов'],
   },
   imgLink: {
     type: String,
     required: [true, 'Поле, обязательно для заполнения'],
-    /*validate: validateURL,*/
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,13 +19,13 @@ const dreamSchema = new mongoose.Schema({
   },
   price: {
     type: String,
-    //required: [true, 'Поле, обязательно для заполнения'],
-    //default: [],
+    required: [true, 'Поле, обязательно для заполнения'],
+    maxlength: [15, 'Название не должно превышать 15 символов'],
   },
   dreamLink: {
     type: String,
-    required: [true, 'Поле, обязательно для заполнения'],
-   /* validate: validateURL,*/
+    required: false,
+    //validate: validateURL,
   },
   createdAt: {
     type: Date,

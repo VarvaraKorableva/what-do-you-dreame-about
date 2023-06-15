@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom';
-
+import * as Api from '../../../Api/Api'
+import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 import './MyFriendsPage.css'
 import DreamsField from '../../DreamsField/DreamsField'
 import PriceCategory from '../../PriceCategory/PriceCategory'
-import * as Api from '../../../Api/Api'
-import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
+import Preloader from '../../Preloader/Preloader';
 
-function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubscriptions}) {
+function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubscriptions}) {
   
   const [toRenderDreams, setToRenderDreams] = React.useState([])
   const [isShowAllBtnClicked, setIsShowAllBtnClicked] = React.useState(false)
@@ -15,8 +15,8 @@ function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClic
   const [isFilterBtnClicked, setIsFilterBtnClicked] = React.useState(false)
   const [motanots, setMotanots] = React.useState([]) 
   const [isLength, setIsLength] = React.useState(false)
+  const [isDatesLength, setIsDatesLength] = React.useState(false)
   const [dates, setDates] = React.useState([]) 
-  //const [isClick, setIsClick] = React.useState(false)
   const [isSubscriptions, setIsSubscriptions] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
   
@@ -26,20 +26,24 @@ function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClic
   const navigate = useNavigate()
   
   let { id } = useParams();
- 
+/*
   React.useEffect(() => {
-    setIsSubscriptions(allMySubscriptions.some(subscriber => subscriber.subscriberId === id));
-  }, [allMySubscriptions, id]);
+    const getUser = (id) => {
+      getAllSubscriptions(id)
+    };
+    getUser(userId);
+  }, [userId]);*/
 
   React.useEffect(() => {
     getAllSubscriptions(userId)
-  }, []);
-  //let isSubscriptions = allMySubscriptions.some(subscriber => subscriber.subscriberId == id)
-  //console.log(allMySubscriptions)
-    // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-    //const isLiked = card.likes.some(i => i === currentUser._id);
-    //let isSubscriptions = allMySubscriptions.some(subscriber => subscriber.subscriberId === id)
-  //console.log(dates)
+  }, [userId]);
+
+  React.useEffect(() => {
+    setIsSubscriptions(allMySubscriptions.some(subscriber => subscriber.subscriberId === id))
+  }, [allMySubscriptions]);
+
+  //let isSubscriptions = allMySubscriptions.some(subscriber => subscriber.subscriberId === id)
+
   function handleSubscribe() {
     const subscriberId = id;
     addSubscribe(subscriberId, userId);
@@ -51,9 +55,6 @@ function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClic
    
     deleteSubscription(subscriptionId)
   }
-
-  const date = '20.06.2023';
-  const days = 6;
 
   function findClosestDate(dataArray) {
     const currentDate = new Date(); // Текущая дата
@@ -125,6 +126,21 @@ function MyFriendsPage({deleteSubscription, allMySubscriptions, onFriendCardClic
     }
   } 
 
+function checkDateskArray() {
+  if(dates.length) {
+    return setIsDatesLength(true)
+  } else {
+    setIsDatesLength(false)
+  }
+} 
+
+React.useEffect(() => {
+  checkDateskArray()
+}, [dates]);
+
+console.log(isDatesLength)
+console.log(dates)
+
 React.useEffect(() => {
   const getDreams = (userId) => {
     Api.getOneFriendDreams(userId)
@@ -167,40 +183,53 @@ React.useEffect(() => {
   function changeShowAllBtnStatus() {
     setIsShowAllBtnClicked(true)
     setIsShowCategoryBtnClicked(false)
+    setIsFilterBtnClicked(false)
   }
 
   function changeShowCategoryBtnStatus() {
     setIsShowCategoryBtnClicked(true)
     setIsShowAllBtnClicked(false)
+    setIsFilterBtnClicked(false)
   }
 
   function getResultFor100() {
     setIsFilterBtnClicked(true)
+    setIsShowAllBtnClicked(false)
+    setIsShowCategoryBtnClicked(false)
     setToRenderDreams(motanots.filter(dream => dream.price < 101))
   }
 
   function getResultFor250() {
     setIsFilterBtnClicked(true)
+    setIsShowAllBtnClicked(false)
+    setIsShowCategoryBtnClicked(false)
     setToRenderDreams(motanots.filter(dream => dream.price < 251 && dream.price > 100))
   }
 
   function getResultFor500() {
     setIsFilterBtnClicked(true)
+    setIsShowAllBtnClicked(false)
+    setIsShowCategoryBtnClicked(false)
     setToRenderDreams(motanots.filter(dream => dream.price <= 500 && dream.price > 201))
   }
 
   function getResultForMore500() {
     setIsFilterBtnClicked(true)
+    setIsShowAllBtnClicked(false)
+    setIsShowCategoryBtnClicked(false)
     setToRenderDreams(motanots.filter(dream => dream.price > 501))
   }
 
   if (!userData || !motanots) {
-    return <div>Loading...</div>;
+    return <div className='my-friends-page__loading'>Loading...</div>;
   }
   
 return (
+  <>
+  {showLoading? 
+  <Preloader></Preloader>
+  :
   <div>
-    
     <div className='my-friends-page__profile-container'>
 
       <div className='my-friends-page__inf-container'>
@@ -245,17 +274,20 @@ return (
       </div>
 
     </div>  
-
+    {isDatesLength?
     <div className='my-friends-page__date-info'>
       <p>The next date for the fulfillment of a dream is: {formattedDate}</p>
       <p>{daysLeft} days left until the next day of the dream come true</p>
     </div>
-
+    :<div className='my-friends-page__date-info'>
+      <p>Until {userData.name} added dates</p>
+    </div>
+    }
     {
       isLength?
       <>
         <div className='my-friends-page__filter-btn-container'>
-          <button className='my-friends-page__filter-btn' onClick={changeShowCategoryBtnStatus}>Show  categories</button>
+          <button className='my-friends-page__filter-btn' onClick={changeShowCategoryBtnStatus}>Show categories</button>
           <button className='my-friends-page__filter-btn' onClick={showAllFriendsDreams}>Show all dreams</button>
         </div>
           {isShowAllBtnClicked?
@@ -265,7 +297,8 @@ return (
             />
           :
             <>
-              {isFilterBtnClicked?
+              {
+              isFilterBtnClicked?
                 <DreamsField
                   toRenderFriendsDreams={toRenderDreams}
                   onFriendCardClick={onFriendCardClick}
@@ -291,6 +324,8 @@ return (
       </div>  
     }
   </div>
+  }
+  </>
 )
 }
 

@@ -3,6 +3,19 @@ import './MotanOpenPopap.css'
 
 
 function MotanOpenPopap({ motan, onClose }) {
+  const [isLink, setIsLink] = React.useState(false)
+
+  function checkLink() {
+    if(!(motan.dreamLink === '')){
+        setIsLink(true)
+      }else{
+        setIsLink(false)
+      }
+    }
+  
+    React.useEffect(() => {
+      checkLink()
+    }, [motan]);
 
   return (
     <aside className={`motan-open-popap ${motan.imgLink ? 'motan-open-popap__opened' : ''}`}>
@@ -15,12 +28,14 @@ function MotanOpenPopap({ motan, onClose }) {
             className='motan-open-popap__picture'
           />
           <p className="motan-open-popap__picture-name">Name: {motan.name}</p>
-          <p className="motan-open-popap__picture-name">Approximate cost: {motan.price}</p>
-          <a className="motan-open-popap__picture-name motan-open-popap__picture-name-link" href={motan.imgLink} target='blank'>
-            <p>Where can you buy: {motan.dreamLink}</p>
-          </a>
-          
-          
+          <p className="motan-open-popap__picture-name">Approximate cost: {motan.price} $</p>
+          {isLink?
+            <a className="motan-open-popap__picture-name motan-open-popap__picture-name-link" href={motan.dreamLink} target='blank'>
+              <p>Where can you buy: {motan.dreamLink}</p>
+            </a>
+          :
+            <></>
+          }
         </div>
       </div>
     </aside>

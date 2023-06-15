@@ -1,6 +1,9 @@
 const User = require('./models/user');
 require('dotenv').config();
 //import cors from 'cors';
+
+const fs = require('fs'); // Подключаем модуль fs для работы с файлами
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -104,11 +107,42 @@ app.post('/upload', upload.single('image'), (req, res) => {
       }
     });
 });
-
+/*
 app.patch('/upload', upload.single('image'), (req, res) => {
   const userId = req.body.userId;
   const imageBuffer = req.file.buffer;
 
+  const filename = `${userId}_${Date.now()}.jpg`; // Генерируем уникальное имя файла
+  const filePath = path.join(__dirname, 'uploads', filename); // Путь к файлу
+
+  // Сохраняем файл на сервере
+  fs.writeFile(filePath, imageBuffer, (error) => {
+    if (error) {
+      console.error('Произошла ошибка при сохранении файла:', error);
+      res.status(500).send('Произошла ошибка при сохранении файла');
+      return;
+    }
+
+    // Обновляем пользователя в базе данных
+    User.findByIdAndUpdate(userId, { avatar: `/uploads/${filename}` }, { new: true })
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((error) => {
+        if (error.name === 'CastError') {
+          res.status(400).send('Некорректный идентификатор пользователя');
+        } else {
+          res.status(500).send('Произошла ошибка при обновлении пользователя');
+        }
+      });
+  });
+});*/
+
+//рабочий
+app.patch('/upload', upload.single('image'), (req, res) => {
+  const userId = req.body.userId;
+  const imageBuffer = req.file.buffer;
+  
   User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
     .then((user) => {
       res.send(user);
@@ -121,6 +155,23 @@ app.patch('/upload', upload.single('image'), (req, res) => {
       }
     });
 });
+/*
+app.patch('/upload', upload.single('image'), (req, res) => {
+  const userId = req.body.userId;
+  const imageBuffer = req.file.buffer;
+  
+  User.findByIdAndUpdate(userId, { avatar: imageBuffer }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+});*/
 
 app.use(require('./routes/users'));
 app.use(require('./routes/dreams'));

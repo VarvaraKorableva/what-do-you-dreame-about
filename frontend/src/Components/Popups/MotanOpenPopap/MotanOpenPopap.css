@@ -92,3 +92,7 @@
 .motan-open-popap__picture-name-link {
   cursor: pointer;
 }
+
+.motan-open-popap__picture-name-link:hover {
+  opacity: 0.7;
+}
