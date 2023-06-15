@@ -16,8 +16,19 @@ const createSubscription = async (req, res, next) => {
     }
 
     const subscription = await Subscription.create({ subscriber, user });
-    res.status(200).json({ message: 'Subscription created successfully' });
-    //res.status(201).json(subscription);
+
+    const subscriptions = await Subscription.findOne({ subscriber, user }).populate('subscriber', 'name avatar');
+
+    const transformedSubscriptions = {
+      _id: subscriptions._id,
+      subscriberId: subscriptions.subscriber._id,
+      subscriberName: subscriptions.subscriber.name,
+      subscriberAvatar: subscriptions.subscriber.avatar,
+      user: subscriptions.user,
+      createdAt: subscriptions.createdAt
+    };
+    
+    res.status(201).json(transformedSubscriptions);
   } catch (err) {
     next(err);
   }
@@ -49,9 +60,6 @@ const getUserSubscriptions = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    //const subscriptions = await Subscription.find({ user })
-    //res.status(200).json(subscriptions);
     
    const subscriptions = await Subscription.find({ user }).populate('subscriber', 'name avatar');
    
@@ -86,67 +94,3 @@ module.exports = {
   getUserSubscriptions,
   //deleteAllSubscriptions
 };
-
-/*
-// Создать подписку
-const createSubscription = async (req, res, next) => {
-  try {
-    const { subscriberId, userId } = req.body;
-
-    const [subscriber, user] = await Promise.all([
-      User.findById(subscriberId),
-      User.findById(userId)
-    ]);
-
-    if (!subscriber || !user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    const subscription = await Subscription.create({ subscriber: subscriber._id, user: user._id });
-
-    res.status(201).json(subscription);
-  } catch (err) {
-    next(err);
-  }
-};
-
-// Удалить подписку
-const deleteSubscription = async (req, res, next) => {
-  try {
-    const subscriptionId = req.params.userId;
-    const subscription = await Subscription.findByIdAndDelete(subscriptionId);
-
-    if (!subscription) {
-      return res.status(404).json({ message: 'Subscription not found' });
-    }
-
-    res.status(200).json({ message: 'Subscription deleted successfully' });
-  } catch (err) {
-    next(err);
-  }
-};
-
-// Получить все подписки определенного пользователя
-const getUserSubscriptions = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    const subscriptions = await Subscription.find({ user }).populate('subscriber', 'name');
-
-    res.status(200).json(subscriptions);
-  } catch (err) {
-    next(err);
-  }
-};
-
-module.exports = {
-  createSubscription,
-  deleteSubscription,
-  getUserSubscriptions
-};*/

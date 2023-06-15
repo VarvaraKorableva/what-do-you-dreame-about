@@ -1,13 +1,15 @@
 import React from 'react'
 import './AddDreamPopup.css'
-
+import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
 function AddDreamPopup({onClose, isOpen, onAddDream}) {
 
   const [name, setName] = React.useState('')
-  const [imgLink, setImgLink] = React.useState('')
+  const [img, setImg] = React.useState('')
   const [price, setPrice] = React.useState('')
   const [dreamLink, setDreamLink] = React.useState('')
+
+  const currentUser = React.useContext(CurrentUserContext)
 /*
   React.useEffect(() => {
     setName("")
@@ -21,7 +23,7 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
   }
 
   function handleImgLinkChange(e) {
-    setImgLink(e.target.value)
+    setImg(e.target.files[0]);
   }
 
   function handlePriceChange(e) {
@@ -36,10 +38,30 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     e.preventDefault();
     onAddDream({
     name,
-    imgLink,
+    img,
     price,
     dreamLink,
     });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (img) {
+      const userId = currentUser._id;
+      const formData = new FormData();
+      
+      formData.append('userId', userId);
+      formData.append('image', img);
+  
+      //handleAddAvatar(formData)
+ 
+      setImg(null)
+      //setIsFormValid(false)
+      onClose()
+  
+    } else {
+      console.log('Файл не выбран');
+    }
   }
 
   return (
@@ -55,7 +77,8 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     <h2 className="add-dream-popup__title">Add a new dream</h2>
       <form 
         className='add-dream-popup__form'
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+        encType="multipart/form-data">
         <input
           className='add-dream-popup__input'
           name='name'
@@ -82,8 +105,8 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
 
         <input
           className='add-dream-popup__input'
-          name='imgLink'
-          type='url'
+          name='image'
+          type="file"
           placeholder="Link to picture"
           onChange={handleImgLinkChange}
         ></input>

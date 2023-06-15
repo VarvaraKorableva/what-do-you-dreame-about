@@ -52,25 +52,16 @@
   flex-direction: column;
   justify-content: space-between;
 }
-/*
-@media screen and (max-width: 600px) {
-    .myDream__container {
-      min-height: 173px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .myDream__container {
-      min-height: 120px;
-    }
-}*/
+.myDream__container:hover {
+  box-shadow: 5px 5px 5px rgb(226, 232, 232);
+} 
 
 .myDream__inf-container {
   display: flex;
   flex-direction: column;
 }
 
-.myDream__inf {
+.myDream__inf-title {
   font-size: 12px;
   font-weight: 500;
   margin: 0;
@@ -78,15 +69,34 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  cursor: pointer;
 }
 
-.myDream__inf:first-of-type {
+.myDream__inf-title:first-of-type {
   margin-top: 5px;
 }
+/*
+.myDream__inf {
+  opacity: 0.5;
+}*/
 
 .myDream__inf-link {
   color: black;
   text-decoration-line: none;
   margin-top: 0;
+  transition: 1s;
+}
+
+.myDream__inf-link:hover {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.myDream__not-added {
+  color: black;
+}
+
+.myDream__inf-not-link {
+  margin-top: 5px;
+  opacity: 0.3;
 }

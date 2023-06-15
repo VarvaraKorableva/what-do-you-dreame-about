@@ -1,6 +1,8 @@
+import React from 'react'
 import './MyDream.css';
 
 function MyDream({dream, OnDeleteMyDream, onCardClick}) {
+  const [isLink, setIsLink] = React.useState(false)
 
   function handleDelete() {
     OnDeleteMyDream(dream);
@@ -25,7 +27,19 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
 }
 
   const price = format(priceWithZero)
-  
+
+  function checkLink() {
+  if(!(dream.dreamLink === '')){
+      setIsLink(true)
+    }else{
+      setIsLink(false)
+    }
+  }
+
+  React.useEffect(() => {
+    checkLink()
+  }, [dream]);
+
   return ( 
     <div className="myDream__container">
       <div className="myDream__img-container">
@@ -42,9 +56,14 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
       </div>
       
       <div className="myDream__inf-container">
-        <p className="myDream__inf">Name: {dream.name}</p>
-        <p className="myDream__inf">Price: {price} $</p>
-        <a className="myDream__inf myDream__inf-link" href={dream.imgLink} target='blank' >Link: {dream.imgLink}</a>
+        <p className="myDream__inf-title">Name: <span className='myDream__inf'>{dream.name}</span></p>
+        <p className="myDream__inf-title">Price: <span className='myDream__inf'>{price} $</span></p>
+        {isLink?
+        <a className="myDream__inf-title myDream__inf-link" href={dream.dreamLink} target='blank'>Link: <span className='myDream__inf'>{dream.dreamLink}</span></a>
+        :
+        <p className="myDream__inf-title myDream__inf-not-link">Link: <span className="myDream__not-added">not added</span></p>
+        }
+      {/*  <a className="myDream__inf myDream__inf-link" href={dream.dreamLink} target='blank' >Link: {dream.dreamLink}</a>*/}
       </div>
 
     </div>

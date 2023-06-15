@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     //default: '/uploads/image-1684910204242-126322040.jpg', // Здесь указывается путь к дефолтной аватарке
     //validate: validateURL,
-  },
+  },/*
+  avatar: {
+    type: Buffer, // Изменяем тип на Buffer
+  },*/
   email: {
     type: String,
     required: [true, 'Пользователь с таким email уже зарегистрирован'],

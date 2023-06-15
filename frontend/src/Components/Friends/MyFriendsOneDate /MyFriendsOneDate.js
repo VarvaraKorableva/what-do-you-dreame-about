@@ -1,7 +1,7 @@
 import React from 'react'
-import './OneDate.css';
+//import './OneDate.css';
 
-function OneDate({date, onDelete}) {
+function MyFriendsOneDate({date}) {
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -9,9 +9,6 @@ function OneDate({date, onDelete}) {
     setExpanded(!expanded);
   };
 
-  function handleDelete() {
-    onDelete(date);
-  }
   
   const formattedDate = new Date(date.date).toLocaleDateString('en-GB');
   
@@ -30,28 +27,10 @@ function OneDate({date, onDelete}) {
         <div className="content">
           <p className="oneDate__inf">{formattedDate}</p>
           <p className="oneDate__inf">{date.description}</p>
-
-          <div className='oneDate__BTN-container'>
-            <button
-              onClick={handleDelete}
-              className='oneDate__delete-BTN'
-              type="button"
-            >
-              Delete
-            </button>
-            <button
-             // onClick={handleDelete}
-              className='oneDate__delete-BTN'
-              type="button"
-            >
-              To correct
-            </button>
-          </div>
-
         </div>
       )} 
     </div>
   );
 }
 
-export default OneDate;
+export default MyFriendsOneDate;

@@ -79,6 +79,18 @@ export const getMyDates = () => {
   })
       .then(checkResponse)
 };
+
+export const deleteDate = (id) => {
+  return fetch (`${BASE_URL}/importantdates/${id}`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(checkResponse);
+}
 //{name, date, description}
 export const addMyNewDate = (data) => {
   return fetch(`${BASE_URL}/importantdates`, {
