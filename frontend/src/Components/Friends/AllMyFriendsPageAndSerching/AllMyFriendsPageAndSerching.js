@@ -14,19 +14,18 @@ const [haveSubsriptions, setHaveSubsriptions] = React.useState(true)
 const [keyWord, setKeyWord] = React.useState('')
 const [error, setError] = React.useState(false)
 const [errorMessage, setErrorMessage] = React.useState('')
-const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
-const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
+const [usersAfterFilter, setUsersAfterFilter] = React.useState(allMySubscriptions)
+//const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
 
 React.useEffect(() => {
   getAllSubscriptions(userId) //(получить все свои подписки)
-  //console.log(allMySubscriptions)
 }, []);
 
 React.useEffect(() => {
   setUsersAfterFilter(allMySubscriptions)
+  //console.log(isInishialArrOfFriends)
 }, []);
 
-//console.log(allMySubscriptions)
 const handleSearchInputChange = (e) => {
   setKeyWord(e.target.value)
   setError(false)
@@ -42,7 +41,7 @@ function handleSubmit (e) {
     }, "2000");
   } else {
     setError(false)
-    setIsInishialArrOfFriends(false)
+    //setIsInishialArrOfFriends(false)
     filterAllFriends(allMySubscriptions, keyWord)
   }  
 }
@@ -62,7 +61,7 @@ return friends.filter((item) => {
 }
 
 function showAllSubscriptions() {
-  setIsInishialArrOfFriends(false)
+  //setIsInishialArrOfFriends(false)
   setUsersAfterFilter(allMySubscriptions)
 }
 

@@ -55,7 +55,8 @@ const handleNameChange = (e) => {
     setErrorNameMessage('')
     setErrorName(false);
    }
-   setName(e.target.value)
+   //setName(e.target.value)
+   setName((e.target.value[0].toUpperCase() + e.target.value.slice(1)))
 }
 /*
 const handlePasswordChange = (e) => {
@@ -156,7 +157,7 @@ React.useEffect(() => {
               name="birthday"
               type="date"
               autoComplete="on"
-              //defaultValue=''
+              lang="en"
               placeholder={currentUser.birthday}
               onChange={handleBirthdayOfEventChange}
             />

@@ -115,23 +115,14 @@
   font-size: 12px;
   text-decoration: none;
   margin-left: 3px;
-  transition: 1s ease;
+  transition: 0.5s;
 }
 
 .login__entrylink:hover {
-  transition: 1s ease;
+  transition: 0.5s;
+  font-weight: 600;
 }
 
-.login__entrylink:hover {
-  transition: 1s ease;
-  opacity: 0.5;
-}
-
-   @media screen and (max-width: 500px) {
-    .login__entrylink  {
-      font-size: 12px;
-    }
-  }
   @media screen and (max-width: 450px) {
     .login__entrylink  {
       font-size: 10px;
@@ -170,7 +161,7 @@
   color: #fff;
   width: 100%;
   height: 45px;
-  border: none;
+  border: 1px solid black;
   border-radius: 50px;
   margin-top: 69px;
   padding: 0;
@@ -195,11 +186,12 @@
 }
 
 .login__btn {
-    color: black;
+    color: #ccc;
+    border: 1px solid #ccc;
+    opacity: 0.7;
+    background-color: transparent;
     width: 100%;
     height: 45px;
-    background-color: transparent;
-    border: 1px solid black;
     margin-top: 69px;
     border-radius: 50px;
     padding: 0;

@@ -8,25 +8,12 @@ function MyImportantDatesPage({ isLoading, addPopupOpen, getMyImportantDates, im
 
   const currentUser = React.useContext(CurrentUserContext)
   const userId = currentUser._id
-  const [isDates, setIsDates] = React.useState(false)
 
   React.useEffect(() => {
     getMyImportantDates(userId) 
   }, []);
 
-//есть ли даты?
-  function checkMyArr () {
-    if(importantDates.length){
-      setIsDates(true)
-    }else {
-      setIsDates(false)
-    }
-  }
-
-  React.useEffect(() => {
-    checkMyArr() 
-  }, [importantDates]);
-
+const isDates = importantDates.length === 0
 
   return (
     <section className='my-important-dates'>
@@ -35,15 +22,16 @@ function MyImportantDatesPage({ isLoading, addPopupOpen, getMyImportantDates, im
       :  
         <>
           {isDates?
-            <DatesField 
-              importantDates={importantDates}
-              onDelete={onDelete}
-            />
-          :
+
             <h2>You can add significant events for yourself, 
             and then people will know when there is still a reason 
             for your dream to come true. 
             </h2>
+          :
+            <DatesField 
+              importantDates={importantDates}
+              onDelete={onDelete}
+            />
           }
           <button 
             className='my-important-dates__add-btn'

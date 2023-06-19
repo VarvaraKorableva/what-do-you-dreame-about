@@ -45,6 +45,10 @@ function App() {
   const [allMySubscriptions,setAllMySubscriptions] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [errorLoginMessage, setErrorLoginMessage] = React.useState('')
+  const [isError, setIsError] = React.useState(false)
+  const [isLoginError, setIsLoginError] = React.useState(false)
   
 
   const userId = currentUser._id
@@ -97,7 +101,17 @@ function App() {
       setIsAddAvatarPopap(true)
     })
     .catch((err) => {
-      console.log(err)
+      if (err.status === 409 || 11000) {
+        setIsError(true)
+        setErrorMessage('Error, such Email already exists.');
+      } else {
+        setIsError(true)
+        setErrorMessage('The server encountered an error. Please try again later.')
+        setTimeout(function(){
+          setErrorMessage('');
+          setIsError(false)
+        }, 5000)
+      }
     })
   }
     function handleLoginSubmit(userData){
@@ -128,6 +142,22 @@ function App() {
       })*/
       .catch((err) => {
         console.log(err)
+        if (err.status === 401 || 11000) {
+          setIsLoginError(true)
+          setErrorLoginMessage('One of the two does not fit.');
+          setTimeout(function(){
+            setErrorLoginMessage('')
+            //setIsLoginError(false)
+          }, 4000)
+        } else {
+          setIsLoginError(true)
+          setErrorLoginMessage('The server encountered an error. Please try again later.')
+          setTimeout(function(){
+            setErrorLoginMessage('')
+            //setIsLoginError(false)
+          }, 5000)
+        }
+        //401
       })
   }
 
@@ -415,6 +445,8 @@ function deleteSubscription(subscriptionId) {
         element={
         <Registration
         onRegister={handleRegSubmit}
+        errorMessage={errorMessage}
+        isError={isError}
         />
         }>
         </Route>
@@ -424,6 +456,8 @@ function deleteSubscription(subscriptionId) {
         element={
         <Login
           onSubmit={handleLoginSubmit}
+          errorLoginMessage={errorLoginMessage}
+          isLoginError={isLoginError}
         />
         }>
         </Route>

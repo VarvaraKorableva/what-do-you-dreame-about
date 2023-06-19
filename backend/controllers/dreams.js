@@ -5,6 +5,40 @@ const NotFoundError = require('../Errors/NotFoundError');
 const CastError = require('../Errors/CastError');
 const ForbiddenError = require('../Errors/ForbiddenError');
 
+const path = require('path');
+const fs = require('fs');
+
+module.exports.createDream = (req, res, next) => {
+  const { _id } = req.user;
+  const { name, price, dreamLink } = req.body;
+  let imgLink;
+
+  // Проверяем, есть ли файл с изображением
+  if (req.file) {
+    imgLink = req.file.filename;
+  }
+
+  Dream.create({ name, imgLink, price, dreamLink, owner: _id })
+    .then((dream) => res.status(201).send(dream))
+    .catch((err) => {
+      // Удаляем загруженный файл, если произошла ошибка
+      if (imgLink) {
+        const filePath = path.join(__dirname, '../uploads', imgLink);
+        fs.unlink(filePath, (error) => {
+          if (error) {
+            console.error('Ошибка при удалении файла:', error);
+          }
+        });
+      }
+
+      if (err.name === 'ValidationError') {
+        next(new CastError('Введены некорректные данные'));
+      }
+      next(err);
+    });
+};
+
+
 module.exports.getDreams = (req, res, next) => {
   Dream.find({})
     .then((dreams) => res.send({ data: dreams }))
@@ -42,7 +76,8 @@ module.exports.getMyFriendDreams = (req, res, next) => {
       next(err);
     });
 };
-
+/*
+Рабочая на добавление ссылки
 module.exports.createDream = (req, res, next) => {
   const { _id } = req.user;
   const { name, imgLink, price, dreamLink } = req.body;
@@ -56,7 +91,7 @@ module.exports.createDream = (req, res, next) => {
       next(err);
     });
 };
-
+*/
 module.exports.deleteDream = (req, res, next) => {
   const { dreamId } = req.params;
   Dream.findById(dreamId)

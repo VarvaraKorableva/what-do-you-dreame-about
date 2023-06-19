@@ -2,7 +2,7 @@ import React from 'react'
 import './Registration.css'
 import { Link } from 'react-router-dom'
 
-function Registration({onRegister}){
+function Registration({onRegister, errorMessage, isError}){
 
 const [name, setName] = React.useState('')
 const [email, setEmail] = React.useState('')
@@ -51,7 +51,8 @@ const [isValid, setIsValid] = React.useState(false);
       setErrorNameMessage('')
       setErrorName(false);
      }
-     setName(e.target.value)
+     //setName(e.target.value)
+     setName(e.target.value[0].toUpperCase() + e.target.value.slice(1));
   }
 
   const handlePasswordChange = (e) => {
@@ -142,7 +143,7 @@ const [isValid, setIsValid] = React.useState(false);
           <span className='register__inputmistake'>{errorPasswordMessage}
           </span>
 
-
+          <span className={`${isError?'register__inputmistake' : ''}`}>{errorMessage}</span>
       </fieldset>
         <button
           type="submit"
