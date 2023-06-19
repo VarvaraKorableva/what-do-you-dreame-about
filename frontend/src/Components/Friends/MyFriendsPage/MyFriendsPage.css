@@ -241,3 +241,8 @@
   opacity: 0.7;
 }
 
+.my-friends-page__date {
+  font-weight: 600;
+  font-size: 12px;
+}
+

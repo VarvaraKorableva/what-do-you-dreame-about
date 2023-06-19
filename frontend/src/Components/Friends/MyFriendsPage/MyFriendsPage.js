@@ -276,8 +276,8 @@ return (
     </div>  
     {isDatesLength?
     <div className='my-friends-page__date-info'>
-      <p>The next date for the fulfillment of a dream is: {formattedDate}</p>
-      <p>{daysLeft} days left until the next day of the dream come true</p>
+      <p>The next date for the fulfillment of a dream is: <span className='my-friends-page__date'>{formattedDate}</span></p>
+      <p><span className='my-friends-page__date'>{daysLeft} days</span> left until the next day of the dream come true</p>
     </div>
     :<div className='my-friends-page__date-info'>
       <p>Until {userData.name} added dates</p>
@@ -319,8 +319,8 @@ return (
       </>
       :
       <div className='my-friends-page__container-remind'>
-        <p className='my-friends-page__message-about-empty-arr'>{userData.name}  did't have time to tell about dreams, </p>
-        <button className='my-friends-page__remind-btn'>to remind?</button>
+        <p className='my-friends-page__message-about-empty-arr'>{userData.name}  hasn't added any dreams yet. </p>
+       {/* <button className='my-friends-page__remind-btn'>to remind?</button> */}
       </div>  
     }
   </div>

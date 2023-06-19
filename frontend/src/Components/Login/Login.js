@@ -3,7 +3,7 @@ import './Login.css'
 
 import { Link } from 'react-router-dom'
 
-function Login({ onSubmit }) {
+function Login({ isLoginError, errorLoginMessage, onSubmit }) {
 
 const [isValid, setIsValid] = React.useState(false)
 
@@ -95,12 +95,13 @@ React.useEffect(() => {
             />
           </label>
           <span className='login__inputmistake'>{errorPasswordMessage}</span>
+          <span className={`${isLoginError?'login__inputmistake' : ''}`}>{errorLoginMessage}</span>
         </fieldset>
 
         <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>SignIn</button>
           <div className='login__wrapper'>
             <p className='login__subtitle'>Not registered yet?
-            <Link className='login__entrylink' to="/signup">signUp</Link>
+            <Link className='login__entrylink' to="/signup"> SignUp</Link>
             </p>
           </div>
       </form>
@@ -109,3 +110,7 @@ React.useEffect(() => {
 }
 
 export default Login;
+
+/*
+/^([\w.%+-]+)@([\w-]+.)+([\w]{2,})$/
+*/

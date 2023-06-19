@@ -113,8 +113,6 @@ React.useEffect(() => {
               method="post" 
               encType="multipart/form-data"
             >
-
-              
               <button 
                 onClick={() => addAvatarRef.current.click()}
                 className='popap-add-avatar__input-btn'
