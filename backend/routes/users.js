@@ -4,21 +4,21 @@ const { Reg } = require('../utils/const');
 
 const {
   getUsers,
-  getUser,
+  createAvatar,
   updateUser,
-  //updateAvatar,
+  updateAvatar,
   getСurrentUser,
 } = require('../controllers/users');
+
+ const uploadMiddleware = require('../middlewares/multer')
 
 //router.get('/users', getUsers);
 
 router.get('/users/me', getСurrentUser);//
-/*
-router.get('/users/:userId', celebrate({
-    params: Joi.object().keys({
-    userId: Joi.string().hex().length(24).required(),
-  }),
-}), getUser);*/
+
+router.patch('/upload', uploadMiddleware, updateAvatar);
+router.post('/upload', uploadMiddleware, createAvatar);
+//
 
 router.patch('/users/me', celebrate({
   body: Joi.object().keys({

@@ -142,3 +142,55 @@ module.exports.deleteAllUsers = async (req, res, next) => {
     next(err);
   }
 };
+
+
+module.exports.updateAvatar = (req, res, next) => {
+  const userId = req.body.userId
+  User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+};
+
+module.exports.createAvatar = (req, res, next) => {
+  const userId = req.body.userId;
+  //const imageBuffer = req.file.buffer;
+
+  User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+};
+
+/*
+app.post('/upload', upload.single('image'), (req, res) => {
+  const userId = req.body.userId;
+  //const imageBuffer = req.file.buffer;
+
+  User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        res.status(400).send('Некорректный идентификатор пользователя');
+      } else {
+        res.status(500).send('Произошла ошибка при обновлении пользователя');
+      }
+    });
+});
+*/

@@ -19,32 +19,6 @@ const editAvatarRef = React.useRef(null);
 function handleImgLinkChange(e) {
   setImg(e.target.files[0]);
 }
-/*
-function handleSubmit(e) {
-  e.preventDefault();
-  if (img) {
-    const userId = currentUser._id;
-    const formData = new FormData();
-
-    // Получение содержимого файла в виде Buffer или ArrayBuffer
-    const reader = new FileReader();
-    reader.onload = function () {
-      const buffer = reader.result; // Получение содержимого файла
-      const file = new File([buffer], img.name, { type: img.type }); // Создание File объекта с содержимым файла
-
-      formData.append('userId', userId);
-      formData.append('image', file);
-
-      handleUpdateAvatarSubmit(formData);
-    };
-    reader.readAsArrayBuffer(img); // Чтение содержимого файла
-
-    setImg(null);
-    setIsFormValid(false);
-  } else {
-    console.log('Файл не выбран');
-  }
-}*/
 
 function handleSubmit(e) {
   e.preventDefault();
