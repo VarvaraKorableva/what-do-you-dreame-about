@@ -2,11 +2,12 @@ const User = require('./models/user');
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
-const cors = require('cors');
 
 const { login, createUser, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -27,6 +28,8 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
+
+
 app.use(cors({
   credentials: true,
   origin: [
@@ -34,9 +37,15 @@ app.use(cors({
     'http://localhost:3000',
     'https://localhost:3001',
     'https://localhost:3000',
-    
   ],
 }));
+/*
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});*/
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -45,6 +54,8 @@ app.get('/crash-test', () => {
 });
 
 app.use('/uploads', express.static('uploads'));
+//app.use('/uploads', express.static('avatars'));
+//app.use('/dreamsImg', express.static('dreamsImg'));
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

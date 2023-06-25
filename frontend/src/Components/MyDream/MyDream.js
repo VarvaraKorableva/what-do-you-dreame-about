@@ -50,7 +50,8 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
         </button>
         <img className="myDream__img" 
           alt = {dream.name} 
-          src = {dream.imgLink}
+          //src = {dream.imgLink}
+          src={`http://localhost:3000${dream.imgLink}`}
           onClick={handleClick}
         />
       </div>

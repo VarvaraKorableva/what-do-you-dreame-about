@@ -179,22 +179,6 @@ function App() {
         
     })*/
   }
-/*
-  function handleUpdateAvatar(formData) {
-    instance
-      .patch('http://localhost:3000/upload', formData)
-      .then(() => {
-        Api.getContent().then((data) => {
-          setCurrentUser(data.user);
-        });
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }*/
 
   function handleAddAvatar(formData) {
     instance.post('http://localhost:3000/upload', formData)
@@ -305,9 +289,9 @@ function App() {
       setShowLoading(false);
     })
   }
-  
-  function handleAddDreamSubmit(data) {
-    Api.addMyDream(data)
+  /*
+  function handleAddDreamSubmit(formData) {
+    Api.addMyDream(formData)
       .then((res) => {
         setDreams([res, ...dreams]);
         closeAllPopups();
@@ -315,6 +299,23 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
+  }*/
+
+  function handleAddDreamSubmit(formData) {
+    axios.post('http://localhost:3000/dreams', formData, {
+      withCredentials: true,
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then((res) => {
+        setDreams([res.data, ...dreams]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const handleDeleteDream = (dream) => {
@@ -343,6 +344,7 @@ function App() {
         //setShowLoading(false);
       })
   }
+
 
 function handleDreamClick(dream) {
   setSelectedDream(dream);

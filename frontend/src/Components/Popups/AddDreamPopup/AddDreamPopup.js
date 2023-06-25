@@ -66,14 +66,12 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       const formData = new FormData();
       
       formData.append('userId', userId);
+      formData.append('name', name);
       formData.append('image', img);
+      formData.append('price', price);
+      formData.append('dreamLink', dreamLink);
   
-      onAddDream({
-        name,
-        img,
-        price,
-        dreamLink,
-        });
+      onAddDream(formData);
  
       /*setImg(null)
       //setIsFormValid(false)*/
@@ -238,6 +236,7 @@ React.useEffect(() => {
           onChange={handleImgLinkChange}
           hidden
         ></input>
+
         </label>
         <span className='add-dream-popup__inputmistake'>{errorImgMessage}</span>
         <button 

@@ -23,7 +23,9 @@ function MotanOpenPopap({ motan, onClose }) {
         <button className="motan-open-popap__close-button" type="button" onClick={onClose}>
         </button>
         <div>
-          <img src={motan.imgLink}
+          <img 
+            //src={motan.imgLink}
+            src={`http://localhost:3000${motan.imgLink}`}
             alt={motan.name} 
             className='motan-open-popap__picture'
           />

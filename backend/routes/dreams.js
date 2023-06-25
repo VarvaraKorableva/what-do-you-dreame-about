@@ -12,11 +12,12 @@ const {
 } = require('../controllers/dreams');
 
 //router.get('/dreams', getDreams);/
+const uploadMiddleware = require('../middlewares/multer')
 
 router.get('/dreams/mydreams', getMyDreams);
 
 //router.get('/dreams/:userId', getMyFriendDreams);//getMyFriendDreams
-
+/*
 router.post('/dreams', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(50),
@@ -24,7 +25,9 @@ router.post('/dreams', celebrate({
     price: Joi.string().required().min(1).max(15),
     dreamLink: Joi.string().allow('')//.required(),.pattern(Reg)
   }),
-}), createDream);
+}), createDream);*/
+
+router.post('/dreams', uploadMiddleware, createDream);
 
 router.delete('/dreams/:dreamId', celebrate({
   params: Joi.object().keys({

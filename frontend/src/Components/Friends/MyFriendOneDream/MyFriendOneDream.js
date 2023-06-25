@@ -41,7 +41,8 @@ function MyFriendOneDream({friendDream, onFriendCardClick}) {
 
         <img className="myFriendOneDream__img" 
           alt = {friendDream.name} 
-          src = {friendDream.imgLink}
+          //src = {friendDream.imgLink}
+          src={`http://localhost:3000${friendDream.imgLink}`}
           onClick={handleClick}
       />
       </div>

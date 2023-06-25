@@ -89,6 +89,7 @@ const deleteAllSubscriptions = async (req, res, next) => {
 };*/
 
 module.exports = {
+  //deleteAllSubscriptions,
   createSubscription,
   deleteSubscription,
   getUserSubscriptions,

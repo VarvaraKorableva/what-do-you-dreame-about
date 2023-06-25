@@ -9,32 +9,17 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports.createDream = (req, res, next) => {
-  const { _id } = req.user;
-  const { name, price, dreamLink } = req.body;
-  let imgLink;
+  const { name, imgLink, price, dreamLink } = req.body;
+  const userId = req.body.userId;
 
-  // Проверяем, есть ли файл с изображением
-  if (req.file) {
-    imgLink = req.file.filename;
-  }
-
-  Dream.create({ name, imgLink, price, dreamLink, owner: _id })
+  Dream.create({ name, imgLink: `/uploads/${req.file.filename}`, price, dreamLink, owner: userId })
     .then((dream) => res.status(201).send(dream))
     .catch((err) => {
-      // Удаляем загруженный файл, если произошла ошибка
-      if (imgLink) {
-        const filePath = path.join(__dirname, '../uploads', imgLink);
-        fs.unlink(filePath, (error) => {
-          if (error) {
-            console.error('Ошибка при удалении файла:', error);
-          }
-        });
-      }
-
       if (err.name === 'ValidationError') {
-        next(new CastError('Введены некорректные данные'));
+        next(new Error('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 

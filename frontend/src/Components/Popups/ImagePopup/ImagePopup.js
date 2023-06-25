@@ -25,7 +25,9 @@ function ImagePopup({ dream, onClose }) {
         <button className="img-popup__close-button" type="button" onClick={onClose}>
         </button>
         <div>
-          <img src={dream.imgLink}
+          <img 
+            //src={dream.imgLink}
+            src={`http://localhost:3000${dream.imgLink}`}
             alt={dream.name} 
             className='img-popup__picture'
           />
