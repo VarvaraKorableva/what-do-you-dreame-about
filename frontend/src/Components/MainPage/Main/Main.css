@@ -1,0 +1,43 @@
+.main__container {
+    position: relative;
+    max-width: 880px;
+    height: 500px;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+    .main__container {
+        height: 350px;
+    }
+}
+
+.main__pic {
+    width: 100%;
+    height: 500px;
+}
+
+@media screen and (max-width: 600px) {
+    .main__pic {
+        height: 350px;
+    }
+}
+
+.main__title {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 10;
+    color: #fff;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 600px) {
+    .main__title {
+        top: 50px;
+        left: 50px;
+    }
+}

@@ -22,6 +22,7 @@
   @media screen and (max-width: 450px) {
     .my-friends-page__inf-container {
       max-width: 180px;
+      justify-content: space-between;
     }
   }
   
@@ -31,12 +32,25 @@
       margin-top: 25px;
     }
   }
+
+  .my-friends-page__inf-link-text {
+    color: black;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 600px) {
+    .my-friends-page__inf-link-text {
+     margin-top: 0;
+    }
+  }
   
   .my-friends-page__inf {
     color: black;
     cursor: pointer;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 700;
   }
   
   @media screen and (max-width: 600px) {
@@ -246,3 +260,8 @@
   font-size: 12px;
 }
 
+.my-friends-page__inf-link {
+  text-decoration: none;
+}
+
+/*my-friends-page__inf*/

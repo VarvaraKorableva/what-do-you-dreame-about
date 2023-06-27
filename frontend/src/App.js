@@ -12,6 +12,7 @@ import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 import Registration from './Components/Registration/Registration'
 import MyFriendsPage from './Components/Friends/MyFriendsPage/MyFriendsPage'
 import AllMyFriendsPageAndSerching from './Components/Friends/AllMyFriendsPageAndSerching/AllMyFriendsPageAndSerching'
+import MainPage from './Components/MainPage/MainPage'
 //import FriendsDreamsSlider from './Components/Friends/FriendsDreamsSlider/FriendsDreamsSlider'
 import Login from './Components/Login/Login'
 import FriendsSearching from './Components/Friends/ FriendsSearching/FriendsSearching'
@@ -23,6 +24,7 @@ import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
 import AddNewDatePopap from './Components/Popups/AddNewDatePopap/AddNewDatePopap'
 import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
 import MyImportantDatesPage from './Components/MyImportantDatesPage/MyImportantDatesPage'
+
 import MyFriendsImportantDatesPage from './Components/Friends/MyFriendsImportantDatesPage/MyFriendsImportantDatesPage'
 import useWindowDimensions from './hook/useWindowDimensions'
 import axios from 'axios';
@@ -441,6 +443,12 @@ function deleteSubscription(subscriptionId) {
       />
 
       <Routes>
+        <Route
+        path="/main"
+        element={
+          <MainPage/>
+        }>
+        </Route>
 
         <Route
         path="/signup"

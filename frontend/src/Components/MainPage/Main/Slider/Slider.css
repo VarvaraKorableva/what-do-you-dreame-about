@@ -1,0 +1,243 @@
+.slider__container {
+    max-width: 100%;
+   /* height: 320px;
+    margin-left: 40px;
+    margin-right: 40px;*/
+    margin-bottom: 40px;
+    margin-top: 40px;
+    /*height: 400px;*/
+    height: 450px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #50c255;
+    /*justify-content: center;
+    align-items: center;*/
+}
+/*
+@media screen and (max-width: 720px) {
+    .slider__container {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+  }
+
+@media screen and (max-width: 530px) {
+    .slider__container {
+        margin-top: 60px;
+        margin-left: 15px;
+        margin-right: 15px;
+        height: 390px;
+    }
+  }*/
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: ease-in-out 0.8s;
+ } 
+ 
+ .active-anim {
+    opacity: 1;
+  }
+
+  .slide-container-btn {
+    display: flex;
+    margin: auto;
+    max-width: 200px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-slide {
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: 0.3s ease;
+  }
+
+  .btn-slide:last-of-type {
+    margin-right: 0;
+  }
+
+  .btn-slide_active {
+    background-color: black;
+    transition: 0.3s ease;
+  }
+
+  @media screen and (max-width: 550px) {
+    .btn-slide {
+        width: 5px;
+        height: 5px;
+        margin-top: 10px;
+    }
+  }
+
+ .offers__container {
+    width: 100%;
+    /*height: 350px;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+/*
+@media screen and (max-width: 530px) {
+    .offers__container {
+        flex-direction: column;
+        height: 370px;
+    }
+}*/
+
+ .offers__text-container {
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-self: center;
+    /*justify-content: flex-end;*/
+}
+/*
+@media screen and (max-width: 720px) {
+    .offers__text-container {
+        max-width: 100%;
+    }
+}*/
+
+.offers__pic {
+    width: 200px;
+    height: 290px;
+    /*border-radius: 7px;
+    margin: auto;*/
+    margin: 10px;
+ 
+}
+/*
+@media screen and (max-width: 720px) {
+    .offers__pic {
+        max-width: 100%;
+        height: 177px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .offers__pic {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .offers__pic {
+        width: 90%;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 0;
+        object-fit: cover;
+    }
+}*/
+
+.offers__title {
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-style: normal;
+}
+/*
+@media screen and (max-width: 1000px) {
+    .offers__title {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .offers__title {
+        font-size: 18px;
+        line-height: 21px;
+
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .offers__title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}*/
+
+.offers__text {
+    font-weight: 500;
+    font-size: 14px;
+    /*margin-top: 20px;*/
+    margin-bottom: 0;
+    font-style: normal;
+}
+/*
+@media screen and (max-width: 800px) {
+    .offers__text {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .offers__text {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .offers__text {
+        margin-top: 20px;
+    }
+}*/
+
+.offers__text-wrapper {
+    display: flex;
+}
+/*
+@media screen and (max-width: 1000px) {
+    .offers__text-wrapper {
+        flex-direction: column;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}*/
+
+.slider-button__prev {
+  border-radius: 50px;
+  background-color: black;
+  color: #fff;
+  width: 100px;
+  height: 30px;
+  border: none;
+}
+
+.slider-button__next {
+    border-radius: 50px;
+    background-color: black;
+    color: #fff;
+    width: 100px;
+    height: 30px;
+    border: none;
+}
+
+.slider-button__btn-container {
+    display: flex;
+    width: 220px;
+    justify-content: space-between;
+    margin: auto;
+}

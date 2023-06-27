@@ -233,15 +233,13 @@ return (
     <div className='my-friends-page__profile-container'>
 
       <div className='my-friends-page__inf-container'>
-        <button className='my-friends-page__back-btn' onClick={goBack}>⟵ Back</button>
-
-        <p className='my-friends-page__inf'>{userData.name}</p>
-
-        
-        <Link to={`/users/${id}/dates`}>
-          <p className='my-friends-page__inf'>See all important dates for {userData.name} →</p>
-        </Link>
-
+      {/*   <button className='my-friends-page__back-btn' onClick={goBack}>⟵ Back</button>*/}
+        <div>
+          <p className='my-friends-page__inf'>{userData.name}</p>
+          <Link to={`/users/${id}/dates`} className='my-friends-page__inf-link'>
+            <p className='my-friends-page__inf-link-text'>See all important dates for {userData.name} →</p>
+          </Link>
+        </div>
         {isLoggin?
           <>
             {isSubscriptions?
@@ -280,7 +278,7 @@ return (
       <p><span className='my-friends-page__date'>{daysLeft} days</span> left until the next day of the dream come true</p>
     </div>
     :<div className='my-friends-page__date-info'>
-      <p>Until {userData.name} added dates</p>
+      <p>{userData.name} hasn't added any dates yet</p>
     </div>
     }
     {
