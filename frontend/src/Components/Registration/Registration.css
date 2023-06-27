@@ -14,6 +14,7 @@
    @media screen and (max-width: 500px) {
      .register__form  {
        width: 300px;
+       margin-bottom: 30px;
      }
    }
    
@@ -201,7 +202,8 @@
      font-weight: 400;
      font-size: 14px;
      margin-top: 16px;
-     margin-bottom: 70px;
+     /*margin-bottom: 70px;*/
+     margin-bottom: 30px;
    }
 
 .register__inputname-span {

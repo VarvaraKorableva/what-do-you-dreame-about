@@ -18,13 +18,23 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
   const [errorDreamLink, setErrorDreamLink] = React.useState(true)
 
   const [name, setName] = React.useState('')
-  const [img, setImg] = React.useState('')
+  const [img, setImg] = React.useState(null)
   const [price, setPrice] = React.useState('')
   const [dreamLink, setDreamLink] = React.useState('')
   const [buttonText, setButtonText] = React.useState('Upload picture of your dream');
   const addDreamRef = React.useRef(null);
 
   const currentUser = React.useContext(CurrentUserContext)
+/*
+  React.useEffect(
+    checkImg(), []);
+
+    function checkImg() {
+      img === null? 
+      setButtonText('Upload picture of your dream')
+      :
+      setButtonText('Uploaded')
+    }*/
 
   function handleImgLinkChange(e) {
     setImg(e.target.files[0]);
@@ -72,11 +82,15 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       formData.append('dreamLink', dreamLink);
   
       onAddDream(formData);
- 
+
+
+      setName('')
+      setImg(null)
+      setPrice('')
+      setDreamLink('')
       /*setImg(null)
       //setIsFormValid(false)*/
       onClose()
-  
     } else {
       console.log('Файл не выбран');
     }
@@ -194,6 +208,8 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='name'
             type='text'
+            defaultValue=""
+            value={name}
             //placeholder="Name of Dream"
             onChange={handleNameChange}
           ></input>
@@ -204,6 +220,7 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='dreamLink'
             type='url'
+            value={dreamLink}
             //placeholder="Link to dream (not required)"
             onChange={handleDreamLinkChange}
           ></input>
@@ -215,6 +232,7 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='price'
             type='text'
+            value={price}
             //placeholder="Price of Dream (in dollars)"
             onChange={handlePriceChange}
           ></input>
@@ -225,7 +243,7 @@ React.useEffect(() => {
           onClick={() => addDreamRef.current.click()}
           className='add-dream-popup__input-btn'
           type="button">
-          {buttonText}
+            {buttonText}
         </button> 
         
         <input
@@ -233,6 +251,7 @@ React.useEffect(() => {
           className='add-dream-popup__input'
           name='image'
           type="file"
+          //value={img}
           onChange={handleImgLinkChange}
           hidden
         ></input>
