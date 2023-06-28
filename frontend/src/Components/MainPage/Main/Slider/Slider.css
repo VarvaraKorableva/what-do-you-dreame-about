@@ -5,14 +5,16 @@
     margin-right: 40px;*/
     margin-bottom: 40px;
     margin-top: 40px;
-    /*height: 400px;*/
-    height: 450px;
+    /*height: 416px;*/
+    height: 438px;
     overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
-    border: 2px solid #50c255;
-    /*justify-content: center;
+    
+    /*border: 1px solid black;
+    border-radius: 8px;
+    justify-content: center;
     align-items: center;*/
 }
 /*
@@ -99,26 +101,33 @@
 }*/
 
  .offers__text-container {
-    max-width: 240px;
+    width: 65%;
     display: flex;
     flex-direction: column;
     margin: 10px;
     align-self: center;
-    /*justify-content: flex-end;*/
+   /* border: 1px solid rgb(79, 104, 206);
+    justify-content: flex-end;*/
 }
-/*
-@media screen and (max-width: 720px) {
+
+@media screen and (max-width: 400px) {
     .offers__text-container {
-        max-width: 100%;
+        margin-left: 0;
     }
-}*/
+}
 
 .offers__pic {
     width: 200px;
+    height: 310px;
+    /*width: 45%;
     height: 290px;
-    /*border-radius: 7px;
+    border-radius: 7px;
     margin: auto;*/
     margin: 10px;
+    object-fit: contain;
+    border-radius: 20px;
+    border: 6px solid black;
+   /**/ 
  
 }
 /*
@@ -179,11 +188,36 @@
 }*/
 
 .offers__text {
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: bold;
+    font-size: 18px;
     /*margin-top: 20px;*/
     margin-bottom: 0;
+    margin-top: 0;
     font-style: normal;
+}
+
+@media screen and (max-width: 700px) {
+    .offers__text {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .offers__text {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    .offers__text {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .offers__text {
+        font-size: 10px;
+    }
 }
 /*
 @media screen and (max-width: 800px) {
@@ -207,15 +241,13 @@
 
 .offers__text-wrapper {
     display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    
+    justify-content: space-around;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-/*
-@media screen and (max-width: 1000px) {
-    .offers__text-wrapper {
-        flex-direction: column;
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-}*/
 
 .slider-button__prev {
   border-radius: 50px;
@@ -240,4 +272,5 @@
     width: 220px;
     justify-content: space-between;
     margin: auto;
+    margin-bottom: 10px;
 }

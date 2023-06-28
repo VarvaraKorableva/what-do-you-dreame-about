@@ -8,21 +8,21 @@ import offerPic8 from '../../../../images/sliderfriendsDreams.png'
 const dataSlider = [
 
     {
-        title: "First Step",
+        title: "First Step- ",
         subTitle: "Registration",
         text: "You need to add Name, E-mail and Password",
         picture: offerPic,
         id: 189759,
     },
     {
-        title: "Step Two",
+        title: "Step Two- ",
         subTitle: "Add Avatar",
         text: "If you do not wish to provide the information, you can simply close this popup.",
         picture: offerPic2,
         id: 189760,
     },
     {
-        title: "Step Three",
+        title: "Step Three- ",
         subTitle: "Look around",
         text: "... and add the first dream",
         picture: offerPic3,

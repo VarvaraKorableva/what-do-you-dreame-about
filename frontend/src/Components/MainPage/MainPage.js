@@ -1,12 +1,16 @@
+import React from "react"
 import Slider from './Main/Slider/Slider'
 import Main from './Main/Main'
-import React from "react"
+import Promo from './Main/Promo/Promo'
 
-function MainPage() {
+function MainPage( {isLoggin} ) {
 
   return (
     <>
-      <Main></Main>
+      <Main 
+        isLoggin={isLoggin}
+      />      
+      <Promo></Promo>
       <Slider></Slider>
     </>
   );
