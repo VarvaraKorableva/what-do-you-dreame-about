@@ -9,6 +9,7 @@ function DreamsField({onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClick
 const currentUser = React.useContext(CurrentUserContext)
 const location = useLocation()
 const userId = currentUser._id
+
 return ( 
   <>
   {location.pathname === `/users/${userId}`?

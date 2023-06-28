@@ -2,6 +2,7 @@
 import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {CurrentUserContext} from './contexts/CurrentUserContext'
+import { LanguageContext, LanguageProvider } from './contexts/TranslationContext';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute'
 import './App.css'
 import * as Api from './Api/Api'
@@ -51,6 +52,8 @@ function App() {
   const [errorLoginMessage, setErrorLoginMessage] = React.useState('')
   const [isError, setIsError] = React.useState(false)
   const [isLoginError, setIsLoginError] = React.useState(false)
+
+  //const [lang, setLang] = React.useState('en');
   
 
   const userId = currentUser._id
@@ -433,7 +436,7 @@ function deleteSubscription(subscriptionId) {
 }
 
   return (
-    
+    <LanguageProvider>
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
 
@@ -446,7 +449,9 @@ function deleteSubscription(subscriptionId) {
         <Route
         path="/main"
         element={
-          <MainPage/>
+          <MainPage
+            isLoggin={isLoggin}
+          />
         }>
         </Route>
 
@@ -611,6 +616,7 @@ function deleteSubscription(subscriptionId) {
     <Footer/>
     </div>
     </CurrentUserContext.Provider>  
+    </LanguageProvider>
   );
 }
 
