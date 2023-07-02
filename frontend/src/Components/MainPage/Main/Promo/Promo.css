@@ -1,36 +1,49 @@
 .promo__container {
   border: 3px solid black;
   border-radius: 20px;
-  width: 100%;
-  height: 160px;
+  max-width: 880px;
+  margin: auto;
+  height: 250px;
   display: flex;
-
+  padding: 15px;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .promo__text-container {
-    background-color: black;
-    width: 135px;
-    height: 135px;
+    /*background-color: black;*/
+    background-color: #cd6bdc;
+    opacity: 0.6;
+    width: 240px;
+    height: 240px;
+    border: 4px dotted #b947ca;
     border-radius: 20px;
     text-align: center;
     display: flex;
     align-items: center;
+    padding: 5px;
+
 }
 
 .promo__text {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
+  margin: 15px;
+
+  
+  
 }
 
 .promo__container-right {
-    border: 3px solid black;
-    border-radius: 20px;
-    width: 100%;
-    height: 160px;
-    display: flex;
-  
-    align-items: center;
-    justify-content: flex-end;
+  border: 3px solid black;
+  border-radius: 20px;
+  max-width: 880px;
+  margin: auto;
+  height: 250px;
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 20px;
 }

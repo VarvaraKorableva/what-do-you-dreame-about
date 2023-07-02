@@ -25,7 +25,7 @@ import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
 import AddNewDatePopap from './Components/Popups/AddNewDatePopap/AddNewDatePopap'
 import PopapChangeAvatar from './Components/Popups/PopapChangeAvatar/PopapChangeAvatar'
 import MyImportantDatesPage from './Components/MyImportantDatesPage/MyImportantDatesPage'
-
+import LanguageChangePopup from './Components/Popups/LanguageChangePopup/LanguageChangePopup'
 import MyFriendsImportantDatesPage from './Components/Friends/MyFriendsImportantDatesPage/MyFriendsImportantDatesPage'
 import useWindowDimensions from './hook/useWindowDimensions'
 import axios from 'axios';
@@ -35,6 +35,7 @@ function App() {
   const [isAddAvatarPopap, setIsAddAvatarPopap] = React.useState(false)
   const [isAddDreamPopup, setIsAddDreamPopup] = React.useState(false)
   const [isAddNewDatePopup, setIsAddNewDatePopup] = React.useState(false)
+  const [isLanguageChangePopup, setIsLanguageChangePopup] = React.useState(false)
   const [isChangeAvatarPopup, setIsChangeAvatarPopup] = React.useState(false)
   const [isLoggin, setIsLoggin] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
@@ -223,6 +224,10 @@ function App() {
         setIsLoggin(false)
       })
   } 
+
+  function handleChangeLanguageClick(){
+    setIsLanguageChangePopup(true)
+  }
   
   function handleAddDreamClick(){
     setIsAddDreamPopup(true)
@@ -241,6 +246,7 @@ function App() {
     setIsAddDreamPopup(false)
     setIsChangeAvatarPopup(false)
     setIsAddNewDatePopup(false)
+    setIsLanguageChangePopup(false)
     setSelectedDream({})
     setSelectedMotan({})
   }
@@ -439,10 +445,12 @@ function deleteSubscription(subscriptionId) {
     <LanguageProvider>
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
+      <div className='App-container'>
 
       <Header
         isLoggin={isLoggin}
         signOut={signOut}
+        onChangeLanguageClick={handleChangeLanguageClick}
       />
 
       <Routes>
@@ -613,7 +621,14 @@ function deleteSubscription(subscriptionId) {
       onAddDate={handleAddNewDateSubmit}
     />
 
+    <LanguageChangePopup
+      isOpen={isLanguageChangePopup}
+      onClose={closeAllPopups}
+    />
+
     <Footer/>
+    
+    </div>
     </div>
     </CurrentUserContext.Provider>  
     </LanguageProvider>

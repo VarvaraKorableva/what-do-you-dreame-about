@@ -24,13 +24,13 @@ function Promo() {
         <h2>{translatedContext.promoSubtitle}</h2>
         <div className="promo__container">
           <div className="promo__text-container">
-            <h3 className="promo__text">If you have a strong liking for something, but there is almost no chance to buy it</h3>
+            <h3 className="promo__text">{translatedContext.promoTextForYou}</h3>
           </div>
         </div>
 
         <div className="promo__container-right">
           <div className="promo__text-container">
-            <h3 className="promo__text">If you have a strong liking for something, but there is almost no chance to buy it</h3>
+            <h3 className="promo__text">{translatedContext.promoTextForFriend}</h3>
           </div>
         </div>
 
