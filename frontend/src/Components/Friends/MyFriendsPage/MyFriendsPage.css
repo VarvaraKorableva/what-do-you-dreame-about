@@ -66,6 +66,7 @@
   /*border: 3px solid black;*/
   cursor: pointer;
   object-fit: cover;
+  background-color: rgb(245, 182, 227);
 }
 
 @media screen and (max-width: 950px) {

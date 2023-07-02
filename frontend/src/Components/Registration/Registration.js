@@ -1,6 +1,8 @@
 import React from 'react'
 import './Registration.css'
 import { Link } from 'react-router-dom'
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/RegistrationPageLanguage'
 
 function Registration({onRegister, errorMessage, isError}){
 
@@ -18,6 +20,18 @@ const [errorPassword, setErrorPassword] = React.useState(true)
 
 const [isValid, setIsValid] = React.useState(false);
 
+const { language } = React.useContext(LanguageContext)
+const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     onRegister({
@@ -33,19 +47,19 @@ const [isValid, setIsValid] = React.useState(false);
     )
 
     if (!e.target.value.length) {
-      setErrorNameMessage('The username field must be filled in.')
+      setErrorNameMessage(translatedContext.mistakesName.theUsernameFieldMustBeFilledIn)
       setErrorName(true);
      } else if (e.target.value.length < 2) {
-      setErrorNameMessage('The username must be at least 2 characters long.')
+      setErrorNameMessage(translatedContext.mistakesName.theUsernameMustBeAtLeastCharactersLong)
       setErrorName(true);
      } else if (!validName) {
-      setErrorNameMessage('The username should only contain Latin letters, Cyrillic letters, spaces, or hyphens.')
+      setErrorNameMessage(translatedContext.mistakesName.theUsernameShouldOnlyContainLatinLettersCyrillicLetters)
       setErrorName(true);
      } else if (validName) {
       setErrorNameMessage('')
       setErrorName(false);
      } else if (e.target.value.length > 30) {
-      setErrorNameMessage('Имя пользователя должно быть не более 30 символов.')
+      setErrorNameMessage(translatedContext.mistakesName.usernameMustBeNoMoreThan)
       setErrorName(true);
      } else {
       setErrorNameMessage('')
@@ -57,13 +71,13 @@ const [isValid, setIsValid] = React.useState(false);
 
   const handlePasswordChange = (e) => {
     if (!e.target.value.length) {
-      setErrorPasswordMessage('Password must be filled in.');
+      setErrorPasswordMessage(translatedContext.mistakesPassword.passwordMustBeFilledIn);
       setErrorPassword(true);
     } else if (e.target.value.length < 5) {
-      setErrorPasswordMessage('Password must contain at least 5 characters.');
+      setErrorPasswordMessage(translatedContext.mistakesPassword.passwordMustContainAtLeast);
       setErrorPassword(true);
     } else if (e.target.value.length > 8) {
-      setErrorPasswordMessage('Password must not exceed 8 characters.');
+      setErrorPasswordMessage(translatedContext.mistakesPassword.passwordMustNotExceed);
       setErrorPassword(true);
     } else {
       setErrorPasswordMessage('');
@@ -78,10 +92,10 @@ const [isValid, setIsValid] = React.useState(false);
     )
 
     if (!e.target.value.length) {
-      setErrorEmailMessage('Email must be filled in.')
+      setErrorEmailMessage(translatedContext.mistakesEmail.emailMustBeFilledIn)
       setErrorEmail(true)
     } else if (!validEmail) {
-      setErrorEmailMessage('Invalid email format.')
+      setErrorEmailMessage(translatedContext.mistakesEmail.invalidEmailFormat)
       setErrorEmail(true)
     } else {
       setErrorEmailMessage('')
@@ -103,9 +117,10 @@ const [isValid, setIsValid] = React.useState(false);
       <form 
         className='register__form'
         onSubmit={handleSubmit}>
-        <h2 className='register__title'>Welcome!</h2>
+        <h2 className='register__title'>{translatedContext.greetings}</h2>
+        <h3 className='register__greetingsText'>{translatedContext.greetingsText}</h3>
         <fieldset className='register__fieldset'>
-          <label className='register__inputname'>Name<span className='register__inputname-span'>*</span>
+          <label className='register__inputname'>{translatedContext.name}<span className='register__inputname-span'>*</span>
             <input className='register__input'
               name="name"
               type="text"
@@ -117,7 +132,7 @@ const [isValid, setIsValid] = React.useState(false);
             <span className='register__inputmistake'>{errorNameMessage}
             </span>  
     
-          <label className='register__inputname'>E-mail<span className='register__inputname-span'>*</span>
+          <label className='register__inputname'>{translatedContext.email}<span className='register__inputname-span'>*</span>
             <input className='register__input'
               name="email"
               type="email"
@@ -129,7 +144,7 @@ const [isValid, setIsValid] = React.useState(false);
           <span className='register__inputmistake'>{errorEmailMessage}
           </span>
 
-          <label className='register__inputname'>Password<span className='register__inputname-span'>*</span>
+          <label className='register__inputname'>{translatedContext.password}<span className='register__inputname-span'>*</span>
             <input className='register__input'
               name="password"
               type="password"
@@ -149,11 +164,11 @@ const [isValid, setIsValid] = React.useState(false);
           type="submit"
           className={`'register__btn' ${isValid? 'register__btn_active': 'register__btn'}`}
           disabled={!isValid}>
-            SignUp
+            {translatedContext.button}
         </button>
         <div className='register__wrapper'>
-          <p className='register__subtitle'>Already signUp?
-          <Link className='register__entrylink' to="/signin"> SignIn</Link></p>
+          <p className='register__subtitle'>{translatedContext.question}
+          <Link className='register__entrylink' to="/signin"> {translatedContext.signin}</Link></p>
         </div>
     </form>
     </section>
@@ -161,3 +176,9 @@ const [isValid, setIsValid] = React.useState(false);
 }
 
 export default Registration;
+
+/*
+   translatedContext.mistakesPassword.passwordMustBeFilledIn: 'Поле пароля должно быть заполнено.',
+        translatedContext.mistakesPassword.passwordMustContainAtLeast: 'Пороль должен быть не менее 5 символов.',
+       translatedContext.mistakesPassword.passwordMustNotExceed: 'Пароль должен быть не более 8 символов.',
+*/

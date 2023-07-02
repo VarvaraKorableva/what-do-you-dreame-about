@@ -6,6 +6,9 @@ import arrow from '../../images/lineToButton.png'
 import { Link } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/MyPageLanguageData'
+
 function MyPage({ addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) { 
 
 const [toRenderDreams, setToRenderDreams] = React.useState([])
@@ -14,8 +17,19 @@ const [isAddlimitBtnClicked, setIsAddlimitBtnClicked] = React.useState(false)
 const [isDreamsArrEmpty, setIsDreamsArrEmpty] = React.useState(false)
 
 const currentUser = React.useContext(CurrentUserContext)
-
 const userId = currentUser._id
+
+const { language } = React.useContext(LanguageContext)
+const { en, rus, hebrew } = choose;
+
+let translatedContext = '';
+if (language === 'en') {
+  translatedContext = en;
+} else if (language === 'rus') {
+  translatedContext = rus;
+} else if (language === 'hebrew') {
+  translatedContext = hebrew;
+}
 
 React.useEffect(() => {
   setToRenderDreams(dreams)
@@ -53,19 +67,19 @@ return (
     
     <div className='myPage_profile-container'>
       <div className='myPage_inf-container'>
-        <p className='myPage_inf'>Hello, {currentUser.name}</p>
+        <p className='myPage_inf'>{translatedContext.greetings}, {currentUser.name}</p>
         <div className='myPage_link-container'>
           <Link to={`/users/${userId}/dates`} className='myPage_inf myPage__link'>
-            <p className='myPage_view-link-text'>Add important dates →</p>
+            <p className='myPage_view-link-text'>{translatedContext.addImportantDates} →</p>
           </Link>
           <Link to="/change-my-profile" className='myPage_inf myPage__link'>
-            <p className='myPage_view-link-text'>Change information about yourself →</p>
+            <p className='myPage_view-link-text'>{translatedContext.ChangeInformationAboutYourself} →</p>
           </Link>
           <Link to="/my-subscriptions" className='myPage_inf myPage__link'>
-            <p className='myPage_view-link-text'>See what my friends dream about →</p>
+            <p className='myPage_view-link-text'>{translatedContext.SeeWhatMyFriendsDreamAbout} →</p>
           </Link>
           <Link to="/users" className='myPage_inf myPage__link'>
-            <p className='myPage_view-link-text'>Search people →</p>
+            <p className='myPage_view-link-text'>{translatedContext.SearchPeople} →</p>
           </Link>
         </div>
       </div>  
@@ -89,15 +103,14 @@ return (
         className='myPage_addBTN'
         type='button'
         onClick={addPopupOpen}>
-        Add a new dream
+        {translatedContext.button}
       </button>
     </div>
     {isEpmty?
     <div className='myPage__container-about-empty-arr'>
       <img src={arrow} alt="arrImg" className='myPage__arrow-img'/>
       <p className='myPage__message-about-empty-arr'>
-        In order to add a dream, click on the button and fill out the form. 
-        Add a dream link so that your friend can easily fulfill your dream.
+        {translatedContext.text}
       </p>
     </div>
     :
@@ -119,13 +132,13 @@ return (
             className='myPage__add-more-to-the-page'
             type='button'
             onClick={handleAddDreams}>
-            See more
+            {translatedContext.SeeMoreButton}
           </button>
           <button
             className='myPage__add-more-to-the-page'
             type='button'
             onClick={changeAllDreamsBtnStatus}>
-            See all
+            {translatedContext.SeeAllButton}
           </button>
         </>
       }
@@ -144,4 +157,17 @@ export default MyPage;
         <Link to="/my-friends" className='myPage_inf myPage__link'>
           <p className='myPage_view-link-text'>See what my friends dream about →</p>
         </Link>
+
+
+
+    
+    translatedContext.ChangeInformationAboutYourself
+    translatedContext.SeeWhatMyFriendsDreamAbout: 'See what my friends dream about',
+    translatedContext.SearchPeople: 'Search people',
+
+    translatedContext.button: 'Add a new dream', 
+
+    translatedContext.text: 'In order to add a dream, click on the button and fill out the form. Add a dream link so that your friend can easily fulfill your dream.',
+
+    
 */
