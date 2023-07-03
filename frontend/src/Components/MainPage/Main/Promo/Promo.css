@@ -1,13 +1,35 @@
 .promo__container {
-  border: 3px solid black;
-  border-radius: 20px;
+  /*border: 3px solid black;
+  background-color: #e498f0;
+  height: 250px;
+  */
+  
   max-width: 880px;
   margin: auto;
-  height: 250px;
-  display: flex;
-  padding: 15px;
-  align-items: center;
+  margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  /*border-bottom: 4px dotted #b947ca;
+  background-image: url(../../../../images/salvadorgifts.png);*/
+  
+  
+}
+.promo__pic {
+  width: 240px;
+  height: 240px;
+  margin-right: 20px;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 450px) {
+  .promo__pic {
+    width: 220px;
+    height: 220px;
+  }
 }
 
 .promo__text-container {
@@ -17,12 +39,50 @@
     width: 240px;
     height: 240px;
     border: 4px dotted #b947ca;
-    border-radius: 20px;
+    border-radius: 50%;
     text-align: center;
     display: flex;
     align-items: center;
     padding: 5px;
+    position: relative;
+    margin: 10px;
+}
 
+@media screen and (max-width: 970px) {
+  .promo__text-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+/*
+@media screen and (max-width: 850px) {
+  .promo__text-container {
+    width: 150px;
+    height: 150px;
+  }
+}*/
+
+@media screen and (max-width: 660px) {
+  .promo__text-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .promo__text-container {
+    width: 130px;
+    height: 130px;
+    margin: 5px;
+  }
+}
+
+.promo__text-container:first-of-type {
+  margin-left: 0;
+}
+
+.promo__text-container:last-of-type {
+  margin-right: 0;
 }
 
 .promo__text {
@@ -30,20 +90,190 @@
   font-size: 16px;
   font-weight: bold;
   margin: 15px;
+}
 
-  
-  
+@media screen and (max-width: 970px) {
+  .promo__text {
+    font-size: 12px;
+  }
+}
+/*
+@media screen and (max-width: 850px) {
+  .promo__text {
+    font-size: 10px;
+  }
+}*/
+
+@media screen and (max-width: 660px) {
+  .promo__text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .promo__text {
+    font-size: 10px;
+  }
 }
 
 .promo__container-right {
-  border: 3px solid black;
   border-radius: 20px;
   max-width: 880px;
-  margin: auto;
-  height: 250px;
+  
   display: flex;
-  padding: 15px;
+  padding: 0;
   align-items: center;
   justify-content: end;
-  margin-bottom: 20px;
+
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.promo__small-text {
+  color: #cd6bdc;
+}
+
+.promo__hurt-arrow {
+  position: absolute;
+  bottom: 5px;
+  right: -50px;
+  width: 100px;
+  height: 80px;
+  background-size: cover;
+
+  background-image: url(../../../../images/hurtarrow.png);
+}
+
+@media screen and (max-width: 850px) {
+  .promo__hurt-arrow {
+    bottom: -15px;
+    right: -50px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .promo__hurt-arrow {
+    bottom: -50px;
+    right: -50px;
+  }
+}
+
+.promo__arrow {
+  position: absolute;
+  bottom: 100px;
+  right: -20px;
+  width: 100px;
+  height: 70px;
+  background-size: cover;
+
+  background-image: url(../../../../images/iconrightarrow.png);
+}
+
+.promo__friend-text {
+  color: black;
+  opacity: 0.7;
+  font-size: 16px;
+
+  font-weight: 500;
+
+}
+
+@media screen and (max-width: 600px) {
+  .promo__friend-text {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .promo__friend-text {
+    font-size: 12px;
+  }
+}
+
+.promo__pic {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  border: 3px dotted #fff;
+  /*border: 2px dotted #b947ca;*/
+}
+
+.promo__pic-container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+
+.promo__text-pic-container {
+  /*background-color: black;*/
+  background-color: #cd6bdc;
+  opacity: 0.8;
+  width: 240px;
+  height: 240px;
+  border: 4px dotted #b947ca;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  position: relative;
+}
+
+@media screen and (max-width: 970px) {
+.promo__text-pic-container {
+  width: 200px;
+  height: 200px;
+}
+}
+
+@media screen and (max-width: 660px) {
+.promo__text-pic-container {
+  width: 200px;
+  height: 200px;
+}
+}
+
+@media screen and (max-width: 550px) {
+.promo__text-pic-container {
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+}
+}
+
+
+.promo__only-text-container {
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+  max-width: 700px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .promo__only-text-container {
+    max-width: 650px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .promo__only-text-container {
+    max-width: 600px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .promo__only-text-container {
+    max-width: 550px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .promo__only-text-container {
+    width: 400px;
+  }
 }

@@ -5,15 +5,17 @@
   align-items: center;
   margin: auto;
   margin-top: 0;
-  margin-bottom: 50px;
-  min-width: 880px;
+  margin-bottom: 25px;
+  /*min-width: 880px;*/
   height: 40px;
+  width: 880px;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 980px) {
   .header_container {
-    margin-bottom: 25px;
-    min-width: 100%;
+    width: 100%;
+    max-width: 880px;
+    
   }
 }
 
