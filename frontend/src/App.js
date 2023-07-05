@@ -455,7 +455,7 @@ function deleteSubscription(subscriptionId) {
 
       <Routes>
         <Route
-        path="/main"
+        path="/"
         element={
           <MainPage
             isLoggin={isLoggin}
