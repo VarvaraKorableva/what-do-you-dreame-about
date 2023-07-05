@@ -445,7 +445,7 @@ function deleteSubscription(subscriptionId) {
     <LanguageProvider>
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
-      <div className='App-container'>
+      {/*<div className='App-container'>*/}
 
       <Header
         isLoggin={isLoggin}
@@ -629,7 +629,7 @@ function deleteSubscription(subscriptionId) {
     <Footer/>
     
     </div>
-    </div>
+    
     </CurrentUserContext.Provider>  
     </LanguageProvider>
   );

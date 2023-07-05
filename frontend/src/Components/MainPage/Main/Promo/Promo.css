@@ -1,39 +1,43 @@
 .promo__container {
-  /*border: 3px solid black;
-  background-color: #e498f0;
-  height: 250px;
-  */
-  
   max-width: 880px;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   padding: 0;
   align-items: center;
   justify-content: center;
-  /*border-bottom: 4px dotted #b947ca;
-  background-image: url(../../../../images/salvadorgifts.png);*/
-  
-  
 }
+
 .promo__pic {
-  width: 240px;
+  /*width: 240px;*/
   height: 240px;
-  margin-right: 20px;
   border-radius: 20px;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 900px) {
   .promo__pic {
-    width: 220px;
-    height: 220px;
+    /*width: 220px;*/
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .promo__pic {
+    /*width: 220px;*/
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .promo__pic {
+    /*width: 220px;*/
+    height: 120px;
   }
 }
 
 .promo__text-container {
-    /*background-color: black;*/
     background-color: #cd6bdc;
     opacity: 0.6;
     width: 240px;
@@ -43,6 +47,7 @@
     text-align: center;
     display: flex;
     align-items: center;
+    
     padding: 5px;
     position: relative;
     margin: 10px;
@@ -54,13 +59,6 @@
     height: 200px;
   }
 }
-/*
-@media screen and (max-width: 850px) {
-  .promo__text-container {
-    width: 150px;
-    height: 150px;
-  }
-}*/
 
 @media screen and (max-width: 660px) {
   .promo__text-container {
@@ -97,12 +95,6 @@
     font-size: 12px;
   }
 }
-/*
-@media screen and (max-width: 850px) {
-  .promo__text {
-    font-size: 10px;
-  }
-}*/
 
 @media screen and (max-width: 660px) {
   .promo__text {
@@ -119,12 +111,10 @@
 .promo__container-right {
   border-radius: 20px;
   max-width: 880px;
-  
   display: flex;
   padding: 0;
   align-items: center;
   justify-content: end;
-
   margin: auto;
   margin-bottom: 40px;
   margin-top: 40px;
@@ -141,7 +131,6 @@
   width: 100px;
   height: 80px;
   background-size: cover;
-
   background-image: url(../../../../images/hurtarrow.png);
 }
 
@@ -166,8 +155,6 @@
   width: 100px;
   height: 70px;
   background-size: cover;
-
-  background-image: url(../../../../images/iconrightarrow.png);
 }
 
 .promo__friend-text {
@@ -197,62 +184,36 @@
   max-height: 100%;
   border-radius: 50%;
   border: 3px dotted #fff;
-  /*border: 2px dotted #b947ca;*/
 }
 
 .promo__pic-container {
   display: flex;
   justify-content: center;
   margin: auto;
+
+  max-width: 880px;
 }
 
 
 .promo__text-pic-container {
-  /*background-color: black;*/
   background-color: #cd6bdc;
   opacity: 0.8;
-  width: 240px;
-  height: 240px;
   border: 4px dotted #b947ca;
   border-radius: 50%;
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 5px;
   position: relative;
 }
-
-@media screen and (max-width: 970px) {
-.promo__text-pic-container {
-  width: 200px;
-  height: 200px;
-}
-}
-
-@media screen and (max-width: 660px) {
-.promo__text-pic-container {
-  width: 200px;
-  height: 200px;
-}
-}
-
-@media screen and (max-width: 550px) {
-.promo__text-pic-container {
-  width: 130px;
-  height: 130px;
-  margin: 5px;
-}
-}
-
 
 .promo__only-text-container {
   margin: auto;
   margin-top: 60px;
   margin-bottom: 60px;
-
   max-width: 700px;
 }
-
 
 @media screen and (max-width: 800px) {
   .promo__only-text-container {
@@ -260,9 +221,18 @@
   }
 }
 
+@media screen and (max-width: 750px) {
+  .promo__only-text-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .promo__only-text-container {
     max-width: 600px;
+    margin-top: 40px;
+    margin-bottom: 40px;
   }
 }
 
@@ -275,5 +245,41 @@
 @media screen and (max-width: 560px) {
   .promo__only-text-container {
     width: 400px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+}
+
+.promo__pic-container {
+  max-width: 880px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: auto;
+  gap: 5px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 500px) {
+  .promo__pic-container {
+    gap: 3px;
+  }
+}
+
+.promo__title {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 650px) {
+  .promo__title {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo__title {
+    font-size: 20px;
   }
 }

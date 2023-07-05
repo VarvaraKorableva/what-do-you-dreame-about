@@ -22,7 +22,7 @@ function MotanOpenPopap({ motan, onClose }) {
       <div className="motan-open-popap__picture-container">
         <button className="motan-open-popap__close-button" type="button" onClick={onClose}>
         </button>
-        <div>
+        <div className="motan-open-popap__main-box">
           <img 
             //src={motan.imgLink}
             src={`http://localhost:3000${motan.imgLink}`}
@@ -33,7 +33,7 @@ function MotanOpenPopap({ motan, onClose }) {
           <p className="motan-open-popap__picture-name">Approximate cost: {motan.price} $</p>
           {isLink?
             <a className="motan-open-popap__picture-name motan-open-popap__picture-name-link" href={motan.dreamLink} target='blank'>
-              <p>Where can you buy: {motan.dreamLink}</p>
+              <p className="motan-open-popap__link">Where can you buy: {motan.dreamLink}</p>
             </a>
           :
             <></>

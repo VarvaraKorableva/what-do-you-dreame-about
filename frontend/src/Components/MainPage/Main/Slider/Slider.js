@@ -32,7 +32,7 @@ function Slider() {
 
   return (
     <div>
-      <h2>{translatedContext.sliderTitle}</h2>
+      <h2 className='slider__title'>{translatedContext.sliderTitle}</h2>
       <div className="slider__container">
         {dataSlider.map((item, index) => {
           return(

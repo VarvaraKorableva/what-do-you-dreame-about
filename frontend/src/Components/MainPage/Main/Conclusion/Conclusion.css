@@ -1,0 +1,22 @@
+.conclusion__heart {
+   background-image: url(../../../../images/redheart.png); 
+   background-position: center;
+   width: 50px;
+   height: 50px;
+
+   background-repeat: no-repeat;
+
+   background-size: contain;
+
+   margin: auto;
+  }
+
+.conclusion__title {
+    text-align: center;
+    font-weight: 500;
+}  
+  /*
+.conclusion__line {
+  width: 100%;
+  border-bottom: 4px dotted #b947ca;
+}*/
