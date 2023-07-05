@@ -28,7 +28,7 @@ if (language === 'en') {
 
 return (
   <div className='header_container'>
-    <Link to={`/main`} className='header_logo'>
+    <Link to={`/`} className='header_logo'>
       <h1 className='header_logo'> What-do-you-dreame-about ?</h1>
     </Link> 
     <div className='header__langpic-container'>
