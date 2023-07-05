@@ -1,7 +1,7 @@
 # what-do-you-dreame-about
 
 ### Stack
-React, JavaScript, NodeJS, MangoDB, Express, Axios
+React, JavaScript, NodeJS, MongoDB, Express, Axios
 
 ### About
 A web application where you can share your dreams and wishes, and your friends can fulfill them by presenting them to you.
