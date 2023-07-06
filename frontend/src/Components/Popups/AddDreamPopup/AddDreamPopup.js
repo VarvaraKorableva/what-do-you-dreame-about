@@ -1,6 +1,8 @@
 import React from 'react'
 import './AddDreamPopup.css'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/popaps/AddDreamPopup'
 
 function AddDreamPopup({onClose, isOpen, onAddDream}) {
 
@@ -21,20 +23,37 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
   const [img, setImg] = React.useState(null)
   const [price, setPrice] = React.useState('')
   const [dreamLink, setDreamLink] = React.useState('')
-  const [buttonText, setButtonText] = React.useState('Upload picture of your dream');
+  const [buttonText, setButtonText] = React.useState('Upload picture');
+
   const addDreamRef = React.useRef(null);
 
   const currentUser = React.useContext(CurrentUserContext)
-/*
-  React.useEffect(
-    checkImg(), []);
+  const { language } = React.useContext(LanguageContext)
 
-    function checkImg() {
-      img === null? 
-      setButtonText('Upload picture of your dream')
-      :
-      setButtonText('Uploaded')
-    }*/
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
+
+  React.useEffect(() => {
+    setButtonText(translatedContext.img.buttonTextUploadPictureOfYourDream);
+  }, [isOpen]);
+
+  /*React.useEffect(() => {
+    setName('')
+    setImg(null)
+    setErrorPrice('')
+    setDreamLink('')
+    setButtonText('Upload picture')
+  }, [onClose]);*/
+
+  const formRef = React.useRef(null);
 
   function handleImgLinkChange(e) {
     setImg(e.target.files[0]);
@@ -54,20 +73,10 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       setDreamLink('');
     } else {
       setErrorDreamLink(true);
-      setErrorDreamLinkMessage('Invalid link');
+      setErrorDreamLinkMessage(translatedContext.errorDreamLinkMessage.invalidLink);
       setDreamLink('');
     }
   }
-/*
-  function handleSubmit(e) {
-    e.preventDefault();
-    onAddDream({
-    name,
-    img,
-    price,
-    dreamLink,
-    });
-  }*/
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -91,10 +100,16 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       /*setImg(null)
       //setIsFormValid(false)*/
       onClose()
+      handleFormReset()
+      setIsValid(false)
     } else {
       console.log('Файл не выбран');
     }
   }
+
+  const handleFormReset = () => {
+    formRef.current.reset();
+  };
 
   const handleNameChange = (e) => {
     const validName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(
@@ -102,22 +117,22 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     )
 
     if (!e.target.value.length) {
-      setErrorNameMessage('The name field must be filled in.')
+      setErrorNameMessage(translatedContext.errorNameMessage.nameFieldMustBeFilledIn)
       setErrorName(true);
       setIsValid(false)
      } else if (e.target.value.length < 2) {
-      setErrorNameMessage('The name must be at least 2 characters long.')
+      setErrorNameMessage(translatedContext.errorNameMessage.nameMustBeAtLeastCharactersLong)
       setErrorName(true);
       setIsValid(false)
      } else if (!validName) {
-      setErrorNameMessage('The name should only contain Latin letters, Cyrillic letters, spaces, or hyphens.')
+      setErrorNameMessage(translatedContext.errorNameMessage.nameShouldOnlyContainLatinLettersCyrillicLettersSpacesOrHyphens)
       setErrorName(true);
       setIsValid(false)
      } else if (validName) {
       setErrorNameMessage('')
       setErrorName(false);
      } else if (e.target.value.length > 30) {
-      setErrorNameMessage('The name should not exceed 30 characters.')
+      setErrorNameMessage(translatedContext.errorNameMessage.nameShouldNotExceedCharacters)
       setErrorName(true);
       setIsValid(false)
      } else {
@@ -132,19 +147,19 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     const numericValue = Number(inputValue);
   
     if (isNaN(numericValue) || inputValue.includes(' ')) {
-      setErrorPriceMessage('Only numeric input is allowed.');
+      setErrorPriceMessage(translatedContext.errorPriceMessage.OnlyNumericInputIsAllowed);
       setErrorPrice(true);
       setIsValid(false)
     } else if (inputValue.startsWith('0')) {
-      setErrorPriceMessage('Price cannot start with 0.');
+      setErrorPriceMessage(translatedContext.errorPriceMessage.PriceCannotStartWith);
       setErrorPrice(true);
       setIsValid(false)
     } else if (inputValue.length > 15) {
-      setErrorPriceMessage('Field cannot exceed 15 characters.');
+      setErrorPriceMessage(translatedContext.errorPriceMessage.FieldCannotExceedCharacters);
       setErrorPrice(true);
       setIsValid(false)
     } else if (e.target.value.length < 1) {
-      setErrorPriceMessage('The field must be filled in.');
+      setErrorPriceMessage(translatedContext.errorPriceMessage.FieldMustBeFilledIn);
       setErrorPrice(true);
       setIsValid(false)
     } else {
@@ -156,23 +171,23 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
 
   function checkValid(img) {
   if (!img) {
-    return setImg(null)
-    //setLuckyMessage('Please upload only image files (jpg, jpeg, png, gif)')
+    return setImg(null)//setIsValid(false)
+    //
   }
 
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
   const isValidExtension = allowedExtensions.test(img.name);
 
   if (!isValidExtension) {
     setImg(null)
     setErrorImg(true);
-    setErrorImgMessage('Please upload only image files (jpg, jpeg, png, gif)');
-    setButtonText('Upload picture of your dream')
+    setErrorImgMessage(translatedContext.img.errorImgMessage);
+    setButtonText(translatedContext.img.buttonTextUploadPictureOfYourDream)
     setIsValid(false);
   } else {
     setErrorImg(false);
     setErrorImgMessage('');
-    setButtonText('Uploaded')
+    setButtonText(translatedContext.img.buttonTextUploaded)
   }
 }
 
@@ -198,47 +213,41 @@ React.useEffect(() => {
       type="button" 
       onClick={onClose}>
     </button>
-    <h2 className="add-dream-popup__title">Add a new dream</h2>
+    <h2 className="add-dream-popup__title">{translatedContext.popupName}</h2>
       <form 
+        ref={formRef}
         className='add-dream-popup__form'
         onSubmit={handleSubmit}
         encType="multipart/form-data">
-        <label className='add-dream-popup__inputname'>Name of Dream<span className='add-dream-popup__inputname-span'>*</span>  
+        <label className='add-dream-popup__inputname'>{translatedContext.nameOfDream}<span className='add-dream-popup__inputname-span'>*</span>  
           <input
             className='add-dream-popup__input'
             name='name'
             type='text'
-            //defaultValue=""
-            value={name}
-            //placeholder="Name of Dream"
             onChange={handleNameChange}
           ></input>
         </label>
         <span className='add-dream-popup__inputmistake'>{errorNameMessage}</span>
-        <label className='add-dream-popup__inputname'>Link to dream
+        <label className='add-dream-popup__inputname'>{translatedContext.linkToDream}
           <input
             className='add-dream-popup__input'
             name='dreamLink'
             type='url'
-            value={dreamLink}
-            //placeholder="Link to dream (not required)"
             onChange={handleDreamLinkChange}
           ></input>
           
         </label>
         <span className='add-dream-popup__inputmistake'>{errorDreamLinkMessage}</span>
-        <label className='add-dream-popup__inputname'>Price of Dream (in dollars)<span className='add-dream-popup__inputname-span'>*</span>
+        <label className='add-dream-popup__inputname'>{translatedContext.priceOfDream}<span className='add-dream-popup__inputname-span'>*</span>
           <input
             className='add-dream-popup__input'
             name='price'
             type='text'
-            value={price}
-            //placeholder="Price of Dream (in dollars)"
             onChange={handlePriceChange}
           ></input>
         </label>
         <span className='add-dream-popup__inputmistake'>{errorPriceMessage}</span>
-        <label className='add-dream-popup__inputname'>Picture of dream<span className='add-dream-popup__inputname-span'>*</span>
+        <label className='add-dream-popup__inputname'>{translatedContext.pictureOfDream}<span className='add-dream-popup__inputname-span'>*</span>
         <button 
           onClick={() => addDreamRef.current.click()}
           className='add-dream-popup__input-btn'
@@ -251,7 +260,6 @@ React.useEffect(() => {
           className='add-dream-popup__input'
           name='image'
           type="file"
-          //value={img}
           onChange={handleImgLinkChange}
           hidden
         ></input>
@@ -263,7 +271,7 @@ React.useEffect(() => {
           type='submit'
           disabled={!isValid}
           >
-            Create
+            {translatedContext.createButton}
         </button>
       </form>  
     </div>
@@ -272,3 +280,5 @@ React.useEffect(() => {
 }
 
 export default AddDreamPopup;
+
+//Upload picture of your dream
