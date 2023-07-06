@@ -3,12 +3,7 @@ import React from "react"
 import { LanguageContext } from '../../../../contexts/TranslationContext'
 import choose from '../../../../const/PromoLanguage'
 import imagePersonWithHurt from '../../../../images/personandhurt.png'
-//import PeoniesSurPic from '../../../../images/peoniessurpic.png'
-//import PicGift from '../../../../images/girlwithagift.png'
-//import nicePicClouds from '../../../../images/nicepicclouds.png'
-//import manPic from '../../../../images/manspic.png'
 import happyGirlWithGift from '../../../../images/happygirlwithgift.png'
-//import PionesPic from '../../../../images/peonies.png'
 import blondaGirlWithGiftPic from '../../../../images/blondagirlwithgift.png'
 import niceGirlWithGift from '../../../../images/nicegirlwithgift.png'
 
