@@ -7,6 +7,7 @@
   padding: 50px;
   padding-top: 0;
   padding-bottom: 10px;
+  font-family: 'Inter';
 }
 
 @media screen and (max-width: 800px) {

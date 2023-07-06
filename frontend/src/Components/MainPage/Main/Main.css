@@ -69,6 +69,13 @@
     }
 }
 
+@media screen and (max-width: 340px) {
+    .main__title-container {
+        top: 15px;
+        left: 15px;
+    }
+}
+
 .main__title {
     color: #fff;
     font-weight: 700;
@@ -95,7 +102,7 @@
     }
 }
 
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 355px) {
     .main__title {
         font-size: 18px;
     }

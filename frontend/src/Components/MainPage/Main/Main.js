@@ -1,8 +1,5 @@
 import React from 'react'
 import './Main.css'
-//import backgroundImg from '../../../images/mainpic.png'
-//import backgroundImg from '../../../images/mainpindali.png' 
-//import backgroundImg from '../../../images/mainpicsalvador.png'
 import backgroundImg from '../../../images/mainpicflowers.png'
 
 import { Link } from 'react-router-dom'
