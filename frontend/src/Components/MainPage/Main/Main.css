@@ -1,24 +1,14 @@
 .main__container {
-    /*position: relative;
+    position: relative;
     max-width: 880px;
     max-height: 500px;
+    min-height: 180px;
     margin: auto;
     margin-top: 0;
     margin-bottom: 0;
     display: flex;
     justify-content: center;
-    box-sizing: border-box;*/
-  position: relative;
-  max-width: 880px;
-  margin: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-template-rows: auto;
-  gap: 5px;
-  padding: 0;
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .main__pic {
@@ -84,24 +74,42 @@
     font-weight: 700;
     font-size: 26;
     margin-top: 0;
-    /*background-color: rgba(0, 0, 0, 0.7);
-    padding: 5px;*/
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-/*
-    -webkit-text-stroke: 1px black;
-    text-stroke: 1px black;*/
 }
-/*
-@media screen and (max-width: 850px) {
-    .main__title {
-        font-size: 24px;
-    }
-}*/
 
 @media screen and (max-width: 620px) {
     .main__title {
         font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .main__title {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .main__title {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .main__title {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .main__title {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    .main__title {
+        font-size: 14px;
     }
 }
 
@@ -127,6 +135,31 @@
     }
 }
 
+@media screen and (max-width: 570px) {
+    .main__subtitle {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .main__subtitle {
+        font-size: 12px;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .main__subtitle {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .main__subtitle {
+        font-size: 10px;
+    }
+}
+
 .main__subtitle-link {
     text-decoration: none;
     cursor: pointer;
@@ -139,10 +172,11 @@
     justify-content: center;
     align-items: center;
     transition: 1s;
+    opacity: 0.7;
 }
 
 .main__subtitle-link:hover {
-    opacity: 0.6;
+    opacity: 0.9;
     transition: 1s;
     box-shadow: 3px 3px 3px rgb(86, 3, 101);
     height: 42px;
@@ -157,7 +191,7 @@
 @media screen and (max-width: 500px) {
     .main__subtitle-link {
         height: 30px;
-        width: 100;
+        width: 130px;
     }
 }
 

@@ -23,7 +23,6 @@ function Conclusion() {
 
   return (
       <div className='conclusion__title'>
-        <div className='conclusion__line'></div>
         <h3>{translatedContext.title}</h3>
         <div className='conclusion__heart'></div>
       </div>

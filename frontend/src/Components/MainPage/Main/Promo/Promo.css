@@ -4,36 +4,15 @@
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
-  /*flex-wrap: wrap;*/
+
   padding: 0;
   align-items: center;
   justify-content: center;
 }
 
-.promo__pic {
-  /*width: 240px;*/
-  height: 240px;
-  border-radius: 20px;
-}
-
-@media screen and (max-width: 900px) {
-  .promo__pic {
-    /*width: 220px;*/
-    height: 200px;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .promo__pic {
-    /*width: 220px;*/
-    height: 150px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .promo__pic {
-    /*width: 220px;*/
-    height: 120px;
+@media screen and (max-width: 425px) {
+  .promo__container {
+    flex-direction: column;
   }
 }
 
@@ -47,10 +26,10 @@
     text-align: center;
     display: flex;
     align-items: center;
-    
+    margin: 10px;
     padding: 5px;
     position: relative;
-    margin: 10px;
+   
 }
 
 @media screen and (max-width: 970px) {
@@ -62,8 +41,8 @@
 
 @media screen and (max-width: 660px) {
   .promo__text-container {
-    width: 200px;
-    height: 200px;
+    width: 170px;
+    height: 170px;
   }
 }
 
@@ -72,6 +51,23 @@
     width: 130px;
     height: 130px;
     margin: 5px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .promo__text-container {
+    width: 120px;
+    height: 120px;
+    margin: 2px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .promo__text-container {
+    width: 90%;
+    height: 80px;
+    border-radius: 30px;
+    margin-bottom: 10px;
   }
 }
 
@@ -88,6 +84,10 @@
   font-size: 16px;
   font-weight: bold;
   margin: 15px;
+  /*white-space: nowrap;  Запрещаем перенос строк 
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;*/
 }
 
 @media screen and (max-width: 970px) {
@@ -95,33 +95,21 @@
     font-size: 12px;
   }
 }
-
-@media screen and (max-width: 660px) {
-  .promo__text {
-    font-size: 12px;
-  }
-}
-
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
   .promo__text {
     font-size: 10px;
   }
 }
-
-.promo__container-right {
-  border-radius: 20px;
-  max-width: 880px;
-  display: flex;
-  padding: 0;
-  align-items: center;
-  justify-content: end;
-  margin: auto;
-  margin-bottom: 40px;
-  margin-top: 40px;
+@media screen and (max-width: 550px) {
+  .promo__text {
+    font-size: 8px;
+  }
 }
 
-.promo__small-text {
-  color: #cd6bdc;
+@media screen and (max-width: 425px) {
+  .promo__text {
+    font-size: 10px;
+  }
 }
 
 .promo__hurt-arrow {
@@ -179,6 +167,8 @@
 }
 
 .promo__pic {
+  height: 240px;
+  border-radius: 20px;
   object-fit: cover;
   max-width: 100%;
   max-height: 100%;
@@ -186,14 +176,35 @@
   border: 3px dotted #fff;
 }
 
-.promo__pic-container {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-
-  max-width: 880px;
+@media screen and (max-width: 900px) {
+  .promo__pic {
+    height: 200px;
+  }
 }
 
+@media screen and (max-width: 700px) {
+  .promo__pic {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .promo__pic {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo__pic {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .promo__pic {
+    height: 80px;
+  }
+}
 
 .promo__text-pic-container {
   background-color: #cd6bdc;
@@ -212,12 +223,14 @@
   margin: auto;
   margin-top: 60px;
   margin-bottom: 60px;
-  max-width: 700px;
+  width: 700px;
+
+  text-align: center;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 980px) {
   .promo__only-text-container {
-    max-width: 650px;
+    width: 100%;
   }
 }
 
@@ -230,21 +243,14 @@
 
 @media screen and (max-width: 700px) {
   .promo__only-text-container {
-    max-width: 600px;
+    
     margin-top: 40px;
     margin-bottom: 40px;
   }
 }
 
-@media screen and (max-width: 620px) {
-  .promo__only-text-container {
-    max-width: 550px;
-  }
-}
-
 @media screen and (max-width: 560px) {
   .promo__only-text-container {
-    width: 400px;
     margin-top: 35px;
     margin-bottom: 35px;
   }
@@ -253,10 +259,8 @@
 .promo__pic-container {
   max-width: 880px;
   margin: auto;
-
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   padding: 0;
   box-sizing: border-box;
@@ -270,6 +274,15 @@
 
 .promo__title {
   font-size: 24px;
+  width: 880px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 960px) {
+  .promo__title {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 650px) {
@@ -283,3 +296,4 @@
     font-size: 20px;
   }
 }
+

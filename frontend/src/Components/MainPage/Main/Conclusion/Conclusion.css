@@ -14,9 +14,13 @@
 .conclusion__title {
     text-align: center;
     font-weight: 500;
+    width: 880px;
+    margin: auto;
+    margin-top: 30px;
 }  
-  /*
-.conclusion__line {
-  width: 100%;
-  border-bottom: 4px dotted #b947ca;
-}*/
+
+  @media screen and (max-width: 980px) {
+    .conclusion__title{
+      width: 100%;
+    }
+  }
