@@ -346,26 +346,3 @@ return (
 }
 
 export default MyFriendsPage;
-
-/*
-    translatedContext.seeAllImportantDatesFor: 'Посмотреть все значимые даты для',
-    translatedContext.unsubscribe: 'Отписаться',
-    translatedContext.subscribe: 'Подписаться',
-
-    translatedContext.TheNextDateForTheFulfillmentOfADreamIs: 'Ближайшая даты для исполнения мечты ',
-    translatedContext.day: 'дня',
-    translatedContext.days: 'дней',
-    translatedContext.leftUntilTheNextDayOfTheDreamComeTrue:'До ближайшей значимой даты, на которую можно подарить подарок',
-    translatedContext.thereIsLeft: ', осталось:',
-    translatedContext.noDatesHaveBeenAdded:'Ни одной значимой даты не добавлено',
-    translatedContext.noDreamsHaveBeenAdded:'Ни одной мечты не добавлено',
-
-
-    translatedContext.showCategories: 'Показать категории', 
-    translatedContext.showAllDreams: 'Показать все мечты',
-
-    translatedContext.until:'До',
-    translatedContext.more: 'Более',
-
-    translatedContext.nothingHasBeenAddedInThisPriceRange:'Ничего не добавлено в этой ценовой категории.',
-*/
