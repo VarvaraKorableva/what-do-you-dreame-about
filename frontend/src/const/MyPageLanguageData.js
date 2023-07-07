@@ -11,6 +11,12 @@ const en = {
 
     SeeMoreButton: 'See more',
     SeeAllButton: 'See all',
+
+    MyImportantDatesPage: {
+        message: 'You can add significant events for yourself, and then people will know when there is still a reason for your dream to come true.',
+
+        addButton: 'Add new important date',
+    }
 }
 
 const rus = {
@@ -26,6 +32,11 @@ const rus = {
 
     SeeMoreButton: 'Загрузить еще',
     SeeAllButton: 'Посмотреть все', 
+
+    MyImportantDatesPage: {
+        message: 'Вы можете добавить значимые события для себя, и тогда ваши друзья будут знать, когда еще есть причина для того чтобы порадовать вас.',
+        addButton: 'Добавить значимую дату',
+    }
 }
 
 const hebrew = {
@@ -40,6 +51,11 @@ const hebrew = {
 
     SeeMoreButton: 'ראה עוד',
     SeeAllButton: 'ראה הכל',
+
+    MyImportantDatesPage: {
+        message: 'אתה יכול להוסיף אירועים חשובים עבורך ואז החברים שלך ידעו מתי עדיין יש סיבה להגשים את החלומות שלך',
+        addButton: 'הוסף תאריך חשוב',
+    }
 }
 
 const choose = { en, rus, hebrew };
