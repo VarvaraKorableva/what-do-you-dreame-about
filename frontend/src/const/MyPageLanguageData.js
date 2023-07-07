@@ -34,7 +34,6 @@ const hebrew = {
     ChangeInformationAboutYourself: 'שנה מידע על עצמך',
     SeeWhatMyFriendsDreamAbout: 'ראה על מה חלומותיהם של חבריך',
     SearchPeople: 'חפש אנשים',
-
     button: 'הוסף חלום חדש', 
 
     text: 'על מנת להוסיף חלום לחצו על הכפתור ומלאו את הטופס. הוסף קישור לחלומות כדי שחברך יוכל להגשים את החלום שלך בקלות.',
