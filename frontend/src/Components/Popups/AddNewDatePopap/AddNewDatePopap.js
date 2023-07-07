@@ -1,5 +1,7 @@
 import React from 'react';
 import './AddNewDatePopap.css'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/popaps/AddNewDatePopap'
 
 
 function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
@@ -17,17 +19,32 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
     const [errorDescription, setErrorDescription] = React.useState(false)
 
     const [isValid, setIsValid] = React.useState(false);
+
+    const formRef = React.useRef(null);
+
+    const { language } = React.useContext(LanguageContext)
+
+    const { en, rus, hebrew } = choose;
+
+    let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+    }
   
 
     const handleEventChange = (e) => {
       if (!e.target.value.length) {
-        setErrorNameMessage('The name of event field must be filled in.')
+        setErrorNameMessage(translatedContext.errors.errorNameMessage.theNameOfEventFieldMustBeFilledIn)
         setErrorName(true);
        } else if (e.target.value.length < 2) {
-        setErrorNameMessage('The name of event must be at least 2 characters long.')
+        setErrorNameMessage(translatedContext.errors.errorNameMessage.theNameOfEventMusBeAtLeastCharactersLong)
         setErrorName(true);
        } else if (e.target.value.length > 20) {
-        setErrorNameMessage('The name of event must be no more than 20 characters.')
+        setErrorNameMessage(translatedContext.errors.errorNameMessage.theNameOfEventMustBeNoMoreThanCharacters)
         setErrorName(true);
        } else {
         setErrorNameMessage('')
@@ -35,23 +52,23 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
        }
        setName(e.target.value)
     }
-
+/*
     const handleDescriptionChange = (e) => {
       setDescription(e.target.value)
         if(e.target.value.length > 25) {
           setErrorDescription(true)
-          setErrorDescriptionMessage('The date must not exceed 25 characters.')
+          setErrorDescriptionMessage(translatedContext.errors.errorDescriptionMessage.theDateMustNotExceedCharacters)
         } else {
           setErrorDescription(false)
           setErrorDescriptionMessage('')
         }
-    }
+    }*/
   
     function handleDateOfEventChange(e) {
       setDate(e.target.value)
         if(!(e.target.value)) {
           setErrorDate(true)
-          setErrorDateMessage('The date must be filled in.')
+          setErrorDateMessage(translatedContext.errors.errorDateMessage.theDateMustBeFilledIn)
         } else {
           setErrorDate(false)
           setErrorDateMessage('')
@@ -65,21 +82,23 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       date,
       description,
       });
+      handleFormReset()
+      setIsValid(false)
+      /*setName('')
+      setDate('')*/
     }
+
+    const handleFormReset = () => {
+      formRef.current.reset();
+    };
   
     React.useEffect(() => {
-      if (errorName || errorDate || errorDescription) {
+      if (errorName || errorDate) { // || errorDescription
         setIsValid(false)
       } else {
         setIsValid(true)
       }
-    }, [errorName, errorDate, errorDescription])
-/*
-    React.useEffect(() => {
-      setName('')
-      setDate('')
-      setDescription('')
-    }, [])*/
+    }, [errorName, errorDate]) //, errorDescription
 
     return (
       
@@ -91,8 +110,9 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
         type="button" 
         onClick={onClose}>
       </button>
-      <h2 className="add-new-date-popup__title">Add a new date</h2>
+      <h2 className="add-new-date-popup__title">{translatedContext.addANewDatePopapName}</h2>
         <form 
+          ref={formRef}
           className='add-new-date-popup__form'
           onSubmit={handleSubmit}>
           <input
@@ -117,22 +137,21 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
           ></input>
 
           <span className='add-new-date-popup__inputmistake'>{errorDateMessage}</span>
-  
+  {/*
           <input
             className='add-new-date-popup__input'
             name='description'
             type='text'
-            
             placeholder="Describe the event a little bit"
             onChange={handleDescriptionChange}
           ></input>
-          <span className='add-new-date-popup__inputmistake'>{errorDescriptionMessage}</span>
+    <span className='add-new-date-popup__inputmistake'>{errorDescriptionMessage}</span>*/}
           <button 
             type='submit'
             className={`'add-new-event-popup__btn' ${isValid? 'add-new-event-popup__btn_active': 'add-new-event-popup__btn'}`}
             disabled={!isValid}
           >
-            Create
+            {translatedContext.createButton}
           </button>
         </form>  
       </div>
