@@ -5,7 +5,9 @@ import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 import './MyFriendsPage.css'
 import DreamsField from '../../DreamsField/DreamsField'
 import PriceCategory from '../../PriceCategory/PriceCategory'
-import Preloader from '../../Preloader/Preloader';
+import Preloader from '../../Preloader/Preloader'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/FriendsPage/Friendspage'
 
 function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onFriendCardClick, addSubscribe, isLoggin, getAllSubscriptions}) {
   
@@ -26,6 +28,19 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
   const navigate = useNavigate()
   
   let { id } = useParams();
+
+  const { language } = React.useContext(LanguageContext)
+
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
 /*
   React.useEffect(() => {
     const getUser = (id) => {
@@ -79,8 +94,8 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
   function formatDate(dateString) {
     const date = new Date(dateString);
   
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Месяцы в JavaScript нумеруются с 0, поэтому добавляем 1
+    const day = String(date.getDate()).padStart(2, '0'); // Добавляем ведущий ноль, если число меньше 10
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Добавляем ведущий ноль, если число меньше 10
     const year = date.getFullYear();
   
     const formattedDate = `${day}.${month}.${year}`;
@@ -89,8 +104,11 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
   }
 
   function calculateDaysLeft(targetDate) {
-    const currentDate = new Date(); // Текущая дата
-    const endDate = new Date(targetDate); // Целевая дата
+    const currentDate = new Date();
+    const endDate = new Date(targetDate);
+  
+    // Установка года текущей даты в год целевой даты
+    currentDate.setFullYear(endDate.getFullYear());
   
     // Разница между целевой датой и текущей датой в миллисекундах
     const timeDiff = endDate.getTime() - currentDate.getTime();
@@ -237,7 +255,7 @@ return (
         <div>
           <p className='my-friends-page__inf'>{userData.name}</p>
           <Link to={`/users/${id}/dates`} className='my-friends-page__inf-link'>
-            <p className='my-friends-page__inf-link-text'>See all important dates for {userData.name} →</p>
+            <p className='my-friends-page__inf-link-text'>{translatedContext.seeAllImportantDatesFor} {userData.name} →</p>
           </Link>
         </div>
         {isLoggin?
@@ -247,14 +265,14 @@ return (
                 className='my-friends-page__add-friend-btn'
                 onClick={handleDeleteSubscribe}
               >
-                Unsubscribe
+                {translatedContext.unsubscribe}
               </button>
             :
               <button 
                 className='my-friends-page__add-friend-btn'
                 onClick={handleSubscribe}
               >
-                Subscribe
+                {translatedContext.subscribe}
               </button>
             }
           </>
@@ -274,19 +292,19 @@ return (
     </div>  
     {isDatesLength?
     <div className='my-friends-page__date-info'>
-      <p>The next date for the fulfillment of a dream is: <span className='my-friends-page__date'>{formattedDate}</span></p>
-      <p><span className='my-friends-page__date'>{daysLeft} days</span> left until the next day of the dream come true</p>
+      <p>{translatedContext.TheNextDateForTheFulfillmentOfADreamIs} <span className='my-friends-page__date'>{formattedDate}</span></p>
+      <p>{translatedContext.leftUntilTheNextDayOfTheDreamComeTrue} <span className='my-friends-page__date'>{daysLeft}</span> {translatedContext.days}</p>
     </div>
     :<div className='my-friends-page__date-info'>
-      <p>{userData.name} hasn't added any dates yet</p>
+      <p>{translatedContext.noDatesHaveBeenAdded}</p>
     </div>
     }
     {
       isLength?
       <>
         <div className='my-friends-page__filter-btn-container'>
-          <button className='my-friends-page__filter-btn' onClick={changeShowCategoryBtnStatus}>Show categories</button>
-          <button className='my-friends-page__filter-btn' onClick={showAllFriendsDreams}>Show all dreams</button>
+          <button className='my-friends-page__filter-btn' onClick={changeShowCategoryBtnStatus}>{translatedContext.showCategories}</button>
+          <button className='my-friends-page__filter-btn' onClick={showAllFriendsDreams}>{translatedContext.showAllDreams}</button>
         </div>
           {isShowAllBtnClicked?
             <DreamsField
@@ -317,7 +335,7 @@ return (
       </>
       :
       <div className='my-friends-page__container-remind'>
-        <p className='my-friends-page__message-about-empty-arr'>{userData.name}  hasn't added any dreams yet. </p>
+        <p className='my-friends-page__message-about-empty-arr'>{translatedContext.noDreamsHaveBeenAdded}</p>
        {/* <button className='my-friends-page__remind-btn'>to remind?</button> */}
       </div>  
     }
@@ -328,3 +346,26 @@ return (
 }
 
 export default MyFriendsPage;
+
+/*
+    translatedContext.seeAllImportantDatesFor: 'Посмотреть все значимые даты для',
+    translatedContext.unsubscribe: 'Отписаться',
+    translatedContext.subscribe: 'Подписаться',
+
+    translatedContext.TheNextDateForTheFulfillmentOfADreamIs: 'Ближайшая даты для исполнения мечты ',
+    translatedContext.day: 'дня',
+    translatedContext.days: 'дней',
+    translatedContext.leftUntilTheNextDayOfTheDreamComeTrue:'До ближайшей значимой даты, на которую можно подарить подарок',
+    translatedContext.thereIsLeft: ', осталось:',
+    translatedContext.noDatesHaveBeenAdded:'Ни одной значимой даты не добавлено',
+    translatedContext.noDreamsHaveBeenAdded:'Ни одной мечты не добавлено',
+
+
+    translatedContext.showCategories: 'Показать категории', 
+    translatedContext.showAllDreams: 'Показать все мечты',
+
+    translatedContext.until:'До',
+    translatedContext.more: 'Более',
+
+    translatedContext.nothingHasBeenAddedInThisPriceRange:'Ничего не добавлено в этой ценовой категории.',
+*/
