@@ -1,12 +1,13 @@
 import React from 'react'
 import './ChangeMyProfile.css'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/ChangeMyProfile'
 
 function ChangeMyProfile({onChangeSubmit}){
 
 const currentUser = React.useContext(CurrentUserContext)
 
-// Исходные значения полей формы
 //const initialName = currentUser.name;
 const initialBirthday = (currentUser.birthday === '' || currentUser.birthday === null) ? '': currentUser.birthday;
 
@@ -21,8 +22,21 @@ const [errorBirthdayMessage, setErrorBirthdayMessage] = React.useState('')
 const [errorName, setErrorName] = React.useState(true)
 const [errorBirthday, setErrorBirthday] = React.useState(true)
 //const [errorPassword, setErrorPassword] = React.useState(true)
-
 const [isValid, setIsValid] = React.useState(false);
+
+const formRef = React.useRef(null);
+
+const { language } = React.useContext(LanguageContext)
+const { en, rus, hebrew } = choose;
+
+let translatedContext = '';
+if (language === 'en') {
+  translatedContext = en;
+} else if (language === 'rus') {
+  translatedContext = rus;
+} else if (language === 'hebrew') {
+  translatedContext = hebrew;
+}
 
 const handleNameChange = (e) => {
   const validName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(
@@ -31,13 +45,13 @@ const handleNameChange = (e) => {
   if (!(e.target.value.length)) {
     setName(currentUser.name)
    } else if (e.target.value.length < 2) {
-    setErrorNameMessage('The username must be at least 2 characters long.')
+    setErrorNameMessage(translatedContext.errors.errorNameMessage.theUsernameMustBeAtLeastCharactersLong)
     setErrorName(true);
     setName(currentUser.name)
     deleteNameErrorMessage()
     setErrorName(true);
    } else if (!validName) {
-    setErrorNameMessage('The username should only contain Latin letters, Cyrillic letters, spaces, or hyphens.')
+    setErrorNameMessage(translatedContext.errors.errorNameMessage.theUsernameShouldOnlyContainLatinLettersCyrillicLetters)
     setErrorName(true);
     setName(currentUser.name)
     deleteNameErrorMessage()
@@ -46,7 +60,7 @@ const handleNameChange = (e) => {
     setErrorName(false);
     setName(e.target.value)
    } else if (e.target.value.length > 30) {
-    setErrorNameMessage('Имя пользователя должно быть не более 30 символов.')
+    setErrorNameMessage(translatedContext.errors.errorNameMessage.theUsernameMustBeNoMoreThanCharacters)
     setErrorName(true);
     deleteNameErrorMessage()
    } else if (!(e.target.value)) {
@@ -79,7 +93,7 @@ function handleBirthdayOfEventChange(e) {
   //setBirthday(e.target.value)
   if(!(e.target.value)) {
     setErrorBirthday(true)
-    setErrorBirthdayMessage('дата должна быть заполнена')
+    setErrorBirthdayMessage(translatedContext.errors.errorBirthdayMessage.theDateMustBeFilledIn)
     deleteBirthdayErrorMessage()
     setBirthday(initialBirthday)
   } else {
@@ -104,6 +118,8 @@ React.useEffect(() => {
     });
     setBirthday(initialBirthday)
     setName(currentUser.name)
+
+    handleFormReset()
   }
 /*
   function deletePasswordErrorMessage(){
@@ -131,15 +147,20 @@ React.useEffect(() => {
     }
   };
 
+  const handleFormReset = () => {
+    formRef.current.reset();
+  };
+
   return (
     <section className='change-information'>
-      <h3 className='change-information__greetings'>Hello, {currentUser.name}!</h3>
+      <h3 className='change-information__greetings'>{translatedContext.greeting} {currentUser.name}!</h3>
       <form 
+        ref={formRef}
         className='change-information__form'
         onSubmit={handleSubmit}>
         <fieldset className='change-information__fieldset'> 
 
-          <label className='change-information__inputname'>Name
+          <label className='change-information__inputname'>{translatedContext.name}
             <input className='change-information__input'
               name="name"
               type="text"
@@ -152,7 +173,7 @@ React.useEffect(() => {
             </label>
             <span className='change-information__inputmistake'>{errorNameMessage}</span>
 
-            <label className='change-information__inputname'>Birthday
+            <label className='change-information__inputname'>{translatedContext.birthday}
             <input className='change-information__input'
               name="birthday"
               type="date"
@@ -169,7 +190,7 @@ React.useEffect(() => {
           type="submit"
           className={`'change-information__btn' ${isValid? 'change-information__btn_active': 'change-information__btn'}`}
           disabled={!isValid}>
-            Change information
+            {translatedContext.buttonChangeInformation}
         </button>
       </form>
     </section>

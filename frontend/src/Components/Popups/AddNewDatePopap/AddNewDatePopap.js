@@ -8,15 +8,15 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
 
     const [name, setName] = React.useState('')
     const [date, setDate] = React.useState('')
-    const [description, setDescription] = React.useState('')
+    //const [description, setDescription] = React.useState('')
 
     const [errorNameMessage, setErrorNameMessage] = React.useState('')
     const [errorDateMessage, setErrorDateMessage] = React.useState('')
-    const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
+    //const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
 
     const [errorName, setErrorName] = React.useState(true)
     const [errorDate, setErrorDate] = React.useState(true)
-    const [errorDescription, setErrorDescription] = React.useState(false)
+    //const [errorDescription, setErrorDescription] = React.useState(false)
 
     const [isValid, setIsValid] = React.useState(false);
 
@@ -34,7 +34,18 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
     } else if (language === 'hebrew') {
       translatedContext = hebrew;
     }
-  
+    React.useEffect(() => {
+      if (errorName || errorDate || (!name || !date)) { 
+        setIsValid(false)
+      } else {
+        setIsValid(true)
+      }
+    }, [errorName, errorDate, name, date]) 
+
+    React.useEffect(() => {
+      if (!name || !date) { 
+        setIsValid(false)
+    }}, [name,date])
 
     const handleEventChange = (e) => {
       if (!e.target.value.length) {
@@ -52,6 +63,8 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
        }
        setName(e.target.value)
     }
+
+    
 /*
     const handleDescriptionChange = (e) => {
       setDescription(e.target.value)
@@ -80,25 +93,22 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       onAddDate({
       name,
       date,
-      description,
+      //description,
       });
+
       handleFormReset()
-      setIsValid(false)
-      /*setName('')
-      setDate('')*/
+
+      /*setIsValid(false)*/
+      setName('')
+      setDate('')
     }
+/*
+    console.log(name)
+    console.log(date)*/
 
     const handleFormReset = () => {
       formRef.current.reset();
     };
-  
-    React.useEffect(() => {
-      if (errorName || errorDate) { // || errorDescription
-        setIsValid(false)
-      } else {
-        setIsValid(true)
-      }
-    }, [errorName, errorDate]) //, errorDescription
 
     return (
       
@@ -120,8 +130,9 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
             name='name'
             type='text'
             
-            placeholder="Name of event"
+            placeholder={translatedContext.placeholderNameOfEvent}
             onChange={handleEventChange}
+            onInput={handleEventChange}
           ></input>
 
           <span className='add-new-date-popup__inputmistake'>{errorNameMessage}</span>

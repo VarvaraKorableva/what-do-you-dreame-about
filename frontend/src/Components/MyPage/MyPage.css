@@ -37,6 +37,12 @@
   display: flex;
   flex-direction: column;
 }
+/*
+@media screen and (max-width: 350px) {
+  .myPage_link-container {
+   
+  }
+}*/
 
 .myPage_inf {
   color: black;

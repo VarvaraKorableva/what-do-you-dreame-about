@@ -1,6 +1,8 @@
 import React from 'react'
 import './FriendsSearching.css'
 import FullFriendsField from '../FullFriendsField/FullFriendsField'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/AllMyFriendsPageAndSerching'
 
 function FriendsSearching({handleGetUsersSubmit, friends}) {
 
@@ -8,6 +10,19 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
   const [error, setError] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
+
+  const { language } = React.useContext(LanguageContext)
+
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+  }
 
   React.useEffect(() => {
     handleGetUsersSubmit()
@@ -22,7 +37,7 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
     e.preventDefault();
     if (!keyWord) {
       setError(true)
-      setErrorMessage('Please enter the keyword')
+      setErrorMessage(translatedContext.errors.pleaseEnterTheKeyword)
       setTimeout(() => {
         setErrorMessage('');
       }, "2000");

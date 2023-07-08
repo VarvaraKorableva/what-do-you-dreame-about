@@ -8,12 +8,6 @@
   align-items: center;
   box-sizing: border-box;
 }
-/*
-@media screen and (max-width: 700px) {
-  .oneFriendCard__container {
-    height: 80px;
-  }
-}*/
 
 .oneFriendCard__container:last-of-type {
   margin-right: 0;
@@ -34,7 +28,15 @@
 }
 .oneFriendCard__inf-container {
   text-align: center;
+  width: 70px;
 }
+
+@media screen and (max-width: 400px) {
+  .oneFriendCard__inf-container {
+    width: 50px;
+  }
+}
+
 .oneFriendCard__inf {
   margin-bottom: 0;
   margin-top: 6px;
