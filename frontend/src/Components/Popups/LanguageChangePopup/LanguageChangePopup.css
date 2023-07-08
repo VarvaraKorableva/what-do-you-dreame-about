@@ -50,8 +50,9 @@
   height: fit-content;
   position: relative;
   border-radius: 10px;
-  /*background-color: #cd6bdc;*/
-  background-color: rgb(227, 149, 235);
+  /*background-color: #cd6bdc;
+  background-color: rgb(227, 149, 235);*/
+  background-image: url(../../../images/languagebackground.jpg);
 }
 
 .languageChangePopup__wrapper {

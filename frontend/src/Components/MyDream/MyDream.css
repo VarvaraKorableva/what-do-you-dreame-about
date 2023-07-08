@@ -39,9 +39,6 @@
 }
 
 .myDream__container {
-  /*min-width: 150px;
-  max-width: 280px;
-  min-height: 250px;*/
   padding: 5px;
   list-style-type: none;
   border-radius: 10px;
@@ -74,10 +71,6 @@
 .myDream__inf-title:first-of-type {
   margin-top: 5px;
 }
-/*
-.myDream__inf {
-  opacity: 0.5;
-}*/
 
 .myDream__inf-link {
   color: black;

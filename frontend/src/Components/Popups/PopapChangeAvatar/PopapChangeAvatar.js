@@ -1,5 +1,7 @@
 import React from 'react'
 import './PopapChangeAvatar.css'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/popaps/PopapChangeAvatar'
 
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 
@@ -12,9 +14,22 @@ const [errorMessage, setErrorMessage] = React.useState('');
 const [img, setImg] = React.useState(null);
 const [imagePreview, setImagePreview] = React.useState(null);
 //const [imagePreview, setImagePreview] = React.useState(null);
-const [buttonText, setButtonText] = React.useState('Upload avatar');
+
 const [isFormValid, setIsFormValid] = React.useState(false);
 const editAvatarRef = React.useRef(null);
+
+const { language } = React.useContext(LanguageContext)
+const { en, rus, hebrew } = choose;
+
+let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
+  let buttonText = translatedContext.button;
 
 function handleImgLinkChange(e) {
   setImg(e.target.files[0]);
@@ -50,13 +65,13 @@ function checkValid(img) {
     return setImg(null);
   }
 
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
   const isValidExtension = allowedExtensions.test(img.name);
 
   if (!isValidExtension) {
     setImg(null)
-    setError(true);
-    setErrorMessage('Please upload only image files (jpg, jpeg, png, gif)');
+    setError(true)
+    setErrorMessage(translatedContext.errors.message)
     setIsFormValid(false);
   } else {
     setError(false);
@@ -80,7 +95,7 @@ React.useEffect(() => {
         className="popap-change-avatar__close-button" 
         type="button">
       </button>
-      <h2 className="popap-change-avatar__title">Change Avatar</h2>
+      <h2 className="popap-change-avatar__title">{translatedContext.title}</h2>
       <form 
         className='popap-change-avatar__form'
         onSubmit={handleSubmit}
@@ -99,7 +114,7 @@ React.useEffect(() => {
           className='popap-change-avatar__input'
           name='image'
           type="file"
-          placeholder="Add your picture"
+          placeholder={translatedContext.placeholderAddYourPicture}
           onChange={handleImgLinkChange}
           hidden
         >
@@ -122,7 +137,7 @@ React.useEffect(() => {
           type='submit'
           disabled={!isFormValid}
           >
-          Change Avatar
+          {translatedContext.textButton}
         </button>
       </form>  
       </div>
@@ -133,11 +148,17 @@ React.useEffect(() => {
 export default PopapChangeAvatar;
 
 /*
+const rus = {
+    translatedContext.title: 'Изменение аватара',
+    translatedContext.button: 'Изменить аватар',
 
-        <button 
-          onClick={() => editAvatarRef.current.click()}
-          className='popap-change-avatar__input'>
-          Загрузить картинку
-        </button> 
+    translatedContext.textButton: 'Загрузить аватар',
 
+    translatedContext.placeholderAddYourPicture: 'Добавьте свою фотографию',
+    
+
+    translatedContext.errors: {
+        translatedContext.errors.message: 'Пожалуйста, загружайте только файлы изображений (jpg, jpeg, png)',
+    }
+}
 */

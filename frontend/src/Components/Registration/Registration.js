@@ -117,8 +117,8 @@ const { en, rus, hebrew } = choose;
       <form 
         className='register__form'
         onSubmit={handleSubmit}>
-        <h2 className='register__title'>{translatedContext.greetings}</h2>
-        <h3 className='register__greetingsText'>{translatedContext.greetingsText}</h3>
+      {/*  <h2 className='register__title'>{translatedContext.greetings}</h2>
+        <h3 className='register__greetingsText'>{translatedContext.greetingsText}</h3>*/}
         <fieldset className='register__fieldset'>
           <label className='register__inputname'>{translatedContext.name}<span className='register__inputname-span'>*</span>
             <input className='register__input'

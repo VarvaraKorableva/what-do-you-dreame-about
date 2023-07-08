@@ -2,6 +2,8 @@ import React from 'react'
 import './InfoTooltip.css'
 //import { Link } from 'react-router-dom'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/popaps/AddAvatarPopap'
 
 function AddAvatarPopap({onClose, isOpen, handleAddAvatar}) {
 
@@ -18,9 +20,23 @@ function AddAvatarPopap({onClose, isOpen, handleAddAvatar}) {
  const addAvatarRef = React.useRef(null);
  const [error, setError] = React.useState(false);
  const [errorMessage, setErrorMessage] = React.useState('');
- const [buttonText, setButtonText] = React.useState('Upload avatar');
+
 
  const currentUser = React.useContext(CurrentUserContext)
+ const { language } = React.useContext(LanguageContext)
+
+ const { en, rus, hebrew } = choose;
+
+ let translatedContext = '';
+ if (language === 'en') {
+   translatedContext = en;
+ } else if (language === 'rus') {
+   translatedContext = rus;
+ } else if (language === 'hebrew') {
+   translatedContext = hebrew;
+ }
+
+ let buttonText = translatedContext.buttonTextUploadAvatar;
  
  React.useEffect(() => {
   if(img) {
@@ -75,13 +91,13 @@ function checkValid(img) {
     return setImg(null);
   }
 
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
   const isValidExtension = allowedExtensions.test(img.name);
 
   if (!isValidExtension) {
     setImg(null)
     setError(true);
-    setErrorMessage('Please upload only image files (jpg, jpeg, png, gif)');
+    setErrorMessage(translatedContext.errors.message);
     setIsFormValid(false);
   } else {
     setError(false);
@@ -105,8 +121,8 @@ React.useEffect(() => {
 
           {noMistake?
           <>
-          <h2 className="infoTooltip__title"> You have successfully registered! </h2>
-          <h3 className="infoTooltip__title"> Let's add avatar </h3>
+          <h2 className="infoTooltip__title">{translatedContext.youHaveSuccessfullyRegistered}</h2>
+          <h3 className="infoTooltip__title">{translatedContext.letAddAvatar}</h3>
             <form
               //className='popap-change-avatar__form'
               onSubmit={handleSubmit}
@@ -183,14 +199,14 @@ React.useEffect(() => {
 
 
               >
-                Confirm
+                {translatedContext.buttonConfirm}
               </button>
             </form>
           </>
           :
           <>
             <svg className="infoTooltip__pic infoTooltip__pic_fail"></svg>
-            <h2 className="infoTooltip__title">Что-то пошло не так! Попробуйте ещё раз.</h2> 
+            <h2 className="infoTooltip__title">{translatedContext.somethingWentWrongPleaseTryAgain}</h2> 
           </>
 
           }
@@ -203,8 +219,6 @@ React.useEffect(() => {
   
 export default AddAvatarPopap;
 /**
- * 
- * 
  *           <h2 className="infoTooltip__title">
               {noMistake? "You have successfully registered! Do you want to add information about yourself? (if not, it's ok, you may do it later)" 
               : "Что-то пошло не так! Попробуйте ещё раз."}</h2>

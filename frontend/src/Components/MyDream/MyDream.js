@@ -1,8 +1,22 @@
 import React from 'react'
-import './MyDream.css';
+import './MyDream.css'
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/MyDream'
 
 function MyDream({dream, OnDeleteMyDream, onCardClick}) {
   const [isLink, setIsLink] = React.useState(false)
+
+  const { language } = React.useContext(LanguageContext)
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+    }
 
   function handleDelete() {
     OnDeleteMyDream(dream);
@@ -57,13 +71,21 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
       </div>
       
       <div className="myDream__inf-container">
-        <p className="myDream__inf-title">Name: <span className='myDream__inf'>{dream.name}</span></p>
-        <p className="myDream__inf-title">Price: <span className='myDream__inf'>{price} $</span></p>
-        {isLink?
-        <a className="myDream__inf-title myDream__inf-link" href={dream.dreamLink} target='blank'>Link: <span className='myDream__inf'>{dream.dreamLink}</span></a>
+        {translatedContext === hebrew?
+          <p className="myDream__inf-title"><span className='myDream__inf'> {dream.name}</span> :{translatedContext.name}</p>
         :
-        <p className="myDream__inf-title myDream__inf-not-link">Link: <span className="myDream__not-added">not added</span></p>
+          <p className="myDream__inf-title">{translatedContext.name}:<span className='myDream__inf'> {dream.name}</span></p>
         }
+        {translatedContext === hebrew? 
+          <p className="myDream__inf-title">$<span className='myDream__inf'> {price} </span>:{translatedContext.price}</p>
+        :
+          <p className="myDream__inf-title">{translatedContext.price}:<span className='myDream__inf'> {price} $</span></p>
+        }
+        {isLink?
+        <a className="myDream__inf-title myDream__inf-link" href={dream.dreamLink} target='blank'>{translatedContext.linkToDream}: <span className='myDream__inf'>{dream.dreamLink}</span></a>
+        :
+        <p className="myDream__inf-title myDream__inf-not-link">{translatedContext.linkToDream} <span className="myDream__not-added">{translatedContext.notAdded}</span></p>
+          }
       {/*  <a className="myDream__inf myDream__inf-link" href={dream.dreamLink} target='blank' >Link: {dream.dreamLink}</a>*/}
       </div>
 

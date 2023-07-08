@@ -111,6 +111,22 @@
   font-weight: 700;
 }
 
+.header_LogOut-btn:hover{
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 350px) {
+  .header_LogOut-btn {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .header_LogOut-btn {
+    font-size: 8px;
+  }
+}
+
 .header__langpic {
   background-image: url(../../images/languagechangepic.png);
   background-repeat: no-repeat;
