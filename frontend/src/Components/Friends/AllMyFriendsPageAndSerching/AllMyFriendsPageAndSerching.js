@@ -3,6 +3,8 @@ import './AllMyFriendsPageAndSerching.css'
 import AllFriendsField from './AllFriendsField/AllFriendsField'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
 import Preloader from '../../Preloader/Preloader'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/AllMyFriendsPageAndSerching'
 
 
 function AllMyFriendsPageAndSerching({ isLoading, getAllSubscriptions, allMySubscriptions }) {
@@ -16,6 +18,18 @@ const [error, setError] = React.useState(false)
 const [errorMessage, setErrorMessage] = React.useState('')
 const [usersAfterFilter, setUsersAfterFilter] = React.useState(allMySubscriptions)
 //const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
+const { language } = React.useContext(LanguageContext)
+
+const { en, rus, hebrew } = choose;
+
+let translatedContext = '';
+if (language === 'en') {
+  translatedContext = en;
+} else if (language === 'rus') {
+  translatedContext = rus;
+} else if (language === 'hebrew') {
+  translatedContext = hebrew;
+}
 
 React.useEffect(() => {
   getAllSubscriptions(userId) //(получить все свои подписки)
@@ -35,7 +49,7 @@ function handleSubmit (e) {
   e.preventDefault();
   if (!keyWord) {
     setError(true)
-    setErrorMessage('Please enter the keyword')
+    setErrorMessage(translatedContext.errors.pleaseEnterTheKeyword)
     setTimeout(() => {
       setErrorMessage('');
     }, "2000");
@@ -88,15 +102,15 @@ return (
                 className='friendsSearching__input-all-btn'
                 type='button'
                 onClick={showAllSubscriptions}
-              >All</button>
+              >{translatedContext.all}</button>
           </form>
-          <p className='allfriendsSearching__title'>My subscriptions list:</p>
+          <p className='allfriendsSearching__title'>{translatedContext.mySubscriptionsList}</p>
             <AllFriendsField 
               allMySubsriptions={usersAfterFilter}
             />
         </>
       :
-        <p>Here you will see your subscriptions</p>
+        <p>{translatedContext.hereYouWillSeeYourSubscriptions}</p>
       )
     }
   </div>  
@@ -106,7 +120,13 @@ return (
 
 export default AllMyFriendsPageAndSerching;
 
-
+/*
+    translatedContext.mySubscriptionsList: 'Мои подписки:',
+    translatedContext.hereYouWillSeeYourSubscriptions:'Тут ты увидешь свои подписки',
+    translatedContext.errors.: {
+      translatedContext.errors.pleaseEnterTheKeyword:'Пожалуйста, введите ключевое слово',
+    }, 
+*/
 /*{<form className='friendsSearching__form'>
 <input className='friendsSearching__input'></input>
 <button 

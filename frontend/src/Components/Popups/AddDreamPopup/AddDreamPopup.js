@@ -93,10 +93,15 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       onAddDream(formData);
 
 
-      setName('')
+      setName(null)
       setImg(null)
-      setPrice('')
-      setDreamLink('')
+      setPrice(null)
+      setDreamLink(null)
+
+      setErrorName(true)
+      setErrorImg(true)
+      setErrorPrice(true)
+      setErrorDreamLink(true)
       /*setImg(null)
       //setIsFormValid(false)*/
       onClose()
@@ -115,7 +120,6 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     const validName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(
       e.target.value
     )
-
     if (!e.target.value.length) {
       setErrorNameMessage(translatedContext.errorNameMessage.nameFieldMustBeFilledIn)
       setErrorName(true);
@@ -128,10 +132,10 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       setErrorNameMessage(translatedContext.errorNameMessage.nameShouldOnlyContainLatinLettersCyrillicLettersSpacesOrHyphens)
       setErrorName(true);
       setIsValid(false)
-     } else if (validName) {
+     } /*else if (validName) {
       setErrorNameMessage('')
       setErrorName(false);
-     } else if (e.target.value.length > 30) {
+     }*/ else if (e.target.value.length > 30) {
       setErrorNameMessage(translatedContext.errorNameMessage.nameShouldNotExceedCharacters)
       setErrorName(true);
       setIsValid(false)
@@ -171,8 +175,9 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
 
   function checkValid(img) {
   if (!img) {
-    return setImg(null)//setIsValid(false)
-    //
+    return setIsValid(false)
+    //setImg(null)
+    
   }
 
   const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -183,7 +188,7 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     setErrorImg(true);
     setErrorImgMessage(translatedContext.img.errorImgMessage);
     setButtonText(translatedContext.img.buttonTextUploadPictureOfYourDream)
-    setIsValid(false);
+    //setIsValid(false);
   } else {
     setErrorImg(false);
     setErrorImgMessage('');
@@ -224,6 +229,7 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='name'
             type='text'
+            onInput={handleNameChange}
             onChange={handleNameChange}
           ></input>
         </label>
@@ -233,6 +239,7 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='dreamLink'
             type='url'
+            onInput={handleDreamLinkChange}
             onChange={handleDreamLinkChange}
           ></input>
           
@@ -243,6 +250,7 @@ React.useEffect(() => {
             className='add-dream-popup__input'
             name='price'
             type='text'
+            onInput={handlePriceChange}
             onChange={handlePriceChange}
           ></input>
         </label>

@@ -45,6 +45,18 @@
   }
 }
 
+@media screen and (max-width: 310px) {
+  .header_logo {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 276px) {
+  .header_logo {
+    font-size: 8px;
+  }
+}
+
 .header_wrapper {
   display: flex;
   justify-content: space-between;

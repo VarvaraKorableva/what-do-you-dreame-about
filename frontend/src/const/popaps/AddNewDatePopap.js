@@ -1,6 +1,7 @@
 const en = {
     addANewDatePopapName: 'Add a new date',
     createButton: 'Create',
+    placeholderNameOfEvent: 'Name of event',
     errors: {
         errorNameMessage: {
             theNameOfEventFieldMustBeFilledIn:'The name of event field must be filled in.',
@@ -19,6 +20,7 @@ const en = {
 const rus = {
     addANewDatePopapName: 'Добавить новую дату',
     createButton: 'Создать',
+    placeholderNameOfEvent: 'Название события',
     errors: {
         errorNameMessage: {
             theNameOfEventFieldMustBeFilledIn:'Поле должно быть заполнено',
@@ -37,6 +39,7 @@ const rus = {
 const hebrew = {
     addANewDatePopapName: 'הוסף תאריך חדש',
     createButton: 'צור',
+    placeholderNameOfEvent: 'שם האירוע',
     errors: {
         errorNameMessage: {
             theNameOfEventFieldMustBeFilledIn:'שדה חייב להיות מלא',
