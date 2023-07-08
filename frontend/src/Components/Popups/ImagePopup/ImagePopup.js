@@ -1,8 +1,22 @@
 import React from 'react';
 import './ImagePopup.css'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/MyDream'
 
 
 function ImagePopup({ dream, onClose }) {
+
+  const { language } = React.useContext(LanguageContext)
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+    }
 /*
   const priceWithZero = dream.price
 
@@ -31,9 +45,16 @@ function ImagePopup({ dream, onClose }) {
             alt={dream.name} 
             className='img-popup__picture'
           />
-          <p className="img-popup__picture-name">Name: {dream.name}</p>
-          <p className="img-popup__picture-name">Approximate cost: {dream.price} $</p>
-          
+          {translatedContext === hebrew? 
+            <p className="img-popup__picture-name">{dream.name} :{translatedContext.popup.name}</p>
+          :
+            <p className="img-popup__picture-name">{translatedContext.popup.name}: {dream.name}</p>
+          }
+          {translatedContext === hebrew? 
+            <p className="img-popup__picture-name">$ {dream.price} {translatedContext.popup.approximateCost}</p>
+          :
+            <p className="img-popup__picture-name">{translatedContext.popup.approximateCost} {dream.price} $</p>
+          }
         </div>
       </div>
     </aside>
@@ -43,3 +64,11 @@ function ImagePopup({ dream, onClose }) {
 export default ImagePopup;
 
 //<p className="img-popup__picture-name">Где купить - {dream.imgLink}</p>
+
+/*
+    translatedContext.popup.: {
+        translatedContext.popup.name:'Название',
+        translatedContext.popup.approximateCost: 'Приблизительная цена:',
+    }
+
+*/

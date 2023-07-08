@@ -33,7 +33,7 @@ const rus = {
     greetingsText: 'Здесь можно зарегистрироваться',
 
     name: 'Имя',
-    email: 'E-mail',
+    email: 'Электронная почта',
     password: 'Пароль',
 
     button: 'Зарегистрироваться',

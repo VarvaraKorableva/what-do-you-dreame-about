@@ -30,12 +30,13 @@
     flex-direction: column;
     justify-content: space-between;
   }
+
   .myFriendOneDream__container:hover {
     box-shadow: 5px 5px 5px rgb(226, 232, 232);
   }
-  
+  /*
   @media screen and (max-width: 400px) {
-      .myDream__container {
+      .myFriendOneDream__container {
         min-height: 120px;
       }
   }*/
@@ -63,29 +64,16 @@
     color: black;
     text-decoration-line: none;
     margin-top: 0;
-    cursor: pointer;
     transition: 1s;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-/*
-    font-size: 12px;
-    font-weight: 500;
-    margin: 0;
-    margin-bottom: 5px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;*/
   }
 
   .myFriendOneDream__inf-link:hover{
-    transition: 1s;
     opacity: 0.7;
+    cursor: pointer;
+    transition: 1s;
   }
 
   .myFriendOneDream__inf-not-link {
     margin-top: 5px;
     opacity: 0.3;
   }
-
-  

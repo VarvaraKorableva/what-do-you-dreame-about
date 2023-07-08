@@ -1,8 +1,22 @@
 import React from 'react'
-import './MyFriendOneDream.css';
+import './MyFriendOneDream.css'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/MyFriendOneDream'
 
 function MyFriendOneDream({friendDream, onFriendCardClick}) {
   const [isLink, setIsLink] = React.useState(false)
+
+  const { language } = React.useContext(LanguageContext)
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+    }
 
   function handleClick() {
     onFriendCardClick(friendDream);
@@ -48,16 +62,23 @@ function MyFriendOneDream({friendDream, onFriendCardClick}) {
       </div>
       
       <div className="myFriendOneDream__inf-container">
-        <p className="myFriendOneDream__inf">Name: {friendDream.name}</p>
-        <p className="myFriendOneDream__inf">Price: {price} $</p>
-        {isLink?
-        <a className="myFriendOneDream__inf myFriendOneDream__inf-link" href={friendDream.dreamLink} target='blank'>Link: {friendDream.dreamLink}</a>
+
+      {translatedContext === hebrew?
+        <p className="myFriendOneDream__inf">{friendDream.name} :{translatedContext.name}</p>
         :
-        <p className="myFriendOneDream__inf myFriendOneDream__inf-not-link">Link: <span className="myFriendOneDream__not-added">not added</span></p>
-        }
-        {/*<a className="myFriendOneDream__inf myDream__inf-link" href={friendDream.dreamLink} target='blank' >Link: {friendDream.dreamLink}</a>
+        <p className="myFriendOneDream__inf">{translatedContext.name}: {friendDream.name}</p>
+      }
+      {translatedContext === hebrew?
+        <p className="myFriendOneDream__inf">$ {price} :{translatedContext.price}</p>
+      :
+        <p className="myFriendOneDream__inf">{translatedContext.price}: {price} $</p>
+      }
+        {isLink?
+        <a className="myFriendOneDream__inf myFriendOneDream__inf-link" href={friendDream.dreamLink} target='blank'>{translatedContext.linkToDream}: {friendDream.dreamLink}</a>
         
-        */}
+        :
+        <p className="myFriendOneDream__inf myFriendOneDream__inf-not-link">{translatedContext.linkToDream} <span className="myFriendOneDream__not-added">{translatedContext.notAdded}</span></p>
+}
       </div>
 
     </div>

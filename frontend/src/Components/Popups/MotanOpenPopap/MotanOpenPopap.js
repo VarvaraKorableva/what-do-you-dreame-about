@@ -1,9 +1,22 @@
 import React from 'react';
 import './MotanOpenPopap.css'
-
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/MyFriendOneDream'
 
 function MotanOpenPopap({ motan, onClose }) {
   const [isLink, setIsLink] = React.useState(false)
+
+  const { language } = React.useContext(LanguageContext)
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+    if (language === 'en') {
+      translatedContext = en;
+    } else if (language === 'rus') {
+      translatedContext = rus;
+    } else if (language === 'hebrew') {
+      translatedContext = hebrew;
+    }
 
   function checkLink() {
     if(!(motan.dreamLink === '')){
@@ -29,11 +42,24 @@ function MotanOpenPopap({ motan, onClose }) {
             alt={motan.name} 
             className='motan-open-popap__picture'
           />
-          <p className="motan-open-popap__picture-name">Name: {motan.name}</p>
-          <p className="motan-open-popap__picture-name">Approximate cost: {motan.price} $</p>
+
+          {translatedContext === hebrew ?
+            <p className="motan-open-popap__picture-name">{motan.name} :{translatedContext.popup.name}</p>
+          :
+            <p className="motan-open-popap__picture-name">{translatedContext.popup.name}: {motan.name}</p>
+          }
+          {translatedContext === hebrew ?
+            <p className="motan-open-popap__picture-name">$ {motan.price}: {translatedContext.popup.approximateCost}</p>
+          :
+            <p className="motan-open-popap__picture-name">{translatedContext.popup.approximateCost}: {motan.price} $</p>
+          }
           {isLink?
             <a className="motan-open-popap__picture-name motan-open-popap__picture-name-link" href={motan.dreamLink} target='blank'>
-              <p className="motan-open-popap__link">Where can you buy: {motan.dreamLink}</p>
+              {translatedContext === hebrew ?
+                <p className="motan-open-popap__link">{motan.dreamLink} :{translatedContext.popup.whereCanYouBuy}</p>
+              :
+                <p className="motan-open-popap__link">{translatedContext.popup.whereCanYouBuy}: {motan.dreamLink}</p>
+              }
             </a>
           :
             <></>
@@ -45,3 +71,10 @@ function MotanOpenPopap({ motan, onClose }) {
 }
   
 export default MotanOpenPopap;
+
+/*
+    translatedContext.popup: {
+        translatedContext.popup.name:'Название',
+        translatedContext.popup.approximateCost: 'Приблизительная цена:',
+    }
+*/

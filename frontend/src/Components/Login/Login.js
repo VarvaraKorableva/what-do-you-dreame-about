@@ -1,6 +1,7 @@
 import React from 'react'
 import './Login.css'
-
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/Login'
 import { Link } from 'react-router-dom'
 
 function Login({ isLoginError, errorLoginMessage, onSubmit }) {
@@ -16,6 +17,19 @@ const [errorPasswordMessage, setErrorPasswordMessage] = React.useState('')
 const [errorEmail, setErrorEmail] = React.useState(true)
 const [errorPassword, setErrorPassword] = React.useState(true)
 
+const { language } = React.useContext(LanguageContext)
+
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
+
 function handleSubmit(e) {
   e.preventDefault();
   onSubmit({
@@ -26,13 +40,13 @@ function handleSubmit(e) {
 
 const handlePasswordChange = (e) => {
   if (!e.target.value.length) {
-    setErrorPasswordMessage('Password must be filled in.');
+    setErrorPasswordMessage(translatedContext.errors.passwordMessage.passwordMustBeFilledIn);
     setErrorPassword(true);
   } else if (e.target.value.length < 5) {
-    setErrorPasswordMessage('Password must contain at least 5 characters.');
+    setErrorPasswordMessage(translatedContext.errors.passwordMessage.passwordMustContainAtLeastCharacters);
     setErrorPassword(true);
   } else if (e.target.value.length > 8) {
-    setErrorPasswordMessage('Password must not exceed 8 characters.');
+    setErrorPasswordMessage(translatedContext.errors.passwordMessage.passwordMustNotExceedCharacters);
     setErrorPassword(true);
   } else {
     setErrorPasswordMessage('');
@@ -47,10 +61,10 @@ const handleEmailChange = (e) => {
   )
 
   if (!e.target.value.length) {
-    setErrorEmailMessage('Email must be filled in.')
+    setErrorEmailMessage(translatedContext.errors.emailMessage.emailMustBeFilledIn)
     setErrorEmail(true)
   } else if (!validEmail) {
-    setErrorEmailMessage('Invalid email format.')
+    setErrorEmailMessage(translatedContext.errors.emailMessage.invalidEmailFormat)
     setErrorEmail(true)
   } else {
     setErrorEmailMessage('')
@@ -70,9 +84,9 @@ React.useEffect(() => {
   return (
     <section className='login'>
       <form className='login__form' onSubmit={handleSubmit}>
-        <h2 className='login__title'>Glad to see you!</h2>
+        {/*<h2 className='login__title'>Glad to see you!</h2>*/}
         <fieldset className='login__fieldset'>
-          <label  className='login__inputname'>E-mail
+          <label  className='login__inputname'>{translatedContext.email}
             <input className='login__input'
                  pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
                  type="email"
@@ -84,7 +98,7 @@ React.useEffect(() => {
           </label>
           <span className='login__inputmistake'>{errorEmailMessage}</span>
 
-          <label className='login__inputname'>Password
+          <label className='login__inputname'>{translatedContext.password}
             <input className='login__input'
                  maxLength="8"
                  name="password"
@@ -98,10 +112,10 @@ React.useEffect(() => {
           <span className={`${isLoginError?'login__inputmistake' : ''}`}>{errorLoginMessage}</span>
         </fieldset>
 
-        <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>SignIn</button>
+        <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>{translatedContext.button}</button>
           <div className='login__wrapper'>
-            <p className='login__subtitle'>Not registered yet?
-            <Link className='login__entrylink' to="/signup"> SignUp</Link>
+            <p className='login__subtitle'>{translatedContext.notRegisteredYet}
+            <Link className='login__entrylink' to="/signup"> {translatedContext.signUp}</Link>
             </p>
           </div>
       </form>
