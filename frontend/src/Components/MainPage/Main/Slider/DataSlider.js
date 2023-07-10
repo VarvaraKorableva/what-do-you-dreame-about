@@ -1,6 +1,6 @@
 import offerPic from '../../../../images/sliderreg.png'
 import offerPic2 from '../../../../images/sliderAvatar.png'
-import offerPic3 from '../../../../images/sliderAddDream.png'
+import offerPic3 from '../../../../images/pic.png'
 import offerPic4 from '../../../../images/slideradddreampopap.png'
 
 import offerPic8 from '../../../../images/sliderfriendsDreams.png'

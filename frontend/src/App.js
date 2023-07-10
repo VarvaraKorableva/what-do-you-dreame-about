@@ -445,7 +445,6 @@ function deleteSubscription(subscriptionId) {
     <LanguageProvider>
     <CurrentUserContext.Provider value={currentUser}>  
     <div className='App'>
-      {/*<div className='App-container'>*/}
 
       <Header
         isLoggin={isLoggin}
@@ -626,8 +625,8 @@ function deleteSubscription(subscriptionId) {
       onClose={closeAllPopups}
     />
 
-    <Footer/>
     
+    <Footer/>
     </div>
     
     </CurrentUserContext.Provider>  
@@ -637,7 +636,9 @@ function deleteSubscription(subscriptionId) {
 
 export default App;
 
+/*
 
+*/
 /*
 <Route
         exact path="/my-page"

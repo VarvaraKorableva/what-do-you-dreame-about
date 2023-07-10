@@ -36,6 +36,7 @@
   .promo__text-container {
     width: 200px;
     height: 200px;
+    margin: 5px;
   }
 }
 
@@ -50,7 +51,7 @@
   .promo__text-container {
     width: 130px;
     height: 130px;
-    margin: 5px;
+    margin: 2px;
   }
 }
 
@@ -64,8 +65,8 @@
 
 @media screen and (max-width: 425px) {
   .promo__text-container {
-    width: 90%;
-    height: 80px;
+    width: 96%;
+    max-height: 65px;
     border-radius: 30px;
     margin-bottom: 10px;
   }
@@ -83,23 +84,20 @@
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  margin: 15px;
-  /*white-space: nowrap;  Запрещаем перенос строк 
-  white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;*/
+  /*margin: 15px;*/
 }
 
 @media screen and (max-width: 970px) {
   .promo__text {
     font-size: 12px;
   }
-}
+}/*
 @media screen and (max-width: 600px) {
   .promo__text {
     font-size: 10px;
   }
 }
+
 @media screen and (max-width: 550px) {
   .promo__text {
     font-size: 8px;
@@ -110,7 +108,7 @@
   .promo__text {
     font-size: 10px;
   }
-}
+}*/
 
 .promo__hurt-arrow {
   position: absolute;
@@ -287,13 +285,12 @@
 
 @media screen and (max-width: 650px) {
   .promo__title {
-    font-size: 22px;
+    font-size: 18px
   }
 }
 
 @media screen and (max-width: 450px) {
   .promo__title {
-    font-size: 20px;
+      font-size: 16px;
   }
 }
-

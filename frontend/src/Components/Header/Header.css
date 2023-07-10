@@ -76,13 +76,13 @@
   opacity: 0.5;
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 325px) {
   .header_login-link {
     font-size: 10px;
   }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 319px) {
   .header_login-link {
     font-size: 8px;
   }
@@ -115,13 +115,13 @@
   opacity: 0.5;
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 325px) {
   .header_LogOut-btn {
     font-size: 10px;
   }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 319px) {
   .header_LogOut-btn {
     font-size: 8px;
   }

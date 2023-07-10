@@ -9,6 +9,11 @@
   padding-bottom: 10px;
   font-family: 'Inter';
 }
+/*
+.App :last-child {
+  margin-top: auto
+}*/
+
 
 @media screen and (max-width: 800px) {
   .App {

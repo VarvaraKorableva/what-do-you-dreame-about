@@ -5,7 +5,7 @@ import './DreamsField.css'
 import { useLocation } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 
-function DreamsField({onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
+function DreamsField({ onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
 const currentUser = React.useContext(CurrentUserContext)
 const location = useLocation()
 const userId = currentUser._id
@@ -38,6 +38,9 @@ return (
     }
     </>
   :
+  (toRenderFriendsDreams.length === 0?
+    <p className='dreamsField__noOneDreamInCategory-Message'>There are no dreams in this price category.</p>
+    :
     <ul className='dreamsField__field'>
       {toRenderFriendsDreams.map((friendDream) => (
         <MyFriendOneDream 
@@ -45,7 +48,8 @@ return (
           friendDream={friendDream}
           onFriendCardClick={onFriendCardClick}/>
       ))}
-    </ul>  
+    </ul>
+  )
 
   }
   </>    

@@ -272,12 +272,12 @@
 
   @media screen and (max-width: 650px) {
     .slider__title {
-      font-size: 22px;
+      font-size: 18px;
     }
   }
-  
+
   @media screen and (max-width: 450px) {
     .slider__title {
-      font-size: 20px;
+        font-size: 16px;
     }
   }

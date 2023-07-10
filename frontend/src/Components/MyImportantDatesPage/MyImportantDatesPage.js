@@ -28,11 +28,11 @@ if (language === 'en') {
   }, []);
 
 const isDates = importantDates.length === 0
-
+{/*<Preloader></Preloader>*/}
   return (
     <section className='my-important-dates'>
       {isLoading?
-        <Preloader></Preloader>
+        <p className='myImportantDatesPage__loading'>Loading...</p>
       :  
         <>
           {isDates?

@@ -24,3 +24,9 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+
+.dreamsField__noOneDreamInCategory-Message {
+  text-align: center;
+  margin-top: 100px;
+}  
