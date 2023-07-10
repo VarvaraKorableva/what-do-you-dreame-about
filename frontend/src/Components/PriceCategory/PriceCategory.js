@@ -8,6 +8,10 @@ function PriceCategory({
   getResultFor100,
   getResultFor250,
   getResultFor500,
+  countOfHundredsCategory,
+  countOfTwoHundredsFCategory,
+  countOfFiveHundredsCategory,
+  countMoreFiveHundredsCategory,
   getResultForMore500
 }) {
 
@@ -40,32 +44,14 @@ function PriceCategory({
     getResultForMore500()
   }
 
-
-  function handleClick() {
-    console.log('click')
-  }/*
-  const [isLength, setIsLength] = React.useState(false)
-
-  function checkArray() {
-    if(matanots.length) {
-      return setIsLength(true)
-    } else {
-      setIsLength(false)
-    }
-  } 
-
-  React.useEffect(() => {
-    checkArray()
-  }, []);*/
-
   return ( 
     isLength?
 
     <div className='price-category__field'>
-        <button className="price-category__container" onClick = {handle100Click}>{translatedContext.until} 100 $</button>
-        <button className="price-category__container" onClick = {handle250Click}>{translatedContext.until} 250 $</button>
-        <button className="price-category__container" onClick = {handle500Click}>{translatedContext.until} 500 $</button>
-        <button className="price-category__container" onClick = {handleMore500Click}>{translatedContext.more} 500 $</button>
+        <button className="price-category__container" onClick = {handle100Click}>{translatedContext.until} 100 $ {countOfHundredsCategory}</button>
+        <button className="price-category__container" onClick = {handle250Click}>{translatedContext.until} 250 $ {countOfTwoHundredsFCategory}</button>
+        <button className="price-category__container" onClick = {handle500Click}>{translatedContext.until} 500 $ {countOfFiveHundredsCategory}</button>
+        <button className="price-category__container" onClick = {handleMore500Click}>{translatedContext.more} 500 $ {countMoreFiveHundredsCategory}</button>
     </div>
     :
 

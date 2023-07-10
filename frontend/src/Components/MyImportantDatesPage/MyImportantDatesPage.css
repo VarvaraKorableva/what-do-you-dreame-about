@@ -57,3 +57,9 @@
         font-size: 16px;
     }
   }
+
+.myImportantDatesPage__loading {
+    margin: auto;
+    display: flex;
+   justify-content: center;
+}  

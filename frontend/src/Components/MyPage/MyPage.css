@@ -113,8 +113,11 @@
 
 .myPage_addBTN-container {
   display: flex;
-  
   justify-content: space-between;
+/*
+  border: 2px solid #b947ca;
+  border-radius: 30px;
+  height: 80px;*/
 }
 
 .myPage__subtitle {

@@ -21,7 +21,12 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
   const [dates, setDates] = React.useState([]) 
   const [isSubscriptions, setIsSubscriptions] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
-  
+
+  const [countOfHundredsCategory, setCountOfHundredsCategory] = React.useState(Number)//<100
+  const [countOfTwoHundredsFCategory, setCountOfTwoHundredsFCategory] = React.useState(Number)//<250
+  const [countOfFiveHundredsCategory, setCountOfFiveHundredsCategory] = React.useState(Number)//<500
+  const [countMoreFiveHundredsCategory, setCountMoreFiveHundredsCategory] = React.useState(Number)//>500
+
   const currentUser = React.useContext(CurrentUserContext)
   const userId = currentUser._id
 
@@ -136,6 +141,18 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
     getUser(id);
   }, [id]);
 
+  React.useEffect(() => {
+
+    setCountOfHundredsCategory(motanots.filter(dream => dream.price < 101).length)
+
+    setCountOfFiveHundredsCategory(motanots.filter(dream => dream.price <= 500 && dream.price > 201).length)
+
+    setCountOfTwoHundredsFCategory(motanots.filter(dream => dream.price < 251 && dream.price > 100).length)
+
+    setCountMoreFiveHundredsCategory(motanots.filter(dream => dream.price > 501).length)
+
+  }, [motanots]);
+
   function checkArray() {
     if(motanots.length) {
       return setIsLength(true)
@@ -155,9 +172,6 @@ function checkDateskArray() {
 React.useEffect(() => {
   checkDateskArray()
 }, [dates]);
-
-console.log(isDatesLength)
-console.log(dates)
 
 React.useEffect(() => {
   const getDreams = (userId) => {
@@ -328,6 +342,11 @@ return (
                   getResultFor250={getResultFor250}
                   getResultFor500={getResultFor500}
                   getResultForMore500={getResultForMore500}
+                  countOfHundredsCategory={countOfHundredsCategory}
+                  countOfTwoHundredsFCategory={countOfTwoHundredsFCategory}
+                  countOfFiveHundredsCategory={countOfFiveHundredsCategory}
+                  countMoreFiveHundredsCategory={countMoreFiveHundredsCategory}
+                  
                 />
               }
             </>
