@@ -10,6 +10,7 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
   const [error, setError] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [usersAfterFilter, setUsersAfterFilter] = React.useState([])
+  const [isSubmitClicked, setIsSubmitClicked] = React.useState(false)
 
   const { language } = React.useContext(LanguageContext)
 
@@ -32,16 +33,18 @@ function FriendsSearching({handleGetUsersSubmit, friends}) {
     setKeyWord(e.target.value)
     setError(false)
   }
- 
+
   function handleSubmit (e) {
-    e.preventDefault();
+    e.preventDefault()
+    setIsSubmitClicked(true)
     if (!keyWord) {
       setError(true)
       setErrorMessage(translatedContext.errors.pleaseEnterTheKeyword)
       setTimeout(() => {
         setErrorMessage('');
-      }, "2000");
-    }else{
+      }, "2000")
+      
+    } else {
       setError(false)
       filterAllFriends(friends, keyWord)
     }  
@@ -82,6 +85,7 @@ return (
 
   <FullFriendsField 
     friends={usersAfterFilter}
+    isSubmitClicked={isSubmitClicked}
   />
 
   </div>  

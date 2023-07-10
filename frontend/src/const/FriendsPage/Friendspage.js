@@ -18,6 +18,7 @@ const en = {
     until:'Until',
     more: 'More',
 
+    //didntAddAnyDreamsInCategory: "didn't add any dreams yet",
     nothingHasBeenAddedInThisPriceRange:'Nothing has been added in this price range.',
 }
 
@@ -41,6 +42,7 @@ const rus = {
     until:'До',
     more: 'Более',
 
+    //didntAddAnyDreamsInCategory: "не добавил/ не добавила ни одной мечты",
     nothingHasBeenAddedInThisPriceRange:'Ничего не добавлено в этой ценовой категории.',
 }
 
