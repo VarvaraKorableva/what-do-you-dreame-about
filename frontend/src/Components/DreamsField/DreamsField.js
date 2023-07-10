@@ -4,11 +4,26 @@ import MyFriendOneDream from '../Friends/MyFriendOneDream/MyFriendOneDream'
 import './DreamsField.css'
 import { useLocation } from 'react-router-dom'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
+import {LanguageContext} from '../../contexts/TranslationContext'
+import choose from '../../const/FriendsPage/Friendspage'
 
 function DreamsField({ onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
 const currentUser = React.useContext(CurrentUserContext)
 const location = useLocation()
 const userId = currentUser._id
+
+const { language } = React.useContext(LanguageContext)
+
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
 
 return ( 
   <>
@@ -39,7 +54,7 @@ return (
     </>
   :
   (toRenderFriendsDreams.length === 0?
-    <p className='dreamsField__noOneDreamInCategory-Message'>There are no dreams in this price category.</p>
+    <p className='dreamsField__noOneDreamInCategory-Message'>{translatedContext.nothingHasBeenAddedInThisPriceRange}</p>
     :
     <ul className='dreamsField__field'>
       {toRenderFriendsDreams.map((friendDream) => (

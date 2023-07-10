@@ -53,6 +53,9 @@ function handleSubmit (e) {
     setTimeout(() => {
       setErrorMessage('');
     }, "2000");
+  } else if(usersAfterFilter.length === 0) {
+    setError(true)
+    setErrorMessage(translatedContext.errors.NothingFoundForYourQuery)
   } else {
     setError(false)
     //setIsInishialArrOfFriends(false)
