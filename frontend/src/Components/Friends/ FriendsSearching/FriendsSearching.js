@@ -81,8 +81,6 @@ return (
       </button>
     </form>
 
-    {/*<p className='friendsSearching__title'>Friends list:</p>*/}
-
   <FullFriendsField 
     friends={usersAfterFilter}
     isSubmitClicked={isSubmitClicked}

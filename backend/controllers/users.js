@@ -110,28 +110,6 @@ module.exports.updateUser = (req, res, next) => {
 module.exports.logout = (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 };
-/*
-module.exports.updateAvatar = async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { avatar: req.file.filename }, // Поле `avatar` будет содержать имя файла
-      { new: true, runValidators: true }
-    );
-
-    if (!user) {
-      return res.status(404).json({ error: 'Пользователь не найден' });
-    }
-
-    res.json(user);
-  } catch (error) {
-    if (error.name === 'ValidationError' || error.name === 'CastError') {
-      res.status(400).json({ error: 'Некорректные данные' });
-    } else {
-      res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-    } 
-  }
-};*/
 
 module.exports.deleteAllUsers = async (req, res, next) => {
   try {
@@ -161,8 +139,6 @@ module.exports.updateAvatar = (req, res, next) => {
 
 module.exports.createAvatar = (req, res, next) => {
   const userId = req.body.userId;
-  //const imageBuffer = req.file.buffer;
-  //User.findByIdAndUpdate(userId, { avatar: `/avatars/${req.file.filename}` }, { new: true })
   User.findByIdAndUpdate(userId, { avatar: `/uploads/${req.file.filename}` }, { new: true })
     .then((user) => {
       res.send(user);

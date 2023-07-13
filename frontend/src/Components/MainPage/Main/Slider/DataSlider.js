@@ -1,67 +1,71 @@
-import offerPic from '../../../../images/sliderreg.png'
-import offerPic2 from '../../../../images/sliderAvatar.png'
-import offerPic3 from '../../../../images/pic.png'
-import offerPic4 from '../../../../images/slideradddreampopap.png'
 
-import offerPic8 from '../../../../images/sliderfriendsDreams.png'
+
+import offerPic from '../../../../images/pic.png'
+import offerPic2 from '../../../../images/scrinPopupAddNewDream.png'
+import offerPic3 from '../../../../images/ScrinWithGlasses.png'
+import offerPic4 from '../../../../images/scrinPopupAddNewDate.png'
+import offerPic5 from '../../../../images/ScrinFriendspage.png'
+import offerPic6 from '../../../../images/scrinSerchAfriends.png'
+import offerPic7 from '../../../../images/screenjpg.jpg'
+
 
 const dataSlider = [
 
     {
-        title: "First Step- ",
-        subTitle: "Registration",
-        text: "You need to add Name, E-mail and Password",
+        title: "Добавляем мечту",
+        //subTitle: "Registration",
+        text: "1. Кликайте на кнопку 'Добавить новую мечту' или 'Add a new dream'.",
+        textTwo: "2. Откроется окошко, в которое добавляем название мечты (желанного подарка).",
         picture: offerPic,
         id: 189759,
     },
     {
-        title: "Step Two- ",
-        subTitle: "Add Avatar",
-        text: "If you do not wish to provide the information, you can simply close this popup.",
+        title: "Заполняем поля",
+        //subTitle: "(ссылка не обязательно)",
+        text: "1.Название желаемого подарка.",
+        textPointTwo: "2.Ссылка, для того чтобы вашим друзьям было проще приобрести подарок.",
+        textPointThree: "3.Стоимость подарка (в долларах).",
+        textPointFour: "4.Загружаем скрин или фотографию подарка.",
         picture: offerPic2,
         id: 189760,
     },
     {
-        title: "Step Three- ",
-        subTitle: "Look around",
-        text: "... and add the first dream",
+        title: "Видим свою мечту на экране",
+        //subTitle: "",
+        text: "Мечту можно увеличить для просмотра или удалить.",
         picture: offerPic3,
         id: 189761,
     },
     {
-        title: "Step Four - How to add a dream ?",
-        subTitle: "",
-        text: "1. Fill in the dream name",
+        title: "Добавляем важные для вас даты",
+        //subTitle: "",
+        text: "Например, день рождения, годовщина свадьбы, новоселье и др.",
+        textPointTwo: "Зайдя на вашу страничку, друзья увидят - Когда вас можно поздавить.",
         picture: offerPic4,
         id: 189762,
     },
     {
-        title: "Step Five",
-        subTitle: "",
-        text: "After you see your dream, you can view it enlarged or delete it. Next, let's move on to dates. Add important dates",
-        picture: offerPic,
+        title: "Как выглядит моя страница для друзей?",
+        //subTitle: "",
+        text: "1. Ваши друзья увидят сколько дней осталось до ближайщей важной даты.",
+        textPointTwo: "2. И все мечты которые вы добавите, распределенные по ценовым категориям.",
+        picture: offerPic5,
         id: 189763,
     },
     {
-        title: "Step Six",
-        subTitle: "",
-        text: "Add the date you would like to receive the gift",
-        picture: offerPic2,
+        title: "Поиск друзей",
+        //subTitle: "",
+        text: "Чтобы найти своего друга, введите его имя в поисковике.",
+        textPointTwo:"Далее вы можете подписаться на него, и ссылка на его страничку сохранится в разделе 'Посмотреть о чем мечтают мои друзья'.",
+        picture: offerPic6,
         id: 189764,
     },
     {
-        title: "Step Seven",
-        subTitle: "",
-        text: "Enter your friend's name and go to his page",
-        picture: offerPic3,
+        title: "Дополнительные возможности",
+        //subTitle: "",
+        text: "Чтобы рассказать друзьям о своей страничке или страничке друга, достаточно скопировать ссылку и разместить ее в соц. сетях или отправить необходимому человеку.",
+        picture: offerPic7,
         id: 189765,
-    },
-    {
-        title: "Step Eight",
-        subTitle: "",
-        text: "And here is the most interesting part, you can subscribe to a person and then you will have a friend in 'See what my friends dream about', you can see all your friend's dreams, sort them by prices, see significant dates for a friend",
-        picture: offerPic8,
-        id: 189766,
     },
 
 ]

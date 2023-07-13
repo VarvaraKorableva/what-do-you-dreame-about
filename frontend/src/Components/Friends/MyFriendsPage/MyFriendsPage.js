@@ -46,17 +46,13 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
   } else if (language === 'hebrew') {
     translatedContext = hebrew;
   }
-/*
-  React.useEffect(() => {
-    const getUser = (id) => {
-      getAllSubscriptions(id)
-    };
-    getUser(userId);
-  }, [userId]);*/
 
   React.useEffect(() => {
-    getAllSubscriptions(userId)
-  }, [userId]);
+    if(!userId) {
+      //I leave it empty so that no server request is made if the user is not authenticated
+    }else{
+      getAllSubscriptions(userId)
+  }}, [userId]);
 
   React.useEffect(() => {
     setIsSubscriptions(allMySubscriptions.some(subscriber => subscriber.subscriberId === id))
@@ -110,14 +106,18 @@ function MyFriendsPage({showLoading, deleteSubscription, allMySubscriptions, onF
 
   function calculateDaysLeft(targetDate) {
     const currentDate = new Date();
-    const endDate = new Date(targetDate);
+    let endDate = new Date(targetDate);
   
     // Установка года текущей даты в год целевой даты
-    currentDate.setFullYear(endDate.getFullYear());
+    endDate.setFullYear(currentDate.getFullYear());
   
     // Разница между целевой датой и текущей датой в миллисекундах
-    const timeDiff = endDate.getTime() - currentDate.getTime();
-  
+    let timeDiff = endDate.getTime() - currentDate.getTime();
+    if(timeDiff < 0) {
+      endDate.setFullYear(currentDate.getFullYear() + 1);
+      timeDiff = endDate.getTime() - currentDate.getTime();
+    }
+    
     // Количество дней, полученных путем деления разницы на количество миллисекунд в одном дне
     const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
   

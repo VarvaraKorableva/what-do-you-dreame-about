@@ -62,6 +62,7 @@
   
     .add-new-date-popup__title {
       color: #fff;
+      font-size: 22px;
     }
   
     .add-new-date-popup__form {
@@ -110,7 +111,6 @@
     } 
   
     .add-new-date-popup__input::placeholder {
-      /*color:#ebb2a0;*/
       color: black;
       opacity: 0.5;
       font-size: 12px;

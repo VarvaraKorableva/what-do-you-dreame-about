@@ -7,7 +7,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import {LanguageContext} from '../../contexts/TranslationContext'
 import choose from '../../const/FriendsPage/Friendspage'
 
-function DreamsField({ onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
+function DreamsField({ OnEditMyDream, onFriendCardClick, toRenderFriendsDreams, isAddAllBtnClicked, limit, dreams, OnDeleteMyDream, onCardClick}) {
 const currentUser = React.useContext(CurrentUserContext)
 const location = useLocation()
 const userId = currentUser._id
@@ -36,7 +36,8 @@ return (
             key={dream._id}
             dream={dream}
             OnDeleteMyDream={OnDeleteMyDream}
-            onCardClick={onCardClick}/>
+            onCardClick={onCardClick}
+            OnEditMyDream={OnEditMyDream}/>
         ))}
       </ul>
     :
@@ -47,6 +48,7 @@ return (
             dream={dream}
             OnDeleteMyDream={OnDeleteMyDream}
             onCardClick={onCardClick}
+            OnEditMyDream={OnEditMyDream}
           />
         ))}
       </ul>
@@ -61,7 +63,8 @@ return (
         <MyFriendOneDream 
           key={friendDream._id}
           friendDream={friendDream}
-          onFriendCardClick={onFriendCardClick}/>
+          onFriendCardClick={onFriendCardClick}
+          />
       ))}
     </ul>
   )

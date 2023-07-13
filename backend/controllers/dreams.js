@@ -61,22 +61,7 @@ module.exports.getMyFriendDreams = (req, res, next) => {
       next(err);
     });
 };
-/*
-Рабочая на добавление ссылки
-module.exports.createDream = (req, res, next) => {
-  const { _id } = req.user;
-  const { name, imgLink, price, dreamLink } = req.body;
 
-  Dream.create({ name, imgLink, price, dreamLink, owner: _id })
-    .then((dream) => res.status(201).send(dream))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new CastError('Введены некорректные данные'));
-      }
-      next(err);
-    });
-};
-*/
 module.exports.deleteDream = (req, res, next) => {
   const { dreamId } = req.params;
   Dream.findById(dreamId)
@@ -97,5 +82,24 @@ module.exports.deleteDream = (req, res, next) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new CastError('Введены некорректные данные'));
       } else { next(err); }
+    });
+};
+
+module.exports.updateDream = (req, res, next) => {
+  const { name, price, dreamLink } = req.body;
+  const { dreamId } = req.params;
+
+  Dream.findByIdAndUpdate(dreamId, { name, imgLink: `/uploads/${req.file.filename}`, price, dreamLink }, { new: true, runValidators: true })
+    .then((dream) => {
+      if (!dream) {
+        throw new NotFoundError('Ошибка, мечта не найдена');
+      }
+      return res.send(dream);
+    }).catch((err) => {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
+        next(new CastError('Введены некорректные данные'));
+      } else {
+        next(err);
+      }
     });
 };

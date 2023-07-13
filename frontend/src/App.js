@@ -20,6 +20,7 @@ import FriendsSearching from './Components/Friends/ FriendsSearching/FriendsSear
 import AddAvatarPopap from './Components/Popups/AddAvatarPopap/AddAvatarPopap'
 import ChangeMyProfile from './Components/ChangeMyProfile/ChangeMyProfile'
 import AddDreamPopup from './Components/Popups/AddDreamPopup/AddDreamPopup'
+import EditDreamPopup from './Components/Popups/EditDreamPopup/EditDreamPopup'
 import ImagePopup from './Components/Popups/ImagePopup/ImagePopup'
 import MotanOpenPopap from './Components/Popups/MotanOpenPopap/MotanOpenPopap'
 import AddNewDatePopap from './Components/Popups/AddNewDatePopap/AddNewDatePopap'
@@ -34,6 +35,7 @@ function App() {
 
   const [isAddAvatarPopap, setIsAddAvatarPopap] = React.useState(false)
   const [isAddDreamPopup, setIsAddDreamPopup] = React.useState(false)
+  const [isEditDreamPopup, setIsEditDreamPopup] = React.useState(false)
   const [isAddNewDatePopup, setIsAddNewDatePopup] = React.useState(false)
   const [isLanguageChangePopup, setIsLanguageChangePopup] = React.useState(false)
   const [isChangeAvatarPopup, setIsChangeAvatarPopup] = React.useState(false)
@@ -240,6 +242,11 @@ function App() {
   function handleChangeAvatarClick(){
     setIsChangeAvatarPopup(true)
   }
+
+  function handleEditDreamClick(){
+    setIsEditDreamPopup(true)
+    console.log('click')
+  }
   
   function closeAllPopups() {
     setIsAddAvatarPopap(false)
@@ -247,6 +254,7 @@ function App() {
     setIsChangeAvatarPopup(false)
     setIsAddNewDatePopup(false)
     setIsLanguageChangePopup(false)
+    setIsEditDreamPopup(false)
     setSelectedDream({})
     setSelectedMotan({})
   }
@@ -256,7 +264,6 @@ function App() {
     Api.getMyDates()
       .then((res)=> {
         setImportantDates(res.data)
-        console.log(importantDates)
       })
       .catch((err) => {
         console.log(err)
@@ -417,7 +424,6 @@ function getAllSubscriptions(userId) {
   Api.getAllSubscriptions(userId)
   .then((res)=> {
     setAllMySubscriptions(res.transformedSubscriptions)
-    console.log(allMySubscriptions)
   })
   .catch((err) => {
     console.log(err)
@@ -491,13 +497,12 @@ function deleteSubscription(subscriptionId) {
             <MyPage
               addPopupOpen={handleAddDreamClick}
               OnDeleteMyDream={handleDeleteDream}
+              OnEditMyDream={handleEditDreamClick}
               dreams={dreams}
               onCardClick={handleDreamClick}
               onImgToChangeAvatar={handleChangeAvatarClick}
               addDreams={addDreams}
               limit={limit}
-              //getMyImportantDates={getMyImportantDates}
-              
             />
           </ProtectedRoute>
         }>
@@ -597,6 +602,11 @@ function deleteSubscription(subscriptionId) {
       onClose={closeAllPopups}
       onAddDream={handleAddDreamSubmit}
     />  
+
+    <EditDreamPopup
+      isOpen={isEditDreamPopup}
+      onClose={closeAllPopups}
+    />
 
     <ImagePopup 
       dream={selectedDream}

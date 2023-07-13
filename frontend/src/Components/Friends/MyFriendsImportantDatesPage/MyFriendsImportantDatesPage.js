@@ -4,7 +4,8 @@ import MyFriendsDatesField from '../MyFriendsDatesField/MyFriendsDatesField'
 //import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import { useParams, Link } from 'react-router-dom'
 import * as Api from '../../../Api/Api'
-//import Preloader from '../Preloader/Preloader'
+import {LanguageContext} from '../../../contexts/TranslationContext'
+import choose from '../../../const/MyFriendsImportantDatesPage'
 
 function MyFriendsImportantDatesPage({}) {
 
@@ -13,6 +14,19 @@ function MyFriendsImportantDatesPage({}) {
   const [isMyFriendDates, setIsMyFriendDates] = React.useState(false)
   const [myFriendImportantDates, setMyFriendImportantDates] = React.useState([])
   const [friendName, setFriendName] = React.useState('')
+
+  const { language } = React.useContext(LanguageContext)
+
+  const { en, rus, hebrew } = choose;
+
+  let translatedContext = '';
+  if (language === 'en') {
+    translatedContext = en;
+  } else if (language === 'rus') {
+    translatedContext = rus;
+  } else if (language === 'hebrew') {
+    translatedContext = hebrew;
+  }
 
   React.useEffect(() => {
     const getDates = (id) => {
@@ -60,24 +74,30 @@ function MyFriendsImportantDatesPage({}) {
     checkMyFriendArr()
   }, [myFriendImportantDates]);
 
+
   return (
     <div>
       <section className='my-important-dates'>
         {isMyFriendDates?
           <>
           <h3 className='my-important-dates__title'>{`${friendName}'s events`}</h3>
+          <Link to={`/users/${id}`}
+            className='my-important-dates__link'>
+            <p className='my-important-dates__link-text'>{translatedContext.goTo} {friendName}{translatedContext.sPage} →</p>
+          </Link>
           <MyFriendsDatesField 
             myFriendImportantDates={myFriendImportantDates}
           />
           </>
         :
-          <h2>{friendName} didn't added any dates
-          </h2>
+          <>
+            <h2>{translatedContext.didnAddedAnyDates}</h2>
+            <Link to={`/users/${id}`}
+              className='my-important-dates__link'>
+              <p className='my-important-dates__link-text'>Go to {friendName}'s page →</p>
+            </Link>
+          </>
         }
-        <Link to={`/users/${id}`}
-          className='my-important-dates__link'>
-          <p className='my-important-dates__link-text'>Go to {friendName}'s page →</p>
-        </Link>
       </section>
   </div>
   );
@@ -85,3 +105,9 @@ function MyFriendsImportantDatesPage({}) {
 
 
 export default MyFriendsImportantDatesPage; 
+
+/*
+    goTo: 'Go to',
+    translatedContext.sPage: "'s page",
+    translatedContext.didnAddedAnyDates: "didn't added any dates",
+*/

@@ -11,16 +11,20 @@
    margin: auto;
   }
 
-.conclusion__title {
+.conclusion__title-container {
     text-align: center;
-    font-weight: 500;
+    /*font-weight: 500;*/
     width: 880px;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 0;
 }  
 
   @media screen and (max-width: 980px) {
-    .conclusion__title{
+    .conclusion__title-container{
       width: 100%;
     }
+  }
+
+  .conclusion__title {
+    margin-top: 0;
   }

@@ -2,7 +2,6 @@ import React from 'react'
 import './AllMyFriendsPageAndSerching.css'
 import AllFriendsField from './AllFriendsField/AllFriendsField'
 import {CurrentUserContext} from '../../../contexts/CurrentUserContext'
-import Preloader from '../../Preloader/Preloader'
 import {LanguageContext} from '../../../contexts/TranslationContext'
 import choose from '../../../const/AllMyFriendsPageAndSerching'
 
@@ -11,13 +10,13 @@ function AllMyFriendsPageAndSerching({ isLoading, getAllSubscriptions, allMySubs
 
 const currentUser = React.useContext(CurrentUserContext)
 const userId = currentUser._id
-
-const [haveSubsriptions, setHaveSubsriptions] = React.useState(true)
+const [isSubmitClicked, setIsSubmitClicked] = React.useState(false)
+const [haveSubsriptions, setHaveSubsriptions] = React.useState(false)
 const [keyWord, setKeyWord] = React.useState('')
 const [error, setError] = React.useState(false)
 const [errorMessage, setErrorMessage] = React.useState('')
 const [usersAfterFilter, setUsersAfterFilter] = React.useState(allMySubscriptions)
-//const [isInishialArrOfFriends, setIsInishialArrOfFriends] = React.useState(true)
+
 const { language } = React.useContext(LanguageContext)
 
 const { en, rus, hebrew } = choose;
@@ -37,7 +36,11 @@ React.useEffect(() => {
 
 React.useEffect(() => {
   setUsersAfterFilter(allMySubscriptions)
-  //console.log(isInishialArrOfFriends)
+  if(allMySubscriptions.lenght !== 0){
+   setHaveSubsriptions(true)
+  } else {
+    setHaveSubsriptions(false)
+  }
 }, []);
 
 const handleSearchInputChange = (e) => {
@@ -47,18 +50,15 @@ const handleSearchInputChange = (e) => {
 
 function handleSubmit (e) {
   e.preventDefault();
+  setIsSubmitClicked(true)
   if (!keyWord) {
     setError(true)
     setErrorMessage(translatedContext.errors.pleaseEnterTheKeyword)
     setTimeout(() => {
       setErrorMessage('');
     }, "2000");
-  } else if(usersAfterFilter.length === 0) {
-    setError(true)
-    setErrorMessage(translatedContext.errors.NothingFoundForYourQuery)
   } else {
     setError(false)
-    //setIsInishialArrOfFriends(false)
     filterAllFriends(allMySubscriptions, keyWord)
   }  
 }
@@ -78,7 +78,6 @@ return friends.filter((item) => {
 }
 
 function showAllSubscriptions() {
-  //setIsInishialArrOfFriends(false)
   setUsersAfterFilter(allMySubscriptions)
 }
 
@@ -86,7 +85,7 @@ return (
 
   <div className='friendsSearching__container'>
     {isLoading? 
-      <Preloader></Preloader>
+      <p className='friendsSearching__loading'>Loading...</p>
     :
       (haveSubsriptions?
         <>
@@ -110,10 +109,11 @@ return (
           <p className='allfriendsSearching__title'>{translatedContext.mySubscriptionsList}</p>
             <AllFriendsField 
               allMySubsriptions={usersAfterFilter}
+              isSubmitClicked={isSubmitClicked}
             />
         </>
       :
-        <p>{translatedContext.hereYouWillSeeYourSubscriptions}</p>
+        <p className='allfriendsSearching__subtitle-without-subscribe'>{translatedContext.hereYouWillSeeYourSubscriptions}</p>
       )
     }
   </div>  
@@ -122,20 +122,3 @@ return (
 }
 
 export default AllMyFriendsPageAndSerching;
-
-/*
-    translatedContext.mySubscriptionsList: 'Мои подписки:',
-    translatedContext.hereYouWillSeeYourSubscriptions:'Тут ты увидешь свои подписки',
-    translatedContext.errors.: {
-      translatedContext.errors.pleaseEnterTheKeyword:'Пожалуйста, введите ключевое слово',
-    }, 
-*/
-/*{<form className='friendsSearching__form'>
-<input className='friendsSearching__input'></input>
-<button 
-  className='friendsSearching__input-loop-btn'
-  type='submit'
-></button>
-</form>}*/
-
-//value={keyWord || "" || "All"}

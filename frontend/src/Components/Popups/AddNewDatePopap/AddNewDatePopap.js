@@ -8,16 +8,12 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
 
     const [name, setName] = React.useState('')
     const [date, setDate] = React.useState('')
-    //const [description, setDescription] = React.useState('')
 
     const [errorNameMessage, setErrorNameMessage] = React.useState('')
     const [errorDateMessage, setErrorDateMessage] = React.useState('')
-    //const [errorDescriptionMessage, setErrorDescriptionMessage] = React.useState('')
 
     const [errorName, setErrorName] = React.useState(true)
     const [errorDate, setErrorDate] = React.useState(true)
-    //const [errorDescription, setErrorDescription] = React.useState(false)
-
     const [isValid, setIsValid] = React.useState(false);
 
     const formRef = React.useRef(null);
@@ -63,19 +59,6 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
        }
        setName(e.target.value)
     }
-
-    
-/*
-    const handleDescriptionChange = (e) => {
-      setDescription(e.target.value)
-        if(e.target.value.length > 25) {
-          setErrorDescription(true)
-          setErrorDescriptionMessage(translatedContext.errors.errorDescriptionMessage.theDateMustNotExceedCharacters)
-        } else {
-          setErrorDescription(false)
-          setErrorDescriptionMessage('')
-        }
-    }*/
   
     function handleDateOfEventChange(e) {
       setDate(e.target.value)
@@ -93,18 +76,11 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
       onAddDate({
       name,
       date,
-      //description,
       });
-
       handleFormReset()
-
-      /*setIsValid(false)*/
       setName('')
       setDate('')
     }
-/*
-    console.log(name)
-    console.log(date)*/
 
     const handleFormReset = () => {
       formRef.current.reset();
@@ -148,15 +124,6 @@ function AddNewDatePopap({ onClose, isOpen, onAddDate }) {
           ></input>
 
           <span className='add-new-date-popup__inputmistake'>{errorDateMessage}</span>
-  {/*
-          <input
-            className='add-new-date-popup__input'
-            name='description'
-            type='text'
-            placeholder="Describe the event a little bit"
-            onChange={handleDescriptionChange}
-          ></input>
-    <span className='add-new-date-popup__inputmistake'>{errorDescriptionMessage}</span>*/}
           <button 
             type='submit'
             className={`'add-new-event-popup__btn' ${isValid? 'add-new-event-popup__btn_active': 'add-new-event-popup__btn'}`}

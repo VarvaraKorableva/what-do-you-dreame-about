@@ -45,14 +45,6 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
     setButtonText(translatedContext.img.buttonTextUploadPictureOfYourDream);
   }, [isOpen]);
 
-  /*React.useEffect(() => {
-    setName('')
-    setImg(null)
-    setErrorPrice('')
-    setDreamLink('')
-    setButtonText('Upload picture')
-  }, [onClose]);*/
-
   const formRef = React.useRef(null);
 
   function handleImgLinkChange(e) {
@@ -93,17 +85,15 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       onAddDream(formData);
 
 
-      setName(null)
+      setName('')
       setImg(null)
-      setPrice(null)
-      setDreamLink(null)
+      setPrice('')
+      setDreamLink('')
 
       setErrorName(true)
       setErrorImg(true)
       setErrorPrice(true)
       setErrorDreamLink(true)
-      /*setImg(null)
-      //setIsFormValid(false)*/
       onClose()
       handleFormReset()
       setIsValid(false)
@@ -132,10 +122,7 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
       setErrorNameMessage(translatedContext.errorNameMessage.nameShouldOnlyContainLatinLettersCyrillicLettersSpacesOrHyphens)
       setErrorName(true);
       setIsValid(false)
-     } /*else if (validName) {
-      setErrorNameMessage('')
-      setErrorName(false);
-     }*/ else if (e.target.value.length > 30) {
+     } else if (e.target.value.length > 30) {
       setErrorNameMessage(translatedContext.errorNameMessage.nameShouldNotExceedCharacters)
       setErrorName(true);
       setIsValid(false)
@@ -152,6 +139,10 @@ function AddDreamPopup({onClose, isOpen, onAddDream}) {
   
     if (isNaN(numericValue) || inputValue.includes(' ')) {
       setErrorPriceMessage(translatedContext.errorPriceMessage.OnlyNumericInputIsAllowed);
+      setErrorPrice(true);
+      setIsValid(false)
+    } else if (inputValue < 0 || inputValue === '-0') {
+      setErrorPriceMessage(translatedContext.errorPriceMessage.PriceCannotBeNegative);
       setErrorPrice(true);
       setIsValid(false)
     } else if (inputValue.startsWith('0')) {
@@ -288,5 +279,3 @@ React.useEffect(() => {
 }
 
 export default AddDreamPopup;
-
-//Upload picture of your dream
