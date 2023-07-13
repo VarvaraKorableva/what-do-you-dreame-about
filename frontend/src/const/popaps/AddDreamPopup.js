@@ -26,7 +26,8 @@ const en = {
         OnlyNumericInputIsAllowed: 'Only numeric input is allowed.',
         PriceCannotStartWith: 'Price cannot start with 0.',
         FieldMustBeFilledIn: 'The field must be filled in.',
-        FieldCannotExceedCharacters: 'Field cannot exceed 15 characters.'
+        FieldCannotExceedCharacters: 'Field cannot exceed 15 characters.',
+        PriceCannotBeNegative: "Price can't be negative",
     },
 }
 
@@ -57,7 +58,8 @@ const rus = {
         OnlyNumericInputIsAllowed: 'Разрешен только числовой ввод.',
         PriceCannotStartWith: 'Цена не может начинаться с 0.',
         FieldMustBeFilledIn: 'Поле должно быть заполнено',
-        FieldCannotExceedCharacters: 'Поле не может превышать 15 символов'
+        FieldCannotExceedCharacters: 'Поле не может превышать 15 символов',
+        PriceCannotBeNegative: "Цена не может быть отрицательной",
     },
 }
 

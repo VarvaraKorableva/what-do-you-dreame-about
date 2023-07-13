@@ -110,7 +110,7 @@ export const addMyNewDate = (data) => {
 }
 
 export const getOneFriendImportantDates = (id) => {
-  return fetch(`${BASE_URL}/importantdates/${id}`, {
+  return fetch(`${BASE_URL}/importantdatesforall/${id}`, {  
     credentials: 'include',
     method:'GET',
     headers: {
@@ -121,24 +121,6 @@ export const getOneFriendImportantDates = (id) => {
   })
   .then(checkResponse);
 }
-/*
-export const addMyDream = (data) => {
-  return fetch(`${BASE_URL}/dreams`, {
-    credentials: 'include',
-    method: 'POST',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name: data.name,
-      imgLink: data.imgLink,
-      price: data.price,
-      dreamLink: data.dreamLink,
-    })
-  })
-    .then(checkResponse);
-}*/
 
 export const addMyDream = (formData) => {
   return fetch(`${BASE_URL}/dreams`, {
@@ -153,8 +135,6 @@ export const addMyDream = (formData) => {
     .then(checkResponse);
 }
 
-//
-
 export const getInitialMyDreams = () => {
   return fetch(`${BASE_URL}/dreams/mydreams`, {
     credentials: 'include',
@@ -166,10 +146,7 @@ export const getInitialMyDreams = () => {
   })
   .then(checkResponse);
 }
-/*{id}
-body: JSON.stringify({
-  _id: id
-})*/
+
 export const getOneFriendDreams = (id) => {
   return fetch(`${BASE_URL}/forAllDreams/${id}`, {
     credentials: 'include',

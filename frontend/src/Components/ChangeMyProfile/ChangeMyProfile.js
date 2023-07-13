@@ -172,7 +172,7 @@ React.useEffect(() => {
             />
             </label>
             <span className='change-information__inputmistake'>{errorNameMessage}</span>
-
+{/*}
             <label className='change-information__inputname'>{translatedContext.birthday}
             <input className='change-information__input'
               name="birthday"
@@ -184,7 +184,7 @@ React.useEffect(() => {
             />
             </label>
             <span className='change-information__inputmistake'>{errorBirthdayMessage}</span>   
-  
+  */}
         </fieldset>
         <button
           type="submit"

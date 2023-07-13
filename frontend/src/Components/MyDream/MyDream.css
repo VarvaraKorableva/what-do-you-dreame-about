@@ -38,6 +38,26 @@
   opacity: 0.5;
 }
 
+.myDream__editBTN {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  z-index: 10px;
+  background-image: url(../../images/editicon.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+}
+
+.myDream__editBTN:hover{
+  opacity: 0.5;
+}
+
 .myDream__container {
   padding: 5px;
   list-style-type: none;

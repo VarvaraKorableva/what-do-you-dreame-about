@@ -19,8 +19,9 @@ const dreamSchema = new mongoose.Schema({
   },
   price: {
     type: String,
+    //type: Integer,
     required: [true, 'Поле, обязательно для заполнения'],
-    maxlength: [15, 'Название не должно превышать 15 символов'],
+    maxlength: [15, 'price не должно превышать 15 символов'],
   },
   dreamLink: {
     type: String,

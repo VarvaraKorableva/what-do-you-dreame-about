@@ -39,12 +39,15 @@ function Slider() {
             <div key={item.id} className={`slide ${index === currentSlideIndex ? 'slide active-anim' : 'slide'}`}>
 
               <div className="offers__container">
-                <p className="offers__title">{item.title} {item.subTitle}</p>
+              {/* <p className="offers__title">{item.title} {item.subTitle}</p>*/}
                 <div className="offers__text-wrapper">
                   <img className="offers__pic" src={item.picture}></img>    
                   <div className="offers__text-container">
-                  {/*<p className="offers__text">{item.subTitle}</p>*/}
+                    <p className="offers__title">{item.title}</p>
                     <p className="offers__text">{item.text}</p>
+                    <p className="offers__text">{item.textPointTwo}</p>
+                    <p className="offers__text">{item.textPointThree}</p>
+                    <p className="offers__text">{item.textPointFour}</p>
                   </div>
                 </div>  
 

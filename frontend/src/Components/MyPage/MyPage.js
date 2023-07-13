@@ -10,7 +10,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import {LanguageContext} from '../../contexts/TranslationContext'
 import choose from '../../const/MyPageLanguageData'
 
-function MyPage({ addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) { 
+function MyPage({OnEditMyDream, addDreams, limit, onImgToChangeAvatar, addPopupOpen, dreams, OnDeleteMyDream, onCardClick }) { 
 
 const [toRenderDreams, setToRenderDreams] = React.useState([])
 const [isAddAllBtnClicked, setIsAddAllBtnClicked] = React.useState(false)
@@ -122,6 +122,7 @@ return (
     onCardClick={onCardClick}
     limit={limit}
     isAddAllBtnClicked={isAddAllBtnClicked}
+    OnEditMyDream={OnEditMyDream}
     />
 
     <div className='myPage__container-add-more-to-the-page'>
@@ -152,23 +153,3 @@ return (
 }
 
 export default MyPage;
-
-
-/*
-        <Link to="/my-friends" className='myPage_inf myPage__link'>
-          <p className='myPage_view-link-text'>See what my friends dream about →</p>
-        </Link>
-
-
-
-    
-    translatedContext.ChangeInformationAboutYourself
-    translatedContext.SeeWhatMyFriendsDreamAbout: 'See what my friends dream about',
-    translatedContext.SearchPeople: 'Search people',
-
-    translatedContext.button: 'Add a new dream', 
-
-    translatedContext.text: 'In order to add a dream, click on the button and fill out the form. Add a dream link so that your friend can easily fulfill your dream.',
-
-    
-*/

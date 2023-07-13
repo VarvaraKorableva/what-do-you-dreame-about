@@ -144,3 +144,12 @@ border-radius: 50%;
   transition: 1s;
 }
 
+.allfriendsSearching__subtitle-without-subscribe {
+  display: flex;
+  margin: auto;
+}
+
+.friendsSearching__loading {
+  display: flex;
+  margin: auto;
+}

@@ -15,7 +15,7 @@ const {
 
 router.get('/importantdates/myimportantdates', getMyImportantDates);
 
-router.get('/importantdates/:userId', getMyFriendsImportantDates);//getMyFriendDreams
+//router.get('/importantdates/:userId', getMyFriendsImportantDates);//getMyFriendDreams
 
 router.post('/importantdates', /*celebrate({
   body: Joi.object().keys({

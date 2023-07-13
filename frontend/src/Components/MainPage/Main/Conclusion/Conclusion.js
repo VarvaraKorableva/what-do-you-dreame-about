@@ -22,8 +22,8 @@ function Conclusion() {
   
 
   return (
-      <div className='conclusion__title'>
-        <h3>{translatedContext.title}</h3>
+      <div className='conclusion__title-container'>
+        <h3 className='conclusion__title'>{translatedContext.title}</h3>
         <div className='conclusion__heart'></div>
       </div>
   );

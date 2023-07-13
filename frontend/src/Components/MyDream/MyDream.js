@@ -3,7 +3,7 @@ import './MyDream.css'
 import {LanguageContext} from '../../contexts/TranslationContext'
 import choose from '../../const/MyDream'
 
-function MyDream({dream, OnDeleteMyDream, onCardClick}) {
+function MyDream({dream, OnDeleteMyDream, onCardClick, OnEditMyDream}) {
   const [isLink, setIsLink] = React.useState(false)
 
   const { language } = React.useContext(LanguageContext)
@@ -21,6 +21,11 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
   function handleDelete() {
     OnDeleteMyDream(dream);
   }
+/*
+  function handleEdit() {
+    OnEditMyDream(dream);
+  }*/
+
 
   function handleClick() {
     onCardClick(dream);
@@ -43,7 +48,7 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
   const price = format(priceWithZero)
 
   function checkLink() {
-  if(!(dream.dreamLink === '')){
+  if(dream.dreamLink){
       setIsLink(true)
     }else{
       setIsLink(false)
@@ -62,6 +67,11 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
           type="button"
           onClick={handleDelete}>
         </button>
+      {/* <button 
+          className='myDream__editBTN'
+          type="button"
+          onClick={handleEdit}>
+          </button>*/}
         <img className="myDream__img" 
           alt = {dream.name} 
           //src = {dream.imgLink}
@@ -83,6 +93,7 @@ function MyDream({dream, OnDeleteMyDream, onCardClick}) {
         }
         {isLink?
         <a className="myDream__inf-title myDream__inf-link" href={dream.dreamLink} target='blank'>{translatedContext.linkToDream}: <span className='myDream__inf'>{dream.dreamLink}</span></a>
+        
         :
         <p className="myDream__inf-title myDream__inf-not-link">{translatedContext.linkToDream} <span className="myDream__not-added">{translatedContext.notAdded}</span></p>
           }

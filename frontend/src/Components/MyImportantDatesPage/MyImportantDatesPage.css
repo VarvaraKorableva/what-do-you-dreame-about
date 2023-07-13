@@ -43,8 +43,9 @@
 
 .my-important-dates__link-text {
     font-size: 12px;
-    margin: 0;
+    margin: auto;
     color: black;
+    max-width: 880px;
 }
 
 .myImportantDatesPage__message {

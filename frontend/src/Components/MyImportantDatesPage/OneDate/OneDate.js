@@ -39,13 +39,13 @@ function OneDate({date, onDelete}) {
             >
               Delete
             </button>
-            <button
+            {/*<button
              // onClick={handleDelete}
               className='oneDate__delete-BTN'
               type="button"
             >
               To correct
-            </button>
+            </button>*/}
           </div>
 
         </div>

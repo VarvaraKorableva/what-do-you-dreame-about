@@ -79,6 +79,8 @@ app.post('/signout', logout);
 
 app.use(require('./routes/usersForAll'));
 app.use(require('./routes/myFriendDreams'));
+app.use(require('./routes/importantDatesForAll'));
+
 app.use(auth);
 
 app.use(require('./routes/users'));
