@@ -25,7 +25,6 @@ module.exports.getOneUserImportantDates = (req, res, next) => {
     })
 };
 
-
 module.exports.getMyImportantDates = (req, res, next) => {
     ImportantDate.find({owner : req.user})
     .then((dates) => res.send({ data: dates }))
