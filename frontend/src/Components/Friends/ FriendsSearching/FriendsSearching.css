@@ -1,6 +1,15 @@
 .friendsSearching__container {
     display: flex;
     flex-direction: column;
+    width: 880px;
+    margin: auto;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 980px) {
+  .friendsSearching__container {
+    width: 100%;
+  }
 }
 
 .friendsSearching__form {
@@ -68,7 +77,7 @@
     height: 23px;
     object-fit: cover;
     position: absolute;
-    top: 15px;
+    top: 35px;
     right: 10px;
     background-color: transparent;
     cursor: pointer;
@@ -120,3 +129,10 @@
   margin-bottom: 0;
   color: rgb(181, 71, 71);
 }  
+
+.friendsSearching__clue {
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-size: 10px;
+  opacity: 0.7;
+}

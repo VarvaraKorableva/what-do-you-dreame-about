@@ -68,6 +68,7 @@ return (
 
   <div className='friendsSearching__container'>
     <form className='friendsSearching__form' onSubmit={handleSubmit}>
+      <span className='friendsSearching__clue'>Начинайте свой ввод</span>
       <input 
         className='friendsSearching__input'
         value={keyWord || ''}
