@@ -76,10 +76,11 @@ app.post('/signup', celebrate({
 
 app.post('/signout', logout);
 
-
 app.use(require('./routes/usersForAll'));
 app.use(require('./routes/myFriendDreams'));
 app.use(require('./routes/importantDatesForAll'));
+
+app.use(require('./routes/messages'));
 
 app.use(auth);
 
@@ -87,7 +88,6 @@ app.use(require('./routes/users'));
 app.use(require('./routes/dreams'));
 app.use(require('./routes/importantDates'));
 app.use(require('./routes/subscription'));
-
 
 app.all('*', () => {
   throw new NotFoundError('Страница не найдена');
