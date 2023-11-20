@@ -1,13 +1,13 @@
 const router = require('express').Router();
 
 const {
-    getAllMessagesToMe,
     sendMessageToUser,
+    getAllMessagesToMe,
     getMessagesFromUserToMe,
     getAllMyMessagesToUser
 } = require('../controllers/messages');
 
-const uploadMiddleware = require('../middlewares/multer')
+//const uploadMiddleware = require('../middlewares/multer')
 
 router.get('/messages/getAllMessagesToMe', getAllMessagesToMe);
 
